@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/Psetbase.css" rel="stylesheet" type="text/css">
+    <style>
+        #starttime{
+            margin-bottom: 20px;
+        }
+    </style>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/Pset_systemstart.js"></script>
+
+</head>
+<body>
+    <div class="layout">
+        <div class="layout_header">
+            <h2 id="title">系统开启/关闭时间设置</h2>
+        </div>
+
+        <div class="layout_body">
+            <div class="box_body">
+                <span>选择开启时间：</span>
+                <input type="datetime-local" id="starttime" >
+                <br/>
+                <span>选择关闭时间：</span>
+                <input type="datetime-local" id="endtime" >
+                <br/>
+                <button id="btn_ok">确认</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

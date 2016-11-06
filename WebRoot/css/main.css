@@ -1,0 +1,98 @@
+.main_layout{
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin: 0 auto;
+	position:absolute;
+    left:0;
+    top:0;
+    bottom: 0;
+    right: 0;
+}
+
+/*身体*/
+.main_body{
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin: 0 auto;
+    background-color: #CDCDCD;
+    padding-bottom: 60px;
+}
+.iframe_body{
+    width: 100%;
+    height: 100%;
+    padding-bottom: 60px;
+    max-width: 640px;
+    min-width: 300px;
+	position:absolute;
+    left:0;
+    top:0;
+    bottom:60px;
+    z-index:10;
+}
+
+/*底部*/
+.main_footer{
+    width: 100%;
+    height: 60px;
+    max-width: 640px;
+    min-width: 300px;
+    margin: 0 auto;
+    position:absolute;
+    left:0;
+    right:0;
+    bottom: 0;
+    background-color: cornflowerblue;
+    z-index: 10;
+}
+.footer_selectRoom{
+	width: 25%;
+	height: 60px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	border-right: 1px solid white;
+	cursor: pointer;
+}
+.footer_selectClass{
+	width: 25%;
+	height: 60px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	border-right: 1px solid white;
+	cursor: pointer;
+}
+.footer_selectAccount{
+	width: 25%;
+	height: 60px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.footer_managebooking{
+	width: 25%;
+	height: 60px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	border-right: 1px solid white;
+	cursor: pointer;
+}
+
+.footetr_img{
+	margin-top: 10px;
+}
+.footetr_text{
+	color: white;
+	text-shadow: none;
+}
+
+#loading{
+	display: block !important;
+	z-index: 1
+}

@@ -1,0 +1,213 @@
+.login_layout{
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background-image: url("../image/indexbg.jpg");
+
+}
+/* 头部*/
+{
+    width: 100%;
+    text-align: center;
+}
+
+.content_header{
+    padding-top: 60px;
+    /*background: yellow;*/
+    position: relative;
+    text-align: center;
+}
+
+@media screen and (min-width:1400px){
+	.content_header > .icon_title{
+		padding-top:50px;
+		width: 90%;
+	}
+	.login_header,.content_header{
+    	height: 300px;
+	}
+	.a_showbooking{
+		font-size: 18px;
+	}
+	.txt_username,.txt_pwd{
+    	height: 45px;
+		font-size: 18px;
+	}
+	.btn_login{
+   		height: 45px;   
+	}
+
+}
+
+
+@media screen and (min-width:960px) and (max-width:1400px){
+	.content_header > .icon_title{
+		padding-top:30px;
+		width: 90%;
+	}
+	.login_header,.content_header{
+    	height: 250px;
+	}
+	.a_showbooking{
+		font-size: 18px;
+	}
+	.txt_username,.txt_pwd{
+    	height: 45px;
+		font-size: 18px;
+	}
+	.btn_login{
+   		height: 45px;   
+	}
+
+}
+@media screen and (min-width:600px) and (max-width:960px){
+	.content_header > .icon_title{
+		padding-top:50px;
+		width: 90%;
+	}
+	.login_header,.content_header{
+	    height: 250px;
+	}
+	.a_showbooking{
+		font-size: 18px;
+	}
+	.txt_username,.txt_pwd{
+    	height: 45px;
+		font-size: 18px;
+	}
+	.btn_login{
+   		height: 45px;   
+	}
+}
+@media screen and (min-width:400px) and (max-width:600px){
+   .content_header > .icon_title{
+		padding-top:40px;
+		width: 95%;
+	}
+	.login_header,.content_header{
+    	height: 230px;
+	}
+	.a_showbooking{
+		font-size: 18px;
+	}
+	.txt_username,.txt_pwd{
+    	height: 45px;
+		font-size: 18px;
+	}
+	.btn_login{
+   		height: 45px;   
+	}
+}
+@media screen and (max-width:400px){
+   .content_header > .icon_title{
+		padding-top:10px;
+		width: 100%;
+	}
+	.login_header,.content_header{
+    	height: 150px;
+	}
+	.a_showbooking{
+		font-size: 15px;
+	}
+	.txt_username,.txt_pwd{
+    	height: 40px;
+		font-size: 15px;
+	}
+	.btn_login{
+   		height: 40px;   
+	}
+}
+
+/* 身体*/
+.login_body{
+	padding-top:15px;
+    width: 100%;
+}
+
+#login_form{
+    position: relative;
+    text-align: center;
+}
+.content_body > #login_form > input[class^="txt_"]{
+    border-radius: 20px;
+    padding-left: 40px;
+}
+
+ 
+::-webkit-input-placeholder { /* WebKit browsers */ 
+color: white; 
+font-family: "Microsoft YaHei UI";
+} 
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+color: white;
+font-family: "Microsoft YaHei UI"; 
+} 
+::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+color: white; 
+font-family: "Microsoft YaHei UI";
+} 
+:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+color: white; 
+font-family: "Microsoft YaHei UI";
+} 
+
+
+.txt_username,.txt_pwd{
+    
+    width: 80%;
+	background-color: transparent !important;
+	border: 1px solid white;
+	color: white;
+	
+	
+}
+
+.txt_username:focus,.txt_pwd:focus{
+	background-color: transparent !important;
+}
+.txt_username{
+    margin-top: 30px;
+}
+.txt_pwd{
+    margin-top: 25px;
+}
+.btn_login{
+    width: 80%;
+    font: 19px "Microsoft YaHei";
+    border-radius: 20px;
+    background-color: #51B2F9;
+    color: white;
+    margin-top: 25px;
+    border: 0;
+    cursor: pointer;
+}
+.box_btn{
+    width: 100%;
+    height: 45px;
+    text-align: center;
+}
+
+/* 底部*/
+.login_footer{
+	
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    position: fixed;
+    bottom: 0;
+    /*background-color: darkgoldenrod;*/
+    text-align: center;
+    margin-bottom: 20px;
+    
+}
+.a_showbooking{
+	color: white;
+}
+

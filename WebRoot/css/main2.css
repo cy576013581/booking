@@ -1,0 +1,98 @@
+.list_layout{
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
+
+}
+.list_header{
+    width: 100%;
+    height: 50px;
+    background-color: cornflowerblue;
+}
+.box_list{
+    width: 100%;
+    height: 40px;
+    position: relative;
+}
+.list_header > .box_list > .icon_back {
+    height: 20px;
+    width: 40px;
+    position: absolute;
+    top: 10px;
+    left: 5px;
+}
+.list_header > .box_list > .txt_title {
+
+    font-size: 19px;
+    font-weight: 500;
+    color: aliceblue;
+    letter-spacing: 2px;
+    padding-top: 13px;
+    text-align: center;
+}
+#popupBasic,#popupEdit{
+	margin-top: -100px !important;
+}
+
+
+#addclass{
+    text-shadow: none;
+    position: absolute;
+    top: 13px;
+    right: 5px;
+    color: white;
+}
+table,td,tr{
+    border: 0px !important;
+}
+form{
+    text-align: center;
+    padding: 10px;
+}
+#btn_ok,#btn_editok{
+    padding: 6px 30px;
+    border-radius: 10px;
+    background-color: cornflowerblue;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.warning,.edit_warning{
+	width: 100%;
+	color: red;
+	text-align: center;
+}
+.p_coursename{
+	font-size: 17px !important;
+	font-weight:600 !important;
+	color: #6495ED;
+}
+.listspan1,.listspan2{
+	padding-top:5px;
+	font-size: 14px;
+	font-weight:500 !important;
+	color: gray;
+	
+}
+#table_input{
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+input{
+	font-family: "Microsoft YaHei",sans-serif !important;/*设备默认字体*/
+}
+label{
+	padding-top: 7px;
+}
+
+.mui-btn{
+	font-weight: 200 !important;
+	cursor: pointer !important;
+}
+.edit_warning{
+	display: none;
+}
+

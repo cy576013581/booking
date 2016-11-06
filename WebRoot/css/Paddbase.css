@@ -1,0 +1,32 @@
+*{
+    font-family: "Microsoft YaHei UI";
+
+}
+.layout{
+    width: 100%;
+}
+
+
+.layout_header{
+    width: 100%;
+    text-align: center;
+}
+#title{
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+
+.layout_body{
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+.box_body{
+    width: 100%;
+}
+
+input{
+    margin-bottom: 20px;
+    width: 152px;
+}

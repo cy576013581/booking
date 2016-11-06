@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0"/>
+    <title>机房预约情况</title>
+    
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <script src="js/browserSwipe.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/booking.js"></script>
+    <script src="js/selectDialog.js"></script>
+    <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
+    <link href="css/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="css/mui.min.css" rel="stylesheet" type="text/css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/booking.css" rel="stylesheet" type="text/css">
+    <link href="css/selectDialog.css" rel="stylesheet" type="text/css">
+    
+</head>
+<body>
+    <div class="schedule_layout" >
+        <div class="schedule_header">
+            <div class="box_header">
+                <img class="icon_back" src="image/icon_back.png">
+                <select class="sel_week" data-role="none">
+                    <option value="1">第一周</option>
+                    <option value="2">第二周</option>
+                    <option value="3">第三周</option>
+                    <option value="4">第四周</option>
+                    <option value="5">第五周</option>
+                    <option value="6">第六周</option>
+                    <option value="7">第七周</option>
+                    <option value="8">第八周</option>
+                    <option value="9">第九周</option>
+                    <option value="10">第十周</option>
+                    <option value="11">第十一周</option>
+                    <option value="12">第十二周</option>
+                    <option value="13">第十三周</option>
+                    <option value="14">第十四周</option>
+                    <option value="15">第十五周</option>
+                    <option value="16">第十六周</option>
+                    <option value="17">第十七周</option>
+                    <option value="18">第十八周</option>
+                    <option value="19">第十九周</option>
+                    <option value="20">第二十周</option>
+                </select>
+                <a href="#popupBasic" data-rel="popup"  class="ui-icon-bullets ui-btn-icon-right" id="seeBooking">已预订</a>
+                <div data-role="popup" id="popupBasic" data-overlay-theme="b" data-theme="a" data-transition="slide down">
+  					<ol id = "list_readyBooking">
+  						<!-- <li><a>9.18-计科131.2班-java程序设计sdas</a></li> -->
+  						
+  					</ol>
+				</div>
+				<div id="switch">
+		    		<a id="switch_tospeed" rel='external'">极速模式</a>
+		    	</div>
+            </div>
+
+        </div>
+
+
+        <div class="schedule_body">
+            <form class="form_schedule">
+                <table class="table_week" data-role="none">
+                   <tr class="rdate">
+                        <th class="th_month"><span id="month_first">--</span></th>
+                        <td class="monday"><span class="date1">--</span><br/>周一</td>
+                        <td class="tuesday"><span class="date2">--</span><br/>周二</td>
+                        <td class="wednesday"><span class="date3">--</span><br/>周三</td>
+                        <td class="thursday"><span class="date4">--</span><br/>周四</td>
+                        <td class="friday"><span class="date5">--</span><br/>周五</td>
+                        <td class="saturday"><span class="date6">--</span><br/>周六</td>
+                        <td class="sunday"><span class="date7">--</span><br/>周日</td>
+                    </tr>
+                </table>
+                <table class="table_schedule">
+                    <tr class="r2">
+                        <th class="l1">第一大节</th>
+                        <td class="cla" id="lesson11"></td>
+                        <td class="cla" id="lesson21"></td>
+                        <td class="cla" id="lesson31"></td>
+                        <td class="cla" id="lesson41"></td>
+                        <td class="cla" id="lesson51"></td>
+                        <td class="cla" id="lesson61"></td>
+                        <td class="cla" id="lesson71"></td>
+                    </tr>
+                    <tr class="r3">
+                        <th class="l1">第二大节</th>
+                        <td class="cla" id="lesson12"></td>
+                        <td class="cla" id="lesson22"></td>
+                        <td class="cla" id="lesson32"></td>
+                        <td class="cla" id="lesson42"></td>
+                        <td class="cla" id="lesson52"></td>
+                        <td class="cla" id="lesson62"></td>
+                        <td class="cla" id="lesson72"></td>
+                    </tr>
+                    <tr class="r4">
+                        <th class="l1">午间</th>
+                        <td class="cla" id="lesson13"></td>
+                        <td class="cla" id="lesson23"></td>
+                        <td class="cla" id="lesson33"></td>
+                        <td class="cla" id="lesson43"></td>
+                        <td class="cla" id="lesson53"></td>
+                        <td class="cla" id="lesson63"></td>
+                        <td class="cla" id="lesson73"></td>
+                    </tr>
+                    <tr class="r5">
+                        <th class="l1">第三大节</th>
+                        <td class="cla" id="lesson14"></td>
+                        <td class="cla" id="lesson24"></td>
+                        <td class="cla" id="lesson34"></td>
+                        <td class="cla" id="lesson44"></td>
+                        <td class="cla" id="lesson54"></td>
+                        <td class="cla" id="lesson64"></td>
+                        <td class="cla" id="lesson74"></td>
+                    </tr>
+                    <tr class="r6">
+                        <th class="l1">第四大节</th>
+                        <td class="cla" id="lesson15"></td>
+                        <td class="cla" id="lesson25"></td>
+                        <td class="cla" id="lesson35"></td>
+                        <td class="cla" id="lesson45"></td>
+                        <td class="cla" id="lesson55"></td>
+                        <td class="cla" id="lesson65"></td>
+                        <td class="cla" id="lesson75"></td>
+                    </tr>
+                    <tr class="r7">
+                        <th class="l1">晚间</th>
+                        <td class="cla" id="lesson16"></td>
+                        <td class="cla" id="lesson26"></td>
+                        <td class="cla" id="lesson36"></td>
+                        <td class="cla" id="lesson46"></td>
+                        <td class="cla" id="lesson56"></td>
+                        <td class="cla" id="lesson66"></td>
+                        <td class="cla" id="lesson76"></td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+
+
+        <div class="schedule_footer">
+        
+            <div class="box_footer">
+	            
+                <p class="classname" data-role="none">---</p>
+                
+            </div>
+        </div>
+		
+    
+    <div id="SelectBox">
+        <div class="row1">
+           	选择班级、课程：
+           	 <a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+        </div>
+        <div class="row">
+             <select id="selectClass" data-role="none">
+             	<!-- <option>计科131.2</option> -->
+             	
+             </select>
+        </div>
+        <div class="row">
+             <select id="selectCourse" data-role='none' >
+             	<!-- <option>Java程序设计</option> -->
+             	
+             </select>
+        </div>
+        <p class="warning"></p>
+        <div class="row2">
+            <a id="btn_ok" data-role="none">确认预定</a>
+        </div>
+        
+    </div>
+	<div id="shapeloading"></div>
+    <img id="loading" src="image/loading.gif">  
+</div>
+    
+</body>
+</html>

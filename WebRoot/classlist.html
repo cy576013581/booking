@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0"/>
+    <title>机房列表</title>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/mui.min.js"></script>
+	<script src="js/classlist.js"></script>
+	<link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
+	<link href="css/mui.min.css" rel="stylesheet" type="text/css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/classlist.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="list_layout">
+        <div class="list_header">
+            <div class="box_list">
+                <img class="icon_back" src="image/icon_back.png">
+                <p class="txt_title">机房列表</p>
+            </div>
+
+        </div>
+
+        <div class="list_body">
+	        <div class="box_body">
+	            <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a id="nan" class="mui-control-item mui-active" href="#">南区机房</a>
+					<a id="bei" class="mui-control-item" href="#">北区机房</a>
+				</div>
+				<ul id="list" data-role="listview" data-filter="true" data-inset="true">
+	                <!-- <li><a href="#">2222</a></li> -->
+	            </ul>
+	        </div>
+   		</div>
+
+
+        <div class="list_footer"></div>
+    <div id="shapeloading"></div>
+    <img id="loading" src="image/loading.gif">
+</div>
+    
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/Paddbase.css" type="text/css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/Padd_booking.js"></script>
+    <style>
+        select{
+            width: 157px;
+            margin-bottom: 20px;
+        }
+        .classdate{
+            width: 155px;
+            margin-right: 31px;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <div class="layout_header">
+        <h2 id="title">添加预定</h2>
+    </div>
+    <div class="layout_body">
+        <div class="box_body">
+            <div>账号：<input type="text" class="username" placeholder="填写预定账号"></div>
+            <div>机房：<select class="roomid"></select></div>
+            <div>班级：<select class="class"></select></div>
+            <div>课程：<select class="course"></select></div>
+            <div>节次：<select class="section">
+                <option value="1">第一大节</option>
+                <option value="2">第二大节</option>
+                <option value="3">午间</option>
+                <option value="4">第三大节</option>
+                <option value="5">第四大节</option>
+                <option value="6">晚间</option>
+            </select></div>
+            <div>上课时间：<input type="date" class="classdate"></div>
+            <button class="btn_ok">确定</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+.list_layout{
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
+}
+.list_header{
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    height: 50px;
+    background-color: cornflowerblue;
+    position: fixed;
+    top:0;
+}
+.box_list{
+    width: 100%;
+    height: 50px;
+    position: relative;
+}
+.list_header > .box_list > .icon_back {
+    height: 20px;
+    width: 40px;
+    position: absolute;
+    top: 15px;
+    left: 5px;
+}
+.list_header > .box_list > .txt_title {
+    font-size: 18px;
+    font-weight: 500;
+    color: aliceblue;
+    letter-spacing: 2px;
+    padding-top: 13px;
+    text-align: center;
+}
+#switch{
+	position:absolute;
+	top:180px;
+	right:10px;
+	width:45px;
+	height:45px;
+	background-color:#7B7E84;
+	padding: 2px;
+	opacity: 0.5;
+	text-align: center;
+	border-radius:20px;
+	cursor: pointer;
+}
+#switch>a{
+	text-shadow: none;
+	color: #FF0000;
+}
+#switch_tospeed:HOVER{
+	background-color:#7B7E84;
+}
+
+
+/*
+  身体
+*/
+.list_body{
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin-bottom: 200px;
+    margin-top: 50px;
+}
+.box_body{
+    width: 100%;
+    height: 500px;
+}
+
+tr{
+    height: 30px;
+}
+.data{
+    cursor: pointer;
+    font-weight: 900;
+}
+.data:hover{
+    background-color: #999999;
+}
+/*
+    预定表的表头
+*/
+.schedule_head{
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    position: fixed;
+    top: 50px;
+    background-color: #fff;
+}
+.th_head{
+    width: 28%;
+}
+.section1,.section2,.section3,.section4,.section5,.section6{
+    width: 12%;
+}
+
+/*
+    预定表的身体部分
+*/
+.schedule_body{
+    width: 100%;
+    margin-top: 80px;
+    text-align: center;
+    margin-bottom: 165px;
+
+}
+.time{
+    width: 28%;
+    color: #000;
+    font-weight: 500;
+}
+.data{
+    width: 12%;
+}
+
+
+/*
+    底部
+*/
+.list_footer{
+
+    width: 100%;
+    text-shadow: none;
+}
+.box_footer{
+    width: 100%;
+    height: 165px;
+    max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
+    position: fixed;
+    bottom: 0;
+    padding: 10px 10px;
+    background-color: #c0ffd1;
+    border-top: solid #4490f7 5px;
+}
+
+.classtime{
+    color: #000!important;
+    font-size: 16px;
+
+}
+.font_style{
+    font-weight: 700;
+    font-family: sans-serif !important;
+}
+.table_info{
+    width: 100%;
+}
+.tr_info{
+    padding: 0px 8px;
+}
+.table_info,.tr_info,.tr_info>td{
+    border: none !important;
+}
+.tr_info>td{
+    color: #333;
+    font-size: 16px;
+    width: 100%;
+}
+.table_info{
+    margin-top: 10px;
+}
+.tr_info{
+    line-height: 53px;
+}
+.roomname,.teachername{
+    width: 70%;
+    font-weight: 700;
+    font-family: sans-serif !important;
+    height: 2em;
+    font-size: 16px;
+    display: inline !important;
+    border-radius: 10px;
+        margin-left: 5px;
+    padding-left: 10px;
+}
+.sel_classname,.sel_coursename{
+    width: 70%;
+    font-weight: 700;
+    font-family: sans-serif !important;
+    height: 2em;
+    font-size: 16px;
+    display: inline !important;
+    border-radius: 10px;
+    padding-left: 5px;
+}
+
+
+
+

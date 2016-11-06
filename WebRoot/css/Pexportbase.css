@@ -1,0 +1,48 @@
+*{
+    font-family: "Microsoft YaHei UI";
+}
+.layout{
+    width: 100%;
+}
+
+
+.layout_header{
+    width: 100%;
+    text-align: center;
+}
+#title{
+    margin-top: 50px;
+}
+
+
+.layout_body{
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+#btn_ok{
+    margin-top: 30px;
+}
+.list{
+    width: 200px;
+    height: 200px;
+ /*   list-style: none;*/
+    text-align: left;
+    margin: 0 auto;
+    overflow-y: scroll;
+    border: 1px solid;
+}
+#teacher_username{
+    margin-top: 20px;
+}
+
+li{
+    margin-top: 5px;
+}
+
+
+li:hover{
+    background-color: #8083cd;
+    cursor: pointer;
+}

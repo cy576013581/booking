@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link href="css/Plistbase.css" rel="stylesheet" type="text/css">
+    <link href="css/pagination.css" rel="stylesheet" type="text/css">
+    <link href="css/PeditDialog.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.pagination.js"></script>
+    <script src="js/Plist_notice.js"></script>
+    <style>
+        th{
+            width: 100px;
+        }
+        .h1{
+            width: 200px;
+        }
+        .h2{
+            width: 400px;
+        }
+        textarea{
+        	width: 132px;
+        }
+        #SelectBox{
+        	height: 270px;
+        }
+        
+    </style>
+</head>
+<body>
+<div class="layout">
+    <div class="layout_header">
+        <h2 id="title">公告管理</h2>
+    </div>
+    <div class="layout_body">
+        <div class="box_body">
+            <table>
+                <tr>
+                    <th class="h1">公告标题</th>
+                    <th class="h2">内容</th>
+                    <th>发布时间</th>
+                    <th>操作</th>
+                </tr>
+               <!--  <tr>
+                    <td>信商机房实验室系统测试！</td>
+                    <td>机房实验室系统公告测试1</td>
+                    <td>2016-08-10</td>
+                    <td><button class="btn_edit">编辑</button><button class="btn_del">删除</button></td>
+                </tr> -->
+
+            </table>
+            <div class="box_page">
+                <div id="News-Pagination"></div>
+            </div>
+        </div>
+
+    </div>
+    
+    <div id="SelectBox">
+        <div class="row1">
+           	<span id="dialogtitle">编辑信息</span>
+           	 <span title="关闭窗口" class="close_btn" id="closeBtn">×</span>
+        </div>
+        <div class="row">
+             <p>标题：<input type="text" id="notice_title"></p>
+             <p>内容：<textarea id="notice_content"></textarea></p>
+        </div>
+        <p class="warning"></p>
+        <button id="btn_ok">确认修改</button>
+    </div>
+</div>
+
+</body>
+</html>

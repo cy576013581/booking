@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0"/>
+    <title>Title</title>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <script src="js/main2.js"></script>
+    <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
+    <link href="css/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="css/mui.min.css" rel="stylesheet" type="text/css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/main2.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <div class="list_layout">
+        <div class="list_header">
+            <div class="box_list">
+
+                <p class="txt_title">课程管理</p>
+                <a href="#popupBasic" data-rel="popup"  class="ui-icon-plus ui-btn-icon-right" id="addclass">添加</a>
+                <div data-role="popup" id="popupBasic" data-dismissible="false" data-position-to="window" data-overlay-theme="b" data-theme="a" data-transition="slide down">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                    <form >
+                        <h4>添加班级</h4>
+                        <table id="table_input">
+                       		<tr>
+                                <td>
+                                    <label for="coursename">课程名称：</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="coursename" id="coursename">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="classname">班级名称：</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="classname" id="classname">
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <label for="students">上课人数：</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="students" id="students">
+                                </td>
+                            </tr>
+
+                        </table>
+                        <p class="warning"></p>
+                        <input data-role="none" type="button" value="确定" id="btn_ok">
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="list_body">
+            <div class="box_body">
+                <ul id="OA_task_2" class="mui-table-view">
+					<!-- <li class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-grey">编辑</a>
+							<a class="mui-btn mui-btn-red">删除</a>
+						</div>
+						
+						<div class="mui-slider-handle">
+							<div class="mui-table-cell">
+								<p class='p_coursename'>课程名称：JavaEE企业级应用开发</p>
+								<span class='listspan1'>班级名称：计科131</span>
+								<span class='listspan2'>&nbsp;&nbsp;学生人数：80人</span>
+							</div>
+						</div>
+					</li> -->
+				</ul>
+                
+                <div data-role="popup" id="popupEdit" data-dismissible="false" data-position-to="window" data-overlay-theme="b" data-theme="a" data-transition="slide down">
+                    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                    <form >
+                        <h4>修改班级信息</h4>
+                        <table id="table_input">
+                       		<tr>
+                                <td>
+                                    <label for="coursename">课程名称：</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="coursename" id="edit_coursename">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="classname">班级名称：</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="classname" id="edit_classname">
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <label for="students">上课人数：</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="students" id="edit_students">
+                                </td>
+                            </tr>
+
+                        </table>
+                        <p class="edit_warning">提示：所填内容不能为空！</p>
+                        <input data-role="none" type="button" value="确定" onclick="editClass()" id="btn_editok">
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="list_footer"></div>
+    </div>
+    <div id="shapeloading"></div>
+    <img id="loading" src="image/loading.gif">
+</body>
+</html>

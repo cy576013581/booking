@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Login</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Classlist</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Classlist</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Getschedule</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Getschedule</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>InsertClass</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.InsertClass</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetClassInfo</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.GetClassInfo</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Booking</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Booking</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>InputClass</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.InputClass</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Account</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Account</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Mybooking</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Mybooking</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CreateExcel</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.CreateExcel</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Manageuser</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Manageuser</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Manageroom</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Manageroom</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Managerbooking</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Managerbooking</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Managenotice</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Managenotice</servlet-class>
+  </servlet>
+  <!-- kaptcha验证码配置 -->
+    <servlet>
+        <!-- 生成图片的Servlet -->
+        <servlet-name>Kaptcha</servlet-name>
+        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+        
+        <!-- 是否有边框-->
+        <init-param>
+            <param-name>kaptcha.border</param-name>
+            <param-value>no</param-value>
+        </init-param>    
+        <!-- 字体颜色 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.font.color</param-name>
+            <param-value>red</param-value>
+        </init-param>
+        <!-- 图片宽度 -->
+        <init-param>
+            <param-name>kaptcha.image.width</param-name>
+            <param-value>135</param-value>
+        </init-param>
+        <!-- 使用哪些字符生成验证码 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.char.string</param-name>
+            <param-value>ACDEFHKPRSTWX345679</param-value>
+        </init-param>
+        <!-- 图片高度 -->
+        <init-param>
+            <param-name>kaptcha.image.height</param-name>
+            <param-value>50</param-value>
+        </init-param>
+        <!-- 字体大小 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.font.size</param-name>
+            <param-value>43</param-value>
+        </init-param>
+        <!-- 干扰线的颜色 -->
+        <init-param>
+            <param-name>kaptcha.noise.color</param-name>
+            <param-value>black</param-value>
+        </init-param>
+        <!-- 字符个数 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.char.length</param-name>
+            <param-value>4</param-value>
+        </init-param>
+        <!-- 使用哪些字体 -->
+        <init-param>
+            <param-name>kaptcha.textproducer.font.names</param-name>
+            <param-value>Arial</param-value>
+        </init-param>        
+    </servlet>
+  <servlet>
+    <servlet-name>CreateRoomExcel</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.CreateRoomExcel</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CreateSumExcel</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.CreateSumExcel</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Classlist</servlet-name>
+    <url-pattern>/Classlist</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Getschedule</servlet-name>
+    <url-pattern>/Getschedule</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InsertClass</servlet-name>
+    <url-pattern>/InsertClass</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetClassInfo</servlet-name>
+    <url-pattern>/GetClassInfo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Booking</servlet-name>
+    <url-pattern>/Booking</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InputClass</servlet-name>
+    <url-pattern>/InputClass</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Account</servlet-name>
+    <url-pattern>/Account</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Mybooking</servlet-name>
+    <url-pattern>/Mybooking</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateExcel</servlet-name>
+    <url-pattern>/CreateExcel</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Manageuser</servlet-name>
+    <url-pattern>/Manageuser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Manageroom</servlet-name>
+    <url-pattern>/Manageroom</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Managerbooking</servlet-name>
+    <url-pattern>/Managerbooking</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Managenotice</servlet-name>
+    <url-pattern>/Managenotice</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+	<servlet-name>Kaptcha</servlet-name>
+	<url-pattern>/Kaptcha.jpg</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateRoomExcel</servlet-name>
+    <url-pattern>/CreateRoomExcel</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateSumExcel</servlet-name>
+    <url-pattern>/CreateSumExcel</url-pattern>
+  </servlet-mapping>
+  <error-page>
+	<error-code>404</error-code>
+	<location>/404.html</location>
+  </error-page>
+</web-app>

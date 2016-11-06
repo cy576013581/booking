@@ -1,0 +1,89 @@
+.list_layout{
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
+
+}
+.list_header{
+    width: 100%;
+    height: 50px;
+    background-color: cornflowerblue;
+}
+.box_list{
+    width: 100%;
+    height: 50px;
+    position: relative;
+}
+.list_header > .box_list > .icon_back {
+    height: 20px;
+    width: 40px;
+    position: absolute;
+    top: 15px;
+    left: 5px;
+}
+.list_header > .box_list > .txt_title {
+    font-size: 19px;
+    font-weight: 500;
+    color: aliceblue;
+    letter-spacing: 2px;
+    padding-top: 13px;
+    text-align: center;
+}
+
+.list_body{
+	width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+}
+
+.box_body{
+	width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
+   /*  background-color: #CDCDCD; */
+}
+
+.mui-card-media{
+	height:40vw;
+	
+}
+
+
+.text_title{
+	color: #333;
+	font-weight: bold;
+}
+
+.text_content{
+	width:300px;
+	color: #333;
+	text-overflow:ellipsis; 
+	white-space:nowrap; 
+	overflow:hidden;
+}
+
+/* 
+li >a{
+	padding-bottom: 0px !important;
+}
+
+a{
+	font-family: "Microsoft YaHei",sans-serif !important;
+}
+
+a > p{
+	margin-top:13px !important;
+	font-family: "Microsoft YaHei",sans-serif !important;
+	color: gray;
+	padding-right: 60px;
+}
+
+span{
+	margin-left:30px !important;
+	font-family: "Microsoft YaHei",sans-serif !important;
+	color: gray;
+	font-weight: 500;
+	font-size: 12px !important;
+} */

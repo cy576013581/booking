@@ -1,0 +1,98 @@
+*,
+::before,
+::after{
+    margin:0;
+    padding: 0;
+
+    -webkit-tap-highlight-color: transparent;
+
+    -webkit-box-sizing: border-box;/*兼容性*/
+    box-sizing: border-box;
+
+}
+body{
+    font-size: 14px;
+    font-family: "Microsoft YaHei",sans-serif;/*设备默认字体*/
+    color: #333;
+}
+a{
+    color: #333;
+    text-decoration: none;/*去除下划线*/
+}
+a:hover{
+    text-decoration: none;
+}
+
+ul,ol{
+    list-style: none;
+}
+input{
+    border: none;
+    outline:none;/*点击高亮效果*/
+    -webkit-appearance: none;/*清除移动端默认的表单样式*/
+}
+.f_left{
+    float: left;
+}
+.f_right{
+    float: right;
+}
+.clearfix::before,
+.clearfix::before{
+    content: "";
+    height: 0;
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+
+select{
+    /* border: none; */
+    /*appearance:none;  清除游览器原有样式*/
+
+}
+select>option{
+	background-color:#CDCDCD;
+}
+
+table
+{
+    border-collapse:collapse;/*折叠为单一边框*/
+    table-layout:fixed ;
+}
+table, th, td
+{
+    border: 1px solid cornflowerblue;
+    text-shadow: none;
+}
+
+iframe {
+	border: 0;
+}
+.icon_back{
+	cursor: pointer;
+}
+
+#shapeloading{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #999999;
+    opacity: 0.1;
+    display: none;
+}
+
+#loading{
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    left: 50%;
+    top:40%;
+    margin-left: -20px;
+    margin-top: -20px;
+    display: none;
+}

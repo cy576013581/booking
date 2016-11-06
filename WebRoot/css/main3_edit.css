@@ -1,0 +1,56 @@
+.list_layout{
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
+
+}
+.list_header{
+    width: 100%;
+    height: 50px;
+    background-color: cornflowerblue;
+}
+.box_list{
+    width: 100%;
+    height: 40px;
+    position: relative;
+}
+.icon_back {
+    height: 20px;
+    width: 40px;
+    position: absolute;
+    top: 15px;
+    left: 5px;
+}
+#txt_title {
+    font-size: 19px;
+    font-weight: 500;
+    color: aliceblue;
+    letter-spacing: 2px;
+    padding-top: 13px;
+    text-align: center;
+}
+#btn_ok{
+    font-size: 15px;
+    font-weight: 500;
+    color: aliceblue;
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    cursor: pointer;
+}
+
+.list_body{
+    width: 100%;
+}
+.box_body{
+    width: 100%;
+    position:relative;
+}
+#inputcontent{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+

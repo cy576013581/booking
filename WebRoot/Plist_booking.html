@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link href="css/Plistbase.css" rel="stylesheet" type="text/css">
+    <link href="css/pagination.css" rel="stylesheet" type="text/css">
+    <link href="css/PeditDialog.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.pagination.js"></script>
+    <script src="js/Plist_booking.js"></script>
+    <style>
+        th{
+            width: 50px;
+        }
+        .h1{
+            width: 160px;
+        }
+        .h2{
+            width: 90px;
+        }
+        .h3{
+            width: 70px;
+        }
+        .h4{
+            width: 160px;
+        }
+        .h5{
+            width: 50px;
+        }
+        .h6{
+            width: 180px;
+        }
+        .h7{
+            width: 100px;
+        }
+        .h8{
+            width: 40px;
+        }
+        .h9{
+            width: 100px;
+        }
+        .h10{
+            width: 90px;
+        }
+        .box_page{
+            width: 1140px;
+        }
+        .search{
+            width: 500px;
+        }
+        .searchbyteacher{
+            margin-left: 20px;
+        }
+        #SelectBox{
+        	height: 415px;
+        	top:100px;
+        }
+        .row{
+        	line-height: 30px;
+        }
+        P >select{
+        	width: 140px;
+        }
+        #edit_classdate{
+        	width: 138px;
+        }
+        .p6{
+        	margin-right: 28px;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <div class="layout_header">
+        <h2 id="title">预定管理</h2>
+    </div>
+    <div class="search">
+        预定日期:
+        <input class="searchbybookingdate" type="date">
+        <button class="btn_search1">查询</button>
+        <input class="searchbyteacher" type="text" placeholder="输入教师名">
+        <button class="btn_search2">查询</button>
+    </div>
+    <div class="layout_body">
+        <div class="box_body">
+            <table>
+                <tr>
+                    <th class="h1">登记日期</th>
+                    <th class="h2">预定日期</th>
+                    <th class="h3">节次</th>
+                    <th class="h4">机房</th>
+                    <th class="h5">教师</th>
+                    <th class="h6">课程</th>
+                    <th class="h7">班级</th>
+                    <th class="h8">人数</th>
+                    <th class="h9">教师电话</th>
+                    <th class="h10">操作</th>
+                </tr>
+            </table>
+            <div class="box_page">
+                <div id="News-Pagination"></div>
+            </div>
+        </div>
+    </div>
+    <div id="SelectBox">
+        <div class="row1">
+           	<span id="dialogtitle">编辑信息</span>
+           	 <span title="关闭窗口" class="close_btn" id="closeBtn">×</span>
+        </div>
+        <div class="row">
+             <p>账号：<input type="text" id="edit_username" placeholder="填写预定账号"></p>
+             <p>机房：<select id="edit_roomname"></select></p>
+             <p>班级：<select id="edit_class"></select></p>
+             <p>课程：<select id="edit_course"></select></p>
+             <p>
+             	节次：<select id="edit_section">
+                <option value="1">第一大节</option>
+                <option value="2">第二大节</option>
+                <option value="3">午间</option>
+                <option value="4">第三大节</option>
+                <option value="5">第四大节</option>
+                <option value="6">晚间</option>
+            	</select>
+            </p>
+             <p class="p6">上课时间：<input type="date" id="edit_classdate"></p>
+        </div>
+        <p class="warning"></p>
+        <button id="btn_ok">确认修改</button>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link href="css/Plistbase.css" rel="stylesheet" type="text/css">
+    <link href="css/pagination.css" rel="stylesheet" type="text/css">
+    <link href="css/PeditDialog.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.pagination.js"></script>
+    <script src="js/Plist_room.js"></script>
+    <style>
+        .h1{
+            width: 400px !important;
+        }
+        #SelectBox{
+        	height: 250px !important;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <div class="layout_header">
+        <h2 id="title">机房管理</h2>
+    </div>
+    <div class="layout_body">
+        <div class="box_body">
+            <table>
+                <tr>
+                    <th class="h1">机房名称</th>
+                    <th class="h2">可坐学生人数</th>
+                    <th class="h3">操作</th>
+
+                </tr>
+            </table>
+            <div class="box_page">
+                <div id="News-Pagination"></div>
+            </div>
+        </div>
+    </div>
+    <div id="SelectBox">
+        <div class="row1">
+           	<span id="dialogtitle">编辑信息</span>
+           	 <span title="关闭窗口" class="close_btn" id="closeBtn">×</span>
+        </div>
+        <div class="row">
+             <p>机房名称：<input type="text" id="room_roomname"></p>
+             <p>学生人数：<input type="text" id="room_students"></p>
+        </div>
+        <p class="warning"></p>
+        <button id="btn_ok">确认修改</button>
+    </div>
+</div>
+
+</body>
+</html>

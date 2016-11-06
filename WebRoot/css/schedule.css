@@ -1,0 +1,121 @@
+.schedule_layout{
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin: 0 auto;
+    background-color: bisque;
+}
+
+/*头部*/
+.schedule_header{
+    position: fixed;
+    max-width: 640px;
+    min-width: 300px;
+    width: 100%;
+    height: 50px;
+    background-color: cornflowerblue;
+    top: 0;
+}
+.schedule_header > .box_header{
+    width: 100%;
+    height: 40px;
+    position: relative;
+    text-align: center;
+}
+
+.schedule_header > .box_header > .icon_back {
+    height: 20px;
+    width: 40px;
+    position: absolute;
+    top: 15px;
+    left: 5px;
+}
+
+.schedule_header  .box_header > .sel_week{
+    font-size: 18px;
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: 600;
+    color: aliceblue;
+    padding-top: 11px;
+    background-color: transparent;
+}
+
+
+/*身体*/
+
+.schedule_body{
+    margin-top: 85px;
+    max-width: 640px;
+    min-width: 300px;
+    width: 100%;
+    padding-bottom: 28px;
+}
+.schedule_body > .form_schedule{
+    max-width: 640px;
+    min-width: 300px;
+    width: 100%;
+}
+.schedule_body > .form_schedule > .table_schedule{
+    max-width: 640px;
+    min-width: 300px;
+    width: 100%;
+    font-size: 11px;
+    border: 0.5px;
+    margin-top: 87px;
+	background: url(../image/bookingbg.jpg);
+}
+.schedule_body > .form_schedule > .table_week{
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    top: 50px;
+    max-width: 640px;
+    min-width: 300px;
+    background: white;
+    color: #3a74a6;
+    font-weight: 500 !important;
+    /* opacity: 0.8; */
+}
+.th_month{
+    width: 20px;
+}
+.cla{
+    word-wrap:break-word;
+    padding-left: 2px;
+    border: 1px dashed cornflowerblue;
+    cursor: pointer;
+    color: #000 !important;
+}
+.cla:hover{
+    background-color: darkgrey !important;
+}
+
+
+.l1{
+    width: 20px;
+    height: 100px;
+    color: #3a74a6;
+}
+
+
+/*footer*/
+.schedule_footer{
+    width: 100%;
+}
+.box_footer{
+    width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    background-color: cornflowerblue;
+    padding: 5px 0px;
+}
+.classname{
+	text-shadow: none;
+	color: white;
+	margin-bottom: 0 !important;
+}
+
+

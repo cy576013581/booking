@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机房预定管理系统</title>
+    <link rel="stylesheet" href="css/Pmain.css" type="text/css">
+    <link rel="stylesheet" href="css/Pmain_left.css" type="text/css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/Pmain.js"></script>
+
+</head>
+<body>
+<div class="layout">
+    
+    <div class="layout_header">
+        <div class="box_title1">
+            <img class="title_icon1" src="image/icon_logo.png">
+            <p class="title_text1">中原工学院信息商务学院</p>
+        </div>
+    </div>
+
+
+    <div class="layout_body">
+        <div class="body_left">
+            <div id="managelist">管理列表</div>
+            <div class="vtitle"><em class="v v02"></em>常规设置</div>
+            <div class="vcon">
+                <ul class="vconlist clearfix">
+                    <li><a id="schoolstart">开学时间设置</a></li>
+                    <li><a id="systemstart">系统开启时间设置</a></li>
+                </ul>
+            </div>
+            <div class="vtitle"><em class="v"></em>用户管理</div>
+            <div class="vcon" style="display: none;">
+                <ul class="vconlist clearfix">
+                    <li><a id="listuser">用户列表</a></li>
+                    <li><a id="adduser">添加用户</a></li>
+                </ul>
+            </div>
+            <div class="vtitle"><em class="v"></em>机房管理</div>
+            <div class="vcon" style="display: none;">
+                <ul class="vconlist clearfix">
+                    <li><a id="listroom">机房列表</a></li>
+                    <li><a id="addroom">添加机房</a></li>
+                </ul>
+            </div>
+            <div class="vtitle"><em class="v"></em>预定管理</div>
+            <div class="vcon" style="display: none;">
+                <ul class="vconlist clearfix">
+                    <li><a id="listbooking">预定列表</a></li>
+                    <li><a id="addbooking">添加预定</a></li>
+                </ul>
+            </div>
+            <div class="vtitle"><em class="v"></em>公告管理</div>
+            <div class="vcon" style="display: none;">
+                <ul class="vconlist clearfix">
+                    <li><a id="listnotice">公告列表</a></li>
+                    <li><a id="addnotice">添加公告</a></li>
+                </ul>
+            </div>
+            <div class="vtitle"><em class="v"></em>Excel表格打印</div>
+            <div class="vcon" style="display: none;">
+                <ul class="vconlist clearfix">
+                    <li><a id="teacherSch">教师课表</a></li>
+                    <li><a id="roomSch">机房课表</a></li>
+                    <li><a id="positionSch">校区课表</a></li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <div class="body_right">
+            <iframe src="Pset_schoolstart.html" id="iframe" scrolling="no"></iframe>
+        </div>
+    </div>
+
+
+    <div class="layout_footer">
+
+    </div>
+
+</div>
+
+</body>
+</html>

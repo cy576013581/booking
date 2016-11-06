@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0"/>
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link href="css/mui.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/progress.css"> 
+    <link rel="stylesheet" type="text/css" href="css/index.css"> 
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <script src="js/index.js"></script>
+    
+</head>
+<body>
+    <div class="login_layout">
+    	
+    	
+        <div class="login_header">
+            <div class="content_header">
+                <img class="icon_title" src="image/index_title.png">
+            </div>
+        </div>
+
+
+        <div class="login_body">
+            <div class="content_body">
+                <form id="login_form" autocomplete="off">
+                    <input class="txt_username" name="username" type="text" placeholder="请输入账号">
+                    <br/>
+                    <input class="txt_pwd" name="password" type="password" placeholder="请输入密码">
+                    <!--<input type="hidden" value="userlogin" name="act" id="data" />-->
+                    <span class="box_btn"><button class="btn_login">登录</button></span>
+                </form>
+            </div>
+        </div>
+
+        <div class="login_footer">
+            <a class="a_showbooking" href="classlist.html">查看机房预约情况&gt&gt</a>
+        </div>
+        
+        	<img src="image/progress.gif" id='pic_progress'>
+        
+	<div id="shapeloading"></div>
+    <img id="loading" src="image/loading.gif">	
+</div>
+    
+</body>
+</html>

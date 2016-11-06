@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0"/>
+    <title>机房列表</title>
+    <link href="css/mui.min.css" rel="stylesheet" type="text/css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/sweetalert.css" rel="stylesheet" type="text/css">
+    <link href="css/bookingSpeed.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/mui.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/bookingSpeed.js"></script>
+   
+
+</head>
+<body>
+<div class="list_layout">
+    <div class="list_header">
+        <div class="box_list">
+            <img class="icon_back" src="image/icon_back.png">
+            <p class="txt_title">极速预定模式</p>
+            <div id="switch">
+		    		<a id="switch_tospeed" rel='external' onclick="switchClick()">普通模式</a>
+		    </div>
+        </div>
+
+    </div>
+
+    <div class="list_body">
+        <div class="box_body">
+            <table class="schedule_head">
+                <tr>
+                    <th class="th_head"></th>
+                    <th class="section1">上一</th>
+                    <th class="section2">上二</th>
+                    <th class="section3">午间</th>
+                    <th class="section4">下三</th>
+                    <th class="section5">下四</th>
+                    <th class="section6">晚间</th>
+                </tr>
+            </table>
+            <table class="schedule_body">
+                <!--<tr>
+                    <td class="time" id="time11">第一周/周一</td>
+                    <td class="data" id="data111"></td>
+                    <td class="data" id="data112"></td>
+                    <td class="data" id="data113"></td>
+                    <td class="data" id="data114"></td>
+                    <td class="data" id="data115"></td>
+                    <td class="data" id="data116"></td>
+                </tr>-->
+            </table>
+        </div>
+    </div>
+
+
+    <div class="list_footer">
+        <div class="box_footer">
+            <p class="classtime">上课时间：&nbsp;<span class="font_style">第<span class="weeks">一</span>周&nbsp;&nbsp;周<span class="week">一</span>&nbsp;&nbsp;<span
+                    class="section">第一大节</span></span></p>
+            <table class="table_info">
+                <tr class="tr_info">
+                    <td>机房：<input type="text" class="roomname" readonly="readonly" value="移动开发实验室"></td>
+                    <td>教师：<input type="text" class="teachername" readonly="readonly" value="陈扬"></td>
+                </tr>
+                <tr class="tr_info">
+                    <td>班级：
+                        <select class="sel_classname">
+                            <option>计科131</option>
+                        </select>
+                    </td>
+                    <td>课程：
+                        <select class="sel_coursename">
+                            <option>JavaEE程序设计</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+	<div id="shapeloading"></div>
+    <img id="loading" src="image/loading.gif">
+</div>
+	
+</body>
+</html>

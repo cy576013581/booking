@@ -1,0 +1,89 @@
+.vcon >ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.vconlist > li >a{
+    border: 0;
+}
+
+.body_left {
+    font: 12px/180% Arial, Helvetica, sans-serif, "新宋体";
+}
+
+
+li > a, a:hover {
+    text-decoration: none;
+}
+
+
+/*收缩菜单*/
+.v {
+    float: right;
+    width: 14px;
+    height: 14px;
+    overflow: hidden;
+    background: url(../image/vicon.png) no-repeat;
+    display: inline-block;
+    margin-top: -5px;
+    margin-bottom: -5px;
+}
+
+.v01 {
+    background-position: 0 0;
+}
+
+.v02 {
+    background-position: 0 -16px;;
+}
+
+.vtitle {
+    height: 35px;
+    background-color: #297FB8;
+    line-height: 35px;
+    border: 1px solid #297FB8;
+    margin-top: -1px;
+    padding-left: 20px;
+    font-size: 15px;
+    color: #e4e5ff;
+    font-family: "\5FAE\8F6F\96C5\9ED1";
+    cursor: pointer;
+}
+
+.vtitle em {
+    margin: 10px 10px 0 0;
+}
+
+.vconlist {
+    background: #1A91DF;
+}
+
+.vconlist li a {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 40px;
+    display: block;
+    font-size: 14px;
+    color: white;
+    font-family: "\5FAE\8F6F\96C5\9ED1";
+    cursor: pointer;
+}
+
+.vconlist li.select a, .vconlist li a:hover {
+    color: #990099;
+    text-decoration: none;
+}
+
+#managelist{
+    text-align: center;
+    font-size: 18px !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 35px;
+    background-color: #297FB8;
+    line-height: 35px;
+    border: 1px solid #297FB8;
+    color: #e4e5ff;
+    font-family: "\5FAE\8F6F\96C5\9ED1";
+}
