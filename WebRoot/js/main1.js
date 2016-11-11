@@ -9,7 +9,7 @@ $(document).ready(function(){
 	if(checkDate()==1){
 		getRoom();
 	}else{
-		mui.toast("可以先添加课程哦，这样会加快预定速度！");
+		mui.toast("系统暂未开启，可以先添加课程哦Q");
 //		$("#p_warning").show();
 		document.getElementById("p_warning").style.display = "block";
 	}

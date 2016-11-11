@@ -44,3 +44,32 @@ ul > .position2{
 	display: none;
 }
 
+#selectBox{
+	width:100%;
+	height: 36px;
+	position: relative;
+	
+}
+
+#nan{
+	line-height:36px;
+	cursor: pointer;
+	text-align: center;
+	position: absolute;
+	left: 25%;
+	margin-left: -47.25px;
+	padding: 1px 20px;
+	
+}
+#bei{
+	line-height:36px;
+	cursor: pointer;
+	text-align: center;
+	position: absolute;
+	right: 25%;
+	margin-right: -47.25px;
+	padding: 1px 20px;
+}
+.border{
+	border-bottom: solid 2px #38c;
+}

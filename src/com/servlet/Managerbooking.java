@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import com.dao.BookingDAO;
 import com.dao.RoomDAO;
 import com.dao.UserDAO;
+import com.util.CheckSession;
 
 public class Managerbooking extends HttpServlet {
 
@@ -31,28 +32,30 @@ public class Managerbooking extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String act = request.getParameter("act");
-		
-		if(act.equals("getAllbooking")){
-			getAllbooking(request,response);
-		}else if(act.equals("getSum")){
-			getSum(request,response);
-		}else if(act.equals("deleteBooking")){
-			deleteBooking(request,response);
-		}else if(act.equals("updateBooking")){
-			updateBooking(request,response);
-		}else if(act.equals("addBooking")){
-			addBooking(request,response);
-		}else if(act.equals("getAllbydate")){
-			getAllbydate(request,response);
-		}else if(act.equals("getAllbyusername")){
-			getAllbyusername(request,response);
-		}else if(act.equals("getSumbydate")){
-			getSumbydate(request,response);
-		}else if(act.equals("getSumbyusername")){
-			getSumbyusername(request,response);
-		}else if(act.equals("getRoom")){
-			getRoom(request,response);
+		if(CheckSession.check(request)){
+			if(act.equals("getAllbooking")){
+				getAllbooking(request,response);
+			}else if(act.equals("getSum")){
+				getSum(request,response);
+			}else if(act.equals("deleteBooking")){
+				deleteBooking(request,response);
+			}else if(act.equals("updateBooking")){
+				updateBooking(request,response);
+			}else if(act.equals("addBooking")){
+				addBooking(request,response);
+			}else if(act.equals("getAllbydate")){
+				getAllbydate(request,response);
+			}else if(act.equals("getAllbyusername")){
+				getAllbyusername(request,response);
+			}else if(act.equals("getSumbydate")){
+				getSumbydate(request,response);
+			}else if(act.equals("getSumbyusername")){
+				getSumbyusername(request,response);
+			}else if(act.equals("getRoom")){
+				getRoom(request,response);
+			}
 		}
+		
 	}
 	
 	public void getRoom(HttpServletRequest request, HttpServletResponse response)

@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import com.dao.BookingDAO;
 import com.dao.ScheduleDAO;
 import com.dao.UserDAO;
+import com.util.CheckSession;
 
 public class Booking extends HttpServlet {
 
@@ -35,22 +36,24 @@ public class Booking extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String act = request.getParameter("act");
-//		System.out.println("--");
-		if(act.equals("booking")){
-			booking(request,response);
-		}else if(act.equals("bookingBySpeed")){
-			bookingBySpeed(request,response);
-		}else if(act.equals("getAlready")){
-			getAlready(request,response);
-		}else if(act.equals("delbooking")){
-			delbooking(request,response);
-		}else if(act.equals("updateBooking")){
-			updateBooking(request,response);
-		}else if(act.equals("getBooking")){
-			getBooking(request,response);//预定编辑的时候根据id获取原来的预定信息
-		}else if(act.equals("checkDate")){
-			checkDate(request,response);//检查预定时间是否符合系统开启时间
+		if(CheckSession.check(request)){
+			String act = request.getParameter("act");
+//			System.out.println("--");
+			if(act.equals("booking")){
+				booking(request,response);
+			}else if(act.equals("bookingBySpeed")){
+				bookingBySpeed(request,response);
+			}else if(act.equals("getAlready")){
+				getAlready(request,response);
+			}else if(act.equals("delbooking")){
+				delbooking(request,response);
+			}else if(act.equals("updateBooking")){
+				updateBooking(request,response);
+			}else if(act.equals("getBooking")){
+				getBooking(request,response);//预定编辑的时候根据id获取原来的预定信息
+			}else if(act.equals("checkDate")){
+				checkDate(request,response);//检查预定时间是否符合系统开启时间
+			}
 		}
 	}
 	public void checkDate(HttpServletRequest request, HttpServletResponse response)

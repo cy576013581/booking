@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import com.dao.RoomDAO;
 import com.dao.UserDAO;
+import com.util.CheckSession;
 
 public class Manageroom extends HttpServlet {
 
@@ -28,18 +29,20 @@ public class Manageroom extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String act = request.getParameter("act");
-		
-		if(act.equals("getAllroom")){
-			getAllroom(request,response);
-		}else if(act.equals("getSum")){
-			getSum(request,response);
-		}else if(act.equals("deleteRoom")){
-			deleteRoom(request,response);
-		}else if(act.equals("updateRoom")){
-			updateRoom(request,response);
-		}else if(act.equals("addRoom")){
-			addRoom(request,response);
+		if(CheckSession.check(request)){
+			if(act.equals("getAllroom")){
+				getAllroom(request,response);
+			}else if(act.equals("getSum")){
+				getSum(request,response);
+			}else if(act.equals("deleteRoom")){
+				deleteRoom(request,response);
+			}else if(act.equals("updateRoom")){
+				updateRoom(request,response);
+			}else if(act.equals("addRoom")){
+				addRoom(request,response);
+			}
 		}
+		
 	}
 	public void addRoom(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
