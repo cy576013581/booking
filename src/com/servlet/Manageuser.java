@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.dao.UserDAO;
+import com.util.CheckSession;
 
 public class Manageuser extends HttpServlet {
 
@@ -27,20 +28,22 @@ public class Manageuser extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String act = request.getParameter("act");
-		
-		if(act.equals("getAlluser")){
-			getAlluser(request,response);
-		}else if(act.equals("getSum")){
-			getSum(request,response);
-		}else if(act.equals("deleteUser")){
-			deleteUser(request,response);
-		}else if(act.equals("updateUser")){
-			updateUser(request,response);
-		}else if(act.equals("addUser")){
-			addUser(request,response);
-		}else if(act.equals("getUserexcel")){
-			getUserexcel(request,response);
+		if(CheckSession.check(request)){
+			if(act.equals("getAlluser")){
+				getAlluser(request,response);
+			}else if(act.equals("getSum")){
+				getSum(request,response);
+			}else if(act.equals("deleteUser")){
+				deleteUser(request,response);
+			}else if(act.equals("updateUser")){
+				updateUser(request,response);
+			}else if(act.equals("addUser")){
+				addUser(request,response);
+			}else if(act.equals("getUserexcel")){
+				getUserexcel(request,response);
+			}
 		}
+		
 	}
 	
 	public void getUserexcel(HttpServletRequest request, HttpServletResponse response)

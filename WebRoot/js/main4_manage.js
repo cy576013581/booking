@@ -78,7 +78,7 @@ function getWeek(){
 var i =2;
 
 function menuDelete() {//菜单删除事件
-		alert(bookingid);
+//		alert(bookingid);
 		mui('#sheet1').popover('toggle');
 		swal({
 		    title: "Are you sure?",

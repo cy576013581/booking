@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import com.dao.ClassDAO;
 import com.dao.UserDAO;
+import com.util.CheckSession;
 
 public class Account extends HttpServlet {
 
@@ -26,12 +27,13 @@ public class Account extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String act = request.getParameter("act");
-		
-		if(act.equals("getAccount")){
-			getAccount(request,response);
-		}else if(act.equals("updateAccount")){
-			updateAccount(request,response);
+		if(CheckSession.check(request)){
+			String act = request.getParameter("act");
+			if(act.equals("getAccount")){
+				getAccount(request,response);
+			}else if(act.equals("updateAccount")){
+				updateAccount(request,response);
+			}
 		}
 	}
 	

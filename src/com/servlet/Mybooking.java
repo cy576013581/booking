@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import com.dao.BookingDAO;
 import com.dao.NoticeDAO;
+import com.util.CheckSession;
 
 public class Mybooking extends HttpServlet {
 
@@ -28,15 +29,18 @@ public class Mybooking extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String act = request.getParameter("act");
 //		System.out.println("--");
-		if(act.equals("getbookingSum")){
-			getbookingSum(request,response);
-		}else if(act.equals("getnoticeSum")){
-			getnoticeSum(request,response);
-		}else if(act.equals("getAllnotice")){
-			getAllnotice(request,response);
-		}else if(act.equals("getnoticeById")){
-			getnoticeById(request,response);
+		if(CheckSession.check(request)){
+			if(act.equals("getbookingSum")){
+				getbookingSum(request,response);
+			}else if(act.equals("getnoticeSum")){
+				getnoticeSum(request,response);
+			}else if(act.equals("getAllnotice")){
+				getAllnotice(request,response);
+			}else if(act.equals("getnoticeById")){
+				getnoticeById(request,response);
+			}
 		}
+		
 	}
 	
 	public void getnoticeById(HttpServletRequest request, HttpServletResponse response)
