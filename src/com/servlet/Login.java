@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -23,6 +24,7 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String act = request.getParameter("act");
+		
 //		System.out.println("--");
 		if(act.equals("userlogin")){
 			userLogin(request,response);
@@ -49,6 +51,10 @@ public class Login extends HttpServlet {
 				
 			}else{
 				flag = dao.adminvalidate(username, password);
+				if(flag ==1){
+					HttpSession session = request.getSession();
+					session.setAttribute("username", username);
+				}
 				result.put("flag", String.valueOf(flag));
 			}
 //			System.out.println(flag);
@@ -65,10 +71,15 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException{
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		
 		UserDAO dao = new UserDAO();
 		boolean flag=false;
 		try {
 			flag = dao.validate(username, password);
+			if(flag){
+				HttpSession session = request.getSession();
+				session.setAttribute("username", username);
+			}
 			JSONObject result = new JSONObject();
 			result.put("flag", flag);
 			response.setContentType("text/html;charset=utf-8");

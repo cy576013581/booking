@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import com.dao.BookingDAO;
 import com.dao.ClassDAO;
+import com.util.CheckSession;
 
 public class InputClass extends HttpServlet {
 
@@ -29,19 +30,21 @@ public class InputClass extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String act = request.getParameter("act");
-		
-//		System.out.println("--");
-		if(act.equals("getClass")){
-			getClass(request,response);
-		}else if(act.equals("addClass")){
-			addClass(request,response);
-		}else if(act.equals("getClassById")){
-			getClassById(request,response);
-		}else if(act.equals("editClass")){
-			editClass(request,response);
-		}else if(act.equals("deleteClass")){
-			deleteClass(request,response);
+		if(CheckSession.check(request)){
+			if(act.equals("getClass")){
+				getClass(request,response);
+			}else if(act.equals("addClass")){
+				addClass(request,response);
+			}else if(act.equals("getClassById")){
+				getClassById(request,response);
+			}else if(act.equals("editClass")){
+				editClass(request,response);
+			}else if(act.equals("deleteClass")){
+				deleteClass(request,response);
+			}
 		}
+//		System.out.println("--");
+		
 		
 	}
 	

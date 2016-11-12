@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import com.dao.ClassDAO;
 import com.dao.ScheduleDAO;
+import com.util.CheckSession;
 
 public class Getschedule extends HttpServlet {
 
@@ -35,20 +36,22 @@ public class Getschedule extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String act = request.getParameter("act");
 //		System.out.println("--");
-		if(act.equals("getSchedule")){
-			getSchedule(request,response);
-		}else if(act.equals("insertSchoolDate")){
-			insertSchoolDate(request,response);
-		}else if(act.equals("manageSchedule")){
-			manageSchedule(request,response);
-		}else if(act.equals("admingetSchoolDate")){
-			admingetSchoolDate(request,response);
-		}else if(act.equals("setSystemtime")){
-			setSystemtime(request,response);
-		}else if(act.equals("getSystemtime")){
-			getSystemtime(request,response);
-		}else if(act.equals("getScheduleSpeed")){
-			getScheduleSpeed(request,response);
+		if(CheckSession.check(request)){
+			if(act.equals("getSchedule")){
+				getSchedule(request,response);
+			}else if(act.equals("insertSchoolDate")){
+				insertSchoolDate(request,response);
+			}else if(act.equals("manageSchedule")){
+				manageSchedule(request,response);
+			}else if(act.equals("admingetSchoolDate")){
+				admingetSchoolDate(request,response);
+			}else if(act.equals("setSystemtime")){
+				setSystemtime(request,response);
+			}else if(act.equals("getSystemtime")){
+				getSystemtime(request,response);
+			}else if(act.equals("getScheduleSpeed")){
+				getScheduleSpeed(request,response);
+			}
 		}
 	}
 	

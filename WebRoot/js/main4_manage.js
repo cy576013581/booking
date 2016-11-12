@@ -6,7 +6,6 @@ var weeks=1;
 var username;
 var bookingid;
 var elementid;
-
 $(document).ready(function(){
 	$("#loading").show();
 	$("#shapeloading").show();
@@ -17,6 +16,7 @@ $(document).ready(function(){
     });
 //    alert(roomid);
     getWeek();
+    
     $(".sel_week").on("change",getWeek);
     
     $(".schedule_body").on("swipeleft",doSwipeleft);
@@ -26,7 +26,9 @@ $(document).ready(function(){
     
     $("#loading").hide();
 	$("#shapeloading").hide();
-    
+	setClick();
+	
+	getbookingSum();
 });
 
 function exportExcel() {
@@ -35,6 +37,23 @@ function exportExcel() {
 	window.location.href=encodeURI(encodeURI(url));
 }
 
+function getbookingSum(){
+	$.ajax({ //使用ajax与服务器异步交互
+        url:"Mybooking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+        type:"post",
+        data: {username:username,act:"getbookingSum"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        dataType:"text", //接收返回的数据方式为json
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            alert("网络错误，登录失败！");
+        }, //错误提示
+        
+        success:function(data){ //data为交互成功后，后台返回的数据;
+//        	alert(data);
+        	$("#sum").text(data);
+        	
+        }
+    });
+}
 
 function doSwipeleft(){
 	var nowweek = $(".sel_week").children('option:selected').val();
@@ -69,7 +88,7 @@ function getWeek(){
 	weeks = $(".sel_week").children('option:selected').val();
 //	alert("weeks:"+weeks);
 	setNull();
-	setClick();
+	
 //	alert(weeks);
 	getDataByWeek();
 	
@@ -78,7 +97,7 @@ function getWeek(){
 var i =2;
 
 function menuDelete() {//菜单删除事件
-		alert(bookingid);
+//		alert(bookingid);
 		mui('#sheet1').popover('toggle');
 		swal({
 		    title: "Are you sure?",
@@ -97,12 +116,13 @@ function menuDelete() {//菜单删除事件
 		//        dataType:"json", //接收返回的数据方式为json
 		
 		        error:function(XMLHttpRequest,textStatus,errorThrown){
-		            alert("网络错误！");
+		            mui.toast('网络错误！');
 		            
 		        }, //错误提示
 		        success:function(data){ //data为交互成功后，后台返回的数据
 		        	$("#"+elementid).text("");
 		        	$("#"+elementid).attr("value","");
+		        	$("#sum").text($("#sum").text()-1);
 		        	mui.toast('您的预定已经成功删除！');
 		        	swal.close();
 //		        	swal("Deleted!", "您的预定已经成功删除！", "success");
@@ -137,8 +157,8 @@ function menuEdit() {
         	//手动触发一次
 //        	alert(data.classname+"-----"+data.coursename);
         	$("#roomname").trigger("change");
-        	$("#classname").trigger("change");
-        	$("#coursename").trigger("change");
+        	$("#classname").trigger("change");  //失效
+        	$("#coursename").trigger("change"); //失效
         	$("#weekes").trigger("change");
         	$("#week").trigger("change");
         	$("#section").trigger("change");

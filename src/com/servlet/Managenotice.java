@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import com.dao.NoticeDAO;
 import com.dao.RoomDAO;
 import com.dao.UserDAO;
+import com.util.CheckSession;
 
 public class Managenotice extends HttpServlet {
 
@@ -31,18 +32,20 @@ public class Managenotice extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String act = request.getParameter("act");
-		
-		if(act.equals("getAllnotice")){
-			getAllnotice(request,response);
-		}else if(act.equals("getSum")){
-			getSum(request,response);
-		}else if(act.equals("deleteNotice")){
-			deleteNotice(request,response);
-		}else if(act.equals("updateNotice")){
-			updateNotice(request,response);
-		}else if(act.equals("addNotice")){
-			addNotice(request,response);
+		if(CheckSession.check(request)){
+			if(act.equals("getAllnotice")){
+				getAllnotice(request,response);
+			}else if(act.equals("getSum")){
+				getSum(request,response);
+			}else if(act.equals("deleteNotice")){
+				deleteNotice(request,response);
+			}else if(act.equals("updateNotice")){
+				updateNotice(request,response);
+			}else if(act.equals("addNotice")){
+				addNotice(request,response);
+			}
 		}
+		
 	}
 	public void addNotice(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
