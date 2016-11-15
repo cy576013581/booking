@@ -82,8 +82,9 @@ iframe {
     top: 0;
     left: 0;
     background-color: #999999;
-    opacity: 0.1;
+    opacity: 0.3;
     display: none;
+    z-index:1;
 }
 
 #loading{
@@ -95,4 +96,5 @@ iframe {
     margin-left: -20px;
     margin-top: -20px;
     display: none;
+    z-index:2;
 }
