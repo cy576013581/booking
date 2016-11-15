@@ -1,0 +1,29 @@
+.selectcoursename{
+	width:200px;
+	position: fixed;
+	top:30%;
+	left: 50%;
+	margin-left: -100px !important;
+	color: #000 !important;
+	text-shadow: none;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 10px;
+	display: none;
+	z-index: 9999;
+}
+
+.selectcoursename>span{
+	color: cornflowerblue;
+}
+
+.select_list{
+	width: 100%;
+	
+}
+.select_list > li{
+	line-height: 30px;
+}
+.select_list > li:hover{
+	background-color: #D3D3D3;
+}
