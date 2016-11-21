@@ -19,7 +19,6 @@ public class DBUtils {
 	private static ResourceBundle rb = ResourceBundle.getBundle("db-config");
 	
 	private DBUtils(){}
-	//Ê¹ÓÃ¾²Ì¬¿é¼ÓÔØÇý¶¯
 	static {
 		URL = rb.getString("jdbc.url");
 		USERNAME = rb.getString("jdbc.username");
@@ -40,7 +39,7 @@ public class DBUtils {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("Á¬½ÓÊ§°Ü£¡");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 		}
 		return conn;
 	}

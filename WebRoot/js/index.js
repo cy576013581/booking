@@ -7,8 +7,6 @@ $(document).ready(function(){
 	 
 	$(".txt_username").css("background-color","transparent");
 	
-	$(".a_showbooking").on("click",function(){
-	});
 	
     $(".btn_login").click(function(){
         var username = $(".txt_username").val();
