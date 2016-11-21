@@ -43,14 +43,10 @@ public class Managerbooking extends HttpServlet {
 				updateBooking(request,response);
 			}else if(act.equals("addBooking")){
 				addBooking(request,response);
-			}else if(act.equals("getAllbydate")){
-				getAllbydate(request,response);
-			}else if(act.equals("getAllbyusername")){
-				getAllbyusername(request,response);
-			}else if(act.equals("getSumbydate")){
-				getSumbydate(request,response);
-			}else if(act.equals("getSumbyusername")){
-				getSumbyusername(request,response);
+			}else if(act.equals("getAllbyrearch")){
+				getAllbyrearch(request,response);
+			}else if(act.equals("getSearchcount")){
+				getSearchcount(request,response);
 			}else if(act.equals("getRoom")){
 				getRoom(request,response);
 			}
@@ -76,31 +72,27 @@ public class Managerbooking extends HttpServlet {
 		}
 	}
 	
-	public void getSumbydate(HttpServletRequest request, HttpServletResponse response)
+	public void getSearchcount(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
 		String classtime = request.getParameter("date");
-		BookingDAO booking = new BookingDAO();
-		int sum =0;
-		try {
-			sum = booking.getCountbydate(classtime);
-//			List<Map<String,String>> data = dao.getNews(flag);
-			JSONObject result = new JSONObject();
-			result.put("sum", sum);
-			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().println(result.toString());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void getSumbyusername(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException{
 		String username = request.getParameter("username");
+//		System.out.println("classtime"+classtime+"username"+username);
 		BookingDAO booking = new BookingDAO();
 		int sum =0;
 		try {
-			sum = booking.getCountbyusername(username);
+			if(classtime.isEmpty() && !username.isEmpty()){
+//				System.out.println("username");
+				sum = booking.getCountbyusername(username);
+			}
+			if(!classtime.isEmpty() && username.isEmpty()){
+//				System.out.println("classtime");
+				sum = booking.getCountbydate(classtime);
+			}
+			if(!classtime.isEmpty() && !username.isEmpty()){
+//				System.out.println("two");
+				sum = booking.getCountbydateandusername(classtime, username);
+			}
+			
 //			List<Map<String,String>> data = dao.getNews(flag);
 			JSONObject result = new JSONObject();
 			result.put("sum", sum);
@@ -112,15 +104,30 @@ public class Managerbooking extends HttpServlet {
 		}
 	}
 	
-	public void getAllbydate(HttpServletRequest request, HttpServletResponse response)
+	
+	
+	public void getAllbyrearch(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
-		int page = Integer.valueOf(request.getParameter("page"))*8;
+		int page = Integer.valueOf(request.getParameter("page"))*6;
 		String classtime = request.getParameter("date");
+		String username = request.getParameter("username");
 //		System.out.println("page"+page);
 		BookingDAO booking = new BookingDAO();
 		List<Map<String,String>> data = new ArrayList<>();
 		try {
-			data = booking.findAllbydate(page,classtime);
+			if(classtime.isEmpty() && !username.isEmpty()){
+//				System.out.println("usernamesad");
+				data = booking.findAllbyusername(page,username);
+			}
+			if(!classtime.isEmpty() && username.isEmpty()){
+//				System.out.println("classtime");
+				
+				data = booking.findAllbydate(page,classtime);
+			}
+			if(!classtime.isEmpty() && !username.isEmpty()){
+//				System.out.println("two");
+				data = booking.findAllbySearch(page, username, classtime);
+			}
 //			System.out.println(data.get(0).get("id"));
 //			List<Map<String,String>> data = dao.getNews(flag);
 			JSONArray result = new JSONArray(data);
@@ -132,25 +139,7 @@ public class Managerbooking extends HttpServlet {
 		}
 	}
 	
-	public void getAllbyusername(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException{
-		int page = Integer.valueOf(request.getParameter("page"))*6;
-		String username = request.getParameter("username");
-//		System.out.println("page"+page);
-		BookingDAO booking = new BookingDAO();
-		List<Map<String,String>> data = new ArrayList<>();
-		try {
-			data = booking.findAllbyusername(page,username);
-//			System.out.println(data.size());
-//			List<Map<String,String>> data = dao.getNews(flag);
-			JSONArray result = new JSONArray(data);
-			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().println(result.toString());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 	
 	public void addBooking(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{

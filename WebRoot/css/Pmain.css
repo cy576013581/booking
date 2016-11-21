@@ -3,6 +3,7 @@ body{
     padding: 0;
 }
 iframe{
+	margin-top: 70px;
     border: none;
     padding: 0;
 }
@@ -15,12 +16,16 @@ iframe{
     position: relative;
 }
 .layout_header{
+	position: fixed;
+	top:0;
+	left:0;
+	right:0;
     width: 100%;
     max-width: 100%;
     min-width: 100%;
     height: 70px;
-    margin: 0 auto;
     border-bottom: solid 1px #CCCCCC;
+    background-color: #fff;
 }
 .title_icon1{
     width: 35px;
