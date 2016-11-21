@@ -42,7 +42,7 @@ function getAlready() {
         data: {username:username,act:"getAlready",roomid:roomid}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误，登录失败！");
+            alert("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -187,7 +187,7 @@ function getClass(){
         data: {username:username,act:"getClass"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误，登录失败！");
+            alert("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -214,7 +214,7 @@ function getCourse(){
         data: {username:username,act:"getCourse",classname:encodeURI(classname)}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误，登录失败！");
+            alert("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -254,7 +254,7 @@ function getDataByWeek(){
 //            alert(XMLHttpRequest.readyState);
 //            alert(textStatus);
 //            alert(errorThrown);
-//            alert("网络错误，登录失败！");
+//            alert("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据
