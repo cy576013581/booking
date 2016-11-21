@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.util.DataUtils;
 import com.util.JdbcTemplete;
 import com.util.ResultSetHandler;
-import com.util.ZqDBUtil;
 
 public class BookingDAO {
 	
@@ -50,7 +50,7 @@ public class BookingDAO {
 			@Override
 			public Object doHandler(final ResultSet rs) throws SQLException {
 				// TODO Auto-generated method stub
-				List<Map<String,String>> list =  ZqDBUtil.getHashMap(rs);
+				List<Map<String,String>> list =  DataUtils.getHashMap(rs);
 				return list;
 			}
 		},username,roomid);

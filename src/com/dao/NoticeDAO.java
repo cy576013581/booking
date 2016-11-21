@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.util.DataUtils;
 import com.util.JdbcTemplete;
 import com.util.ResultSetHandler;
-import com.util.ZqDBUtil;
 
 public class NoticeDAO {
 	private JdbcTemplete jdbcTemplete = null;
@@ -26,7 +26,7 @@ public class NoticeDAO {
 			@Override
 			public Object doHandler(final ResultSet rs) throws SQLException {
 				// TODO Auto-generated method stub
-				List<Map<String,String>> list =  ZqDBUtil.getHashMap(rs);
+				List<Map<String,String>> list =  DataUtils.getHashMap(rs);
 				return list;
 			}
 		});
@@ -41,7 +41,7 @@ public class NoticeDAO {
 			@Override
 			public Object doHandler(final ResultSet rs) throws SQLException {
 				// TODO Auto-generated method stub
-				List<Map<String,String>> list =  ZqDBUtil.getHashMap(rs);
+				List<Map<String,String>> list =  DataUtils.getHashMap(rs);
 				return list.get(0);
 			}
 		},id);
