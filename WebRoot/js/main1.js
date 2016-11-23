@@ -9,11 +9,12 @@ $(document).ready(function(){
 	if(checkDate()==1){
 		getRoom();
 	}else{
-		mui.toast("系统暂未开启，可以先添加课程哦Q");
+		mui.toast("系统暂未开启，可以先添加课程哦");
 //		$("#p_warning").show();
 		document.getElementById("p_warning").style.display = "block";
 	}
-	
+//	var pinyin = getPinyin("移动开发实验室（主教532）");
+//	alert(pinyin);
 //	var arraynan = document.getElementsByName("position1");
 //	var arraybei = document.getElementsByName("position2");
 	$("#nan").on("click",function(){

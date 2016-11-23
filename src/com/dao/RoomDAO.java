@@ -17,7 +17,7 @@ public class RoomDAO {
 		jdbcTemplete = new JdbcTemplete();
 	}
 	public List<Map<String,String>> findAllroom() throws SQLException{
-		String sql = "select Id,Roomname,Students,Position from rooms";
+		String sql = "select Id,Roomname,Students,Position,Firstchar from rooms order by Firstchar";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -67,13 +67,13 @@ public class RoomDAO {
 		},pageindex,6);
 	}
 	
-	public void insertRoom(String roomname,int students,int position) throws SQLException{
-		String sql = "insert into rooms(Roomname,Students,Position) values(?,?,?)";
-		jdbcTemplete.update(sql,roomname,students,position);
+	public void insertRoom(String roomname,String firstchar,int students,int position) throws SQLException{
+		String sql = "insert into rooms(Roomname,Firstchar,Students,Position) values(?,?,?,?)";
+		jdbcTemplete.update(sql,roomname,firstchar,students,position);
 	}
-	public void updateAll(int id,String roomname,int students) throws SQLException{
-		String sql = "update rooms set Roomname=?,Students=? where Id=?";
-		jdbcTemplete.update(sql,roomname,students,id);
+	public void updateAll(int id,String roomname,String firstchar,int students) throws SQLException{
+		String sql = "update rooms set Roomname=?,Students=?,Firstchar=? where Id=?";
+		jdbcTemplete.update(sql,roomname,firstchar,students,id);
 	}
 	
 	public void deleteRoom(int id) throws SQLException{
