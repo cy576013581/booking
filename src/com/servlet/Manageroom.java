@@ -47,12 +47,13 @@ public class Manageroom extends HttpServlet {
 	public void addRoom(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
 		String roomname = request.getParameter("roomname");
+		String firstchar = request.getParameter("firstchar");
 		int students = Integer.valueOf(request.getParameter("students"));
 		int position = Integer.valueOf(request.getParameter("position"));
 //		System.out.println(roomname);
 		RoomDAO room = new RoomDAO();
 		try {
-			room.insertRoom(roomname, students,position);
+			room.insertRoom(roomname,firstchar,students,position);
 //			System.out.println(data.get(0).get("id"));
 //			List<Map<String,String>> data = dao.getNews(flag);
 			
@@ -65,11 +66,12 @@ public class Manageroom extends HttpServlet {
 			throws ServletException, IOException{
 		int id = Integer.valueOf(request.getParameter("id"));
 		String roomname = request.getParameter("roomname");
+		String firstchar = request.getParameter("firstchar");
 		int students = Integer.valueOf(request.getParameter("students"));
 //		System.out.println("page"+page);
 		RoomDAO room = new RoomDAO();
 		try {
-			room.updateAll(id, roomname, students);
+			room.updateAll(id, roomname,firstchar,students);
 //			System.out.println(data.get(0).get("id"));
 
 		} catch (Exception e) {
