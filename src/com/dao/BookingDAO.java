@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.util.DataUtils;
 import com.util.JdbcTemplete;
 import com.util.ResultSetHandler;
-import com.util.ZqDBUtil;
 
 public class BookingDAO {
 	
@@ -50,7 +50,7 @@ public class BookingDAO {
 			@Override
 			public Object doHandler(final ResultSet rs) throws SQLException {
 				// TODO Auto-generated method stub
-				List<Map<String,String>> list =  ZqDBUtil.getHashMap(rs);
+				List<Map<String,String>> list =  DataUtils.getHashMap(rs);
 				return list;
 			}
 		},username,roomid);
@@ -104,6 +104,22 @@ public class BookingDAO {
 				return sum;
 			}
 		},date);
+	}
+	
+	public int getCountbydateandusername(String date,String username) throws SQLException{
+		String sql = "select count(Id) from bookings where Flag=0 and Bookingtime=? and Username=?";
+		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(final ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				int sum=0;
+				if(rs.next()){
+					sum = rs.getInt(1);
+				}
+				return sum;
+			}
+		},date,username);
 	}
 	
 	public int getCountbyusername(String username) throws SQLException{
@@ -183,6 +199,39 @@ public class BookingDAO {
 				return list;
 			}
 		},username,pageindex,6);
+	}
+	
+	public List<Map<String,String>> findAllbySearch(int pageindex,String username,String date) throws SQLException{
+		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,"
+				+ "a.Classtime,Bookingtime,Section from bookings  as a LEFT JOIN rooms as b ON "
+				+ "a.Roomid=b.Id LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
+				+ "LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Username=? and a.Classtime=? order by Classtime limit ?,?";
+		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(final ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				final List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+				Map<String,String> u;
+				while(rs.next()){
+//					System.out.println(p++);
+					u = new HashMap<String, String>();
+					u.put("id", String.valueOf(rs.getInt("Id")));
+					u.put("coursename", rs.getString("Coursename"));
+					u.put("classname", rs.getString("Classname"));
+					u.put("phone", rs.getString("Phone"));
+					u.put("students", rs.getString("Students"));
+					u.put("username", rs.getString("Username"));
+					u.put("roomname", rs.getString("Roomname"));
+					u.put("classtime", rs.getString("Classtime"));
+					u.put("bookingtime", rs.getString("Bookingtime").substring(0, 19));
+					u.put("section", rs.getString("Section"));
+					list.add(u);
+				}
+				
+				return list;
+			}
+		},username,date,pageindex,6);
 	}
 	
 	public List<Map<String,String>> findAllbydate(int pageindex,String date) throws SQLException{

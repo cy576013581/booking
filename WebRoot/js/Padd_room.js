@@ -5,6 +5,7 @@ $(document).ready(function(){
    $(".btn_ok").on("click",function(){
 	   var position = $(".radio:checked").val();
        var roomname = $(".roomname").val();
+       var firstchar = getPinyin(roomname);
        var students = $(".students").val();
 //       alert(position);
        if (roomname==''){
@@ -18,7 +19,7 @@ $(document).ready(function(){
     	   $.ajax({ //使用ajax与服务器异步交互
    	        url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
    	        type:"POST",
-   	        data: {act:"addRoom",roomname:roomname,students:students,position:position}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+   	        data: {act:"addRoom",roomname:roomname,students:students,position:position,firstchar:firstchar}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
 //   	        dataType:"json", //接收返回的数据方式为json
 
    	        error:function(XMLHttpRequest,textStatus,errorThrown){

@@ -31,7 +31,7 @@ function  getCount() {
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误，登录失败！");
+            alert("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据
@@ -50,7 +50,7 @@ function handlePaginationClick(new_page_index, pagination_container) {
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误，登录失败！");
+            alert("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据
@@ -76,6 +76,7 @@ function handlePaginationClick(new_page_index, pagination_container) {
 						
 						$("#btn_ok").on("click",function(){
 							var roomname = $("#room_roomname").val();
+							var firstchar = getPinyin(roomname);
 							var students = $("#room_students").val();
 						    if (roomname==''){
 						    	$(".warning").text("警告：机房名不能为空！");
@@ -88,7 +89,7 @@ function handlePaginationClick(new_page_index, pagination_container) {
 //						    		async:false,
 						            url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
 						            type:"POST",
-						            data: {act:"updateRoom",roomname:roomname,students:students,id:id}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+						            data: {act:"updateRoom",roomname:roomname,students:students,id:id,firstchar:firstchar}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
 //						            dataType:"json", //接收返回的数据方式为json
 
 						            error:function(XMLHttpRequest,textStatus,errorThrown){

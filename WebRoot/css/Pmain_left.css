@@ -40,9 +40,9 @@ li > a, a:hover {
 
 .vtitle {
     height: 35px;
-    background-color: #297FB8;
+    background-color: #333333;
     line-height: 35px;
-    border: 1px solid #297FB8;
+    border: 1px solid #333333;
     margin-top: -1px;
     padding-left: 20px;
     font-size: 15px;
@@ -56,7 +56,7 @@ li > a, a:hover {
 }
 
 .vconlist {
-    background: #1A91DF;
+    background: #333333;
 }
 
 .vconlist li a {
@@ -65,14 +65,20 @@ li > a, a:hover {
     padding-left: 40px;
     display: block;
     font-size: 14px;
-    color: white;
+    color: #e4e5ff;
     font-family: "\5FAE\8F6F\96C5\9ED1";
     cursor: pointer;
 }
 
 .vconlist li.select a, .vconlist li a:hover {
-    color: #990099;
+    color: #fff;
     text-decoration: none;
+    background: #5C5C5C;
+}
+.clicking{
+	color: #fff;
+    text-decoration: none;
+    background: #5C5C5C;
 }
 
 #managelist{
@@ -81,9 +87,9 @@ li > a, a:hover {
     padding-top: 10px;
     padding-bottom: 10px;
     height: 35px;
-    background-color: #297FB8;
+    background-color: #333333;
     line-height: 35px;
-    border: 1px solid #297FB8;
+    border: 1px solid #333333;
     color: #e4e5ff;
     font-family: "\5FAE\8F6F\96C5\9ED1";
 }

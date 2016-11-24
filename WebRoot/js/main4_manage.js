@@ -6,6 +6,7 @@ var weeks=1;
 var username;
 var bookingid;
 var elementid;
+var handleindex;
 $(document).ready(function(){
 	$("#loading").show();
 	$("#shapeloading").show();
@@ -44,7 +45,7 @@ function getbookingSum(){
         data: {username:username,act:"getbookingSum"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"text", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误，登录失败！");
+            alert("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -120,8 +121,33 @@ function menuDelete() {//菜单删除事件
 		            
 		        }, //错误提示
 		        success:function(data){ //data为交互成功后，后台返回的数据
-		        	$("#"+elementid).text("");
-		        	$("#"+elementid).attr("value","");
+		        	if($("#"+elementid).attr("value").indexOf("-") > 0){
+		        		var arryid = $("#"+elementid).attr("value").split('-');
+						var arrytext = $("#"+elementid).text().split('、');
+//						alert(arryid.length);
+						var strid;
+						var strtext;
+						for(var i=0;i<arryid.length;i++){
+							if(i!= handleindex){
+								if(strid != null){
+									strid =  strid + "-" + arryid[i];
+									strtext = strtext + "、" + arrytext[i];
+								}else{
+									strid = arryid[i];
+									strtext = arrytext[i];
+								}
+								
+							}
+							
+							
+						}
+						$("#"+elementid).text(strtext);
+			        	$("#"+elementid).attr("value",strid);
+		        	}else{
+		        		$("#"+elementid).text("");
+			        	$("#"+elementid).attr("value","");
+		        	}
+		        	
 		        	$("#sum").text($("#sum").text()-1);
 		        	mui.toast('您的预定已经成功删除！');
 		        	swal.close();
@@ -136,7 +162,7 @@ function menuEdit() {
 	mui('#sheet1').popover('toggle');
 	getRoom();
 	getClass();//获取编辑框班级下拉框的教师班级
-	alert(bookingid);
+//	alert(bookingid);
 	$.ajax({ //根据id获取原来的预定信息
         url:"Booking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
         type:"post",
@@ -188,11 +214,47 @@ function menuEdit() {
 	        	var nowweek = $(".sel_week").children('option:selected').val();
 	        	if(state == "success"){
 	        		mui.toast("预定修改成功！");
-	        		$("#"+elementid).text("");
-	        		if(weekes == nowweek){
-	        			var roomname = $("#roomname").children('option:selected').text();
-	        			$("#lesson"+week+section).text(roomname+"-"+classname+"-"+coursename);
-	        		}
+	        		var arryid = $("#"+elementid).attr("value").split('-');
+					var arrytext = $("#"+elementid).text().split('、');
+	        		if("#"+elementid != "#lesson"+week+section){
+//						alert(arryid.length);
+						var strid;
+						var strtext;
+						for(var i=0;i<arryid.length;i++){
+							if(i!= handleindex){
+								if(strid != null){
+									strid =  strid + "-" + arryid[i];
+									strtext = strtext + "、" + arrytext[i];
+								}else{
+									strid = arryid[i];
+									strtext = arrytext[i];
+								}
+								
+							}
+							
+						}
+						$("#"+elementid).text(strtext);
+			        	$("#"+elementid).attr("value",strid);
+			        	if(weekes == nowweek){
+		        			var roomname = $("#roomname").children('option:selected').text(); 
+		        			$("#lesson"+week+section).text(roomname+"-"+classname+"-"+coursename);
+		        			$("#lesson"+week+section).attr("value",arryid[handleindex]);
+		        		}
+		        	}else{//没有多组数据情况
+		        		var strid;
+						var strtext;
+						var roomname = $("#roomname").children('option:selected').text(); 
+						arrytext[handleindex] = roomname+"-"+classname+"-"+coursename;
+						for(var i=0;i<arrytext.length;i++){
+							if(strtext != null){
+								strtext = strtext + "、" + arrytext[i];
+							}else{
+								strtext = arrytext[i];
+							}	
+						}
+						$("#"+elementid).text(strtext);
+		        	}
+	        		
 	        	}else if(state == "error"){
 	        		mui.toast("预定修改失败，该时间段已有人预定！");
 	        	}
@@ -206,15 +268,49 @@ function menuEdit() {
 function setClick() {//设置每节课的点击事件
 	
 	$(".cla").on("taphold",function(){
-		if($(this).text() != ""){
-			bookingid = $(this).attr("value");
+		if($(this).text() != ""){//判断是否有课
 			elementid = $(this).attr("id");
-			mui('#sheet1').popover('toggle');
+			if($(this).attr("value").indexOf("-") > 0){//判断是不是同一时段有多节课
+				var arryid = $(this).attr("value").split('-');
+				var arrytext = $(this).text().split('、');
+				
+//				alert(arrytext[3]);
+				$("#shapeloading").show();
+				$("#shapeloading").on("click",function(){
+					$(".selectcoursename").hide();
+					$("#shapeloading").hide();
+				});
+				var list = $(".select_list");
+				$(".select_list").empty();
+				for(var i=0;i<arryid.length;i++){
+					(function(i) {
+						var li = $("<li value='"+ arryid[i] +"'>"+ arrytext[i].split('-')[0] +"</li>");
+						li.on("click",function(){
+							handleindex=i;
+//							alert(i);
+							bookingid = $(this).attr("value");
+//							alert(bookingid);
+							$(".selectcoursename").hide();
+							$("#shapeloading").hide();
+							mui('#sheet1').popover('toggle');
+						});
+						list.append(li);
+					})(i);
+					
+				}
+				$(".selectcoursename").show();
+			}else{
+				bookingid = $(this).attr("value");
+				mui('#sheet1').popover('toggle');
+			}
+			
 		}
 			
 		
     });			
 }
+
+
 
 
 function getRoom(){//获取所有机房名称
@@ -319,7 +415,7 @@ function getDataByWeek(){
 //            alert(XMLHttpRequest.readyState);
 //            alert(textStatus);
 //            alert(errorThrown);
-//            alert("网络错误，登录失败！");
+//            alert("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据
@@ -343,9 +439,17 @@ function getDataByWeek(){
 //            		alert(num);
             		lesson = lesson + num + section;
             		var str=data[int].roomname+"-"+data[int].classname+"-"+data[int].coursename;
-            		$("#"+lesson).text(str);
-//            		$("#"+lesson).text($("#"+lesson).text()+str);
-            		$("#"+lesson).attr("value",data[int].id);
+            		if($("#"+lesson).text() != ""){
+            			var old = $("#"+lesson).text();
+            			$("#"+lesson).text(old + "、" +str);
+            			old = $("#"+lesson).attr("value");
+            			$("#"+lesson).attr("value",old + "-" +data[int].id);
+            		}else{
+            			$("#"+lesson).text(str);
+//                		$("#"+lesson).text($("#"+lesson).text()+str);
+                		$("#"+lesson).attr("value",data[int].id);
+            		}
+            		
             		
 			}
         }
