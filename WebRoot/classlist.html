@@ -5,41 +5,86 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0"/>
     <title>机房列表</title>
     <script src="js/jquery-2.1.1.min.js"></script>
-    <script src="js/jquery.mobile-1.4.5.min.js"></script>
     <script src="js/mui.min.js"></script>
+    <script src="js/mui.indexedlist.js"></script>
 	<script src="js/classlist.js"></script>
-	<link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
 	<link href="css/mui.min.css" rel="stylesheet" type="text/css">
-    <link href="css/base.css" rel="stylesheet" type="text/css">
+	<link href="css/mui.indexedlist.css" rel="stylesheet" />
     <link href="css/classlist.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="list_layout">
-        <div class="list_header">
-            <div class="box_list">
-                <img class="icon_back" src="image/icon_back.png">
+    <header class="mui-bar mui-bar-nav header">
+			<div class="box_list">
+				<img class="icon_back" src="image/icon_back.png">
                 <p class="txt_title">机房列表</p>
             </div>
-
-        </div>
-
-        <div class="list_body">
-	        <div class="box_body">
-	            <div id="selectBox">
+	</header>
+			<div class="mui-content">
+				<div id="selectBox">
 					<a id="nan" class="border">南区机房</a>
 					<a id="bei">北区机房</a>
 				</div>
-				<ul id="list" data-role="listview" data-filter="true" data-inset="true">
-	                <!-- <li><a href="#">2222</a></li> -->
-	            </ul>
-	        </div>
-   		</div>
-
-
-        <div class="list_footer"></div>
-    <div id="shapeloading"></div>
-    <img id="loading" src="image/loading.gif">
-</div>
+				<div id='list' class="mui-indexed-list">
+					<div class="mui-indexed-list-search mui-input-row mui-search">
+						<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索机房">
+					</div>
+					<div class="mui-indexed-list-bar">
+						<a>A</a>
+						<a>B</a>
+						<a>C</a>
+						<a>D</a>
+						<a>E</a>
+						<a>F</a>
+						<a>G</a>
+						<a>H</a>
+						<a>I</a>
+						<a>J</a>
+						<a>K</a>
+						<a>L</a>
+						<a>M</a>
+						<a>N</a>
+						<a>O</a>
+						<a>P</a>
+						<a>Q</a>
+						<a>R</a>
+						<a>S</a>
+						<a>T</a>
+						<a>U</a>
+						<a>V</a>
+						<a>W</a>
+						<a>X</a>
+						<a>Y</a>
+						<a>Z</a>
+					</div>
+					<div class="mui-indexed-list-alert"></div>
+					<div class="mui-indexed-list-inner">
+						<div class="mui-indexed-list-empty-alert">没有数据</div>
+						<ul class="mui-table-view">
+							<!-- <li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>
+							<li data-value="AKU" data-tags="AKeSu" class="mui-table-view-cell mui-indexed-list-item">阿克苏机场</li>
+							<li data-group="B" class="mui-table-view-divider mui-indexed-list-group">B</li>
+							<li data-value="BSD" data-tags="BaoShan" class="mui-table-view-cell mui-indexed-list-item">保山机场</li>
+							<li data-value="BAV" data-tags="BaoTou" class="mui-table-view-cell mui-indexed-list-item">包头机场</li>
+							<li data-value="BHY" data-tags="BeiHaiFuCheng" class="mui-table-view-cell mui-indexed-list-item">北海福成机场</li>
+							<li data-value="NAY" data-tags="BeiJingNanYuan" class="mui-table-view-cell mui-indexed-list-item">北京南苑机场</li>
+							<li data-value="PEK" data-tags="BeiJingShouDuGuoJi" class="mui-table-view-cell mui-indexed-list-item">北京首都国际机场</li>
+							<li data-group="C" class="mui-table-view-divider mui-indexed-list-group">C</li>
+							<li data-value="NBS" data-tags="ChangBaiShan" class="mui-table-view-cell mui-indexed-list-item">长白山机场</li>
+							<li data-value="CGQ" data-tags="ChangChunLongJiaGuoJi" class="mui-table-view-cell mui-indexed-list-item">长春龙嘉国际机场</li>
+							<li data-value="CGD" data-tags="ChangDeTaoHuaYuan" class="mui-table-view-cell mui-indexed-list-item">常德桃花源机场</li>
+							<li data-value="BPX" data-tags="ChangDuBangDa" class="mui-table-view-cell mui-indexed-list-item">昌都邦达机场</li>
+							<li data-value="CSX" data-tags="ChangShaHuangHuaGuoJi" class="mui-table-view-cell mui-indexed-list-item">长沙黄花国际机场</li>
+							<li data-value="CIH" data-tags="ChangZhiWangCun" class="mui-table-view-cell mui-indexed-list-item">长治王村机场</li>
+							<li data-value="CZX" data-tags="ChangZhouBenNiu" class="mui-table-view-cell mui-indexed-list-item">常州奔牛机场</li>-->
+						</ul>
+					</div>
+				</div>
+				
+				
+			</div>
+		
+		<div id="shapeloading"></div>
+		<img id="loading" src="image/loading.gif">
     
 </body>
 </html>

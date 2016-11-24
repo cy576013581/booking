@@ -1,28 +1,35 @@
-.list_layout{
+html,
+body {
+	height: 100% ;
+	overflow: hidden;
+}
+.mui-bar {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.layout{
     width: 100%;
     max-width: 640px;
     min-width: 300px;
     margin:0 auto;
 
 }
-.list_header{
+.header{
     width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
     height: 50px;
     background-color: cornflowerblue;
 }
 .box_list{
     width: 100%;
-    height: 40px;
+    height: 50px;
     position: relative;
+    
 }
-.list_header > .box_list > .icon_back {
-    height: 20px;
-    width: 40px;
-    position: absolute;
-    top: 10px;
-    left: 5px;
-}
-.list_header > .box_list > .txt_title {
+.header > .box_list > .txt_title {
     font-size: 19px;
     font-weight: 00;
     color: aliceblue;
@@ -32,56 +39,49 @@
 }
 
 
-.list_body{
+.mui-content{
+	margin-top:50px;
 	width: 100%;
 	max-width: 640px;
     min-width: 300px;
+    margin:0 auto;
 }
-.box_body{
-	width: 100%;
-}
+
 
 #selectBox{
 	width:100%;
-	height: 36px;
+	height: 25px;
 	position: relative;
-	
+	margin-top:10px;
 }
-
 #nan{
-	line-height:36px;
+	line-height:25px;
 	cursor: pointer;
 	text-align: center;
 	position: absolute;
 	left: 25%;
 	margin-left: -47.25px;
-	padding: 1px 20px;
-	
+	padding: 0px 20px;
+	font-weight: 600;
 }
 #bei{
-	line-height:36px;
+	line-height:25px;
 	cursor: pointer;
 	text-align: center;
 	position: absolute;
 	right: 25%;
 	margin-right: -47.25px;
-	padding: 1px 20px;
+	padding: 0px 20px;
+	font-weight: 600;
 }
 .border{
 	border-bottom: solid 2px #38c;
 }
 
-
-li >a{
-	padding-bottom: 0px !important;
+#list{
+	margin-top:5px;
 }
-
-a > p{
-	margin-top:13px !important;
-	font-family: "Microsoft YaHei",sans-serif !important;
-	color: gray;
-}
-ul > .position2{
+.position2{
 	display: none;
 }
 

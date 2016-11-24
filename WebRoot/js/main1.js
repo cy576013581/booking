@@ -1,54 +1,43 @@
 /**
  * Created by cy on 2016/7/4.
  */
-
+mui.init();
+mui.ready(function() {
+	var header = document.querySelector('header.mui-bar');
+	var selectBox = document.getElementById('selectBox');
+	var list = document.getElementById('list');
+	//calc hieght
+	list.style.height = (document.body.offsetHeight - header.offsetHeight-selectBox.offsetHeight) + 'px';
+	//create
+	window.indexedList = new mui.IndexedList(list);
+});
 $(document).ready(function(){
+	
 	$("#shapeloading").show();
 	$("#loading").show();
-	
 	if(checkDate()==1){
 		getRoom();
 	}else{
 		mui.toast("系统暂未开启，可以先添加课程哦");
-//		$("#p_warning").show();
 		document.getElementById("p_warning").style.display = "block";
 	}
-//	var pinyin = getPinyin("移动开发实验室（主教532）");
-//	alert(pinyin);
-//	var arraynan = document.getElementsByName("position1");
-//	var arraybei = document.getElementsByName("position2");
 	$("#nan").on("click",function(){
-//		mui.toast("南区！");
 		$(".position1").show();
 		$(".position2").hide();
 		$("#nan").addClass("border");
 		$("#bei").removeClass("border");
-//		for(var i=0;i<arraybei.length;i++){
-//			arraybei[i].style.display = "none";
-//		}
-//		for(var i=0;i<arraynan.length;i++){
-//			arraynan[i].style.display = "block";
-////			alert(arraynan[i]);
-//		}
-		
 	});
 	$("#bei").on("click",function(){
-//		mui.toast("北区！");
 		$(".position2").show();
 		$(".position1").hide();
 		$("#bei").addClass("border");
 		$("#nan").removeClass("border");
-//		for(var i=0;i<arraynan.length;i++){
-////			alert(arraynan[i]);
-//			arraynan[i].style.display = "none";
-//		}
-//		for(var i=0;i<arraybei.length;i++){
-//			arraybei[i].style.display = "block";
-//		}
 	});
+	
 	$("#shapeloading").hide();
 	$("#loading").hide();
 });
+var myArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 function getRoom(){
     $.ajax({ //使用ajax与服务器异步交互
     	async:false,
@@ -66,20 +55,46 @@ function getRoom(){
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据
+//        	alert(data.length);
         	$('ul').empty();
-            for(var i  in  data)  {
-            	
-            	var ul = $("#list");
-//            	var li = $("<li><a data-ajax='false' target='_top' href=booking.html?roomid="+data[i].id+"&roomname="+data[i].roomname+">"+data[i].roomname+"</a></li>");
-            	var li = $("<li class='position"+ data[i].position +"' name='position"+ data[i].position +"'></li>");
-            	var a =  $("<a data-ajax='false' target='_top' href=booking.html?roomid="+data[i].id+"&roomname="+data[i].roomname+">"+data[i].roomname+"</a>");
-            	// 
-            	var p = $("<p>可坐学生人数：  "+data[i].students+"人</p>");
-            	a.append(p);
-            	li.append(a);
-            	ul.append(li);
-            	$('ul').listview('refresh'); 
+        	var ul = $('ul');
+        	for (var a = 0; a < myArray.length; a++) {
+        		
+        			var tool=0;
+        			var fenqu=1;
+            		for(var i=0;i<data.length;i++)  {
+            		
+            		(function(a,i){
+            			var char = data[i].firstchar.substring(0,1);
+            			if(char == myArray[a]){
+            				tool+=1;
+            				if(fenqu==parseInt(data[i].position) && tool==1){
+            					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group position"+ data[i].position +"'>"+char+"</li>");
+                				ul.append(firstli);
+//            					alert("1:feiqu"+fenqu+" tool "+ tool+" position "+ data[i].position);
+            						
+            				}
+            				if(fenqu != parseInt(data[i].position)){
+            					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group position"+ data[i].position +"'>"+char+"</li>");
+                				ul.append(firstli);
+                				fenqu = data[i].position;
+//            					alert("2:feiqu"+fenqu+" tool "+ tool+" position "+ data[i].position);
+            					
+            				}
+            				var li = $("<li  data-value='"+data[i].firstchar+"' data-tags='"+data[i].firstchar+"' class='mui-table-view-cell mui-indexed-list-item position"+ data[i].position +"'></li>");
+            				var a =  $("<a target='_top' href=booking.html?roomid="+data[i].id+"&roomname="+data[i].roomname+">"+data[i].roomname+"</a>");
+            				
+                        	var p = $("<p>可坐学生人数：  "+data[i].students+"人</p>");
+                        	a.append(p);
+                        	li.append(a);
+                        	ul.append(li);
+            			}
+            		})(a,i);
+                        
+        			}
+        		
 			}
+            
             
         }
     });

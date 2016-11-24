@@ -78,8 +78,10 @@ public class Booking extends HttpServlet {
 			JSONObject result = new JSONObject();
 			if(nowtime>=starttime && nowtime<=closetime){
 				result.put("result", "1");
+//				System.out.println(1);
 			}else{
 				result.put("result", "0");
+//				System.out.println(0);
 			}
 			
 			response.setContentType("text/html;charset=utf-8");

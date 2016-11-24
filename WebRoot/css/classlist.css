@@ -1,12 +1,25 @@
-.list_layout{
+html,
+body {
+	height: 100% ;
+	overflow: hidden;
+}
+.mui-bar {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.layout{
     width: 100%;
     max-width: 640px;
     min-width: 300px;
     margin:0 auto;
 
 }
-.list_header{
+.header{
     width: 100%;
+    max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
     height: 50px;
     background-color: cornflowerblue;
 }
@@ -14,62 +27,68 @@
     width: 100%;
     height: 50px;
     position: relative;
+    
 }
-.list_header > .box_list > .icon_back {
+.header > .box_list > .icon_back {
     height: 20px;
     width: 40px;
     position: absolute;
     top: 15px;
     left: 5px;
+    cursor: pointer;
 }
-.list_header > .box_list > .txt_title {
-    font-size: 18px;
-    font-weight: 500;
+.header > .box_list > .txt_title {
+    font-size: 19px;
+    font-weight: 00;
     color: aliceblue;
     letter-spacing: 2px;
     padding-top: 13px;
     text-align: center;
 }
 
-li >a{
-	padding-bottom: 0px !important;
+
+.mui-content{
+	margin-top:8px;
+	width: 100%;
+	max-width: 640px;
+    min-width: 300px;
+    margin:0 auto;
 }
 
-a > p{
-	margin-top:13px !important;
-	font-family: "Microsoft YaHei",sans-serif !important;
-	color: gray;
-}
-ul > .position2{
-	display: none;
-}
 
 #selectBox{
 	width:100%;
-	height: 36px;
+	height: 25px;
 	position: relative;
-	
+	margin-top:10px;
 }
-
 #nan{
-	line-height:36px;
+	line-height:25px;
 	cursor: pointer;
 	text-align: center;
 	position: absolute;
 	left: 25%;
 	margin-left: -47.25px;
-	padding: 1px 20px;
-	
+	padding: 0px 20px;
+	font-weight: 600;
 }
 #bei{
-	line-height:36px;
+	line-height:25px;
 	cursor: pointer;
 	text-align: center;
 	position: absolute;
 	right: 25%;
 	margin-right: -47.25px;
-	padding: 1px 20px;
+	padding: 0px 20px;
+	font-weight: 600;
 }
 .border{
 	border-bottom: solid 2px #38c;
+}
+
+#list{
+	margin-top:5px;
+}
+.position2{
+	display: none;
 }

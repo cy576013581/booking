@@ -17,7 +17,7 @@ $(document).ready(function(){
 	$(".footer_managebooking").on("click",function(){
 		$(".iframe_body").attr("src","/booking/main4.html");
 	});
-		
+	$(".footer_selectRoom").click();	
 		/*var url= $(".iframe_body").attr("src");
 		alert(url);*/
 		
