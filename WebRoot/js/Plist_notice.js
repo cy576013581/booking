@@ -4,7 +4,9 @@
 var count;
 
 $(document).ready(function(){
-	
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="Pindex.html";
+	}
 	editdialog();
 	
 	getCount();

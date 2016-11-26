@@ -96,5 +96,5 @@ iframe {
     margin-left: -20px;
     margin-top: -20px;
     display: none;
-    z-index:2;
+    z-index:10;
 }

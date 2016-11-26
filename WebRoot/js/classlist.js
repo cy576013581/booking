@@ -13,7 +13,6 @@ mui.ready(function() {
 	window.indexedList = new mui.IndexedList(list);
 });
 $(document).ready(function(){
-	
 	$("#shapeloading").show();
 	$("#loading").show();
 	$(".icon_back").on("click",back);

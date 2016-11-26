@@ -2,6 +2,9 @@
  * Created by cy on 2016/8/15.
  */
 $(document).ready(function(){
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="Pindex.html";
+	}
    $(".btn_ok").on("click",function(){
 	   var position = $(".radio:checked").val();
        var roomname = $(".roomname").val();

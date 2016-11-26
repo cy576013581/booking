@@ -10,6 +10,9 @@ var username;
 
 
 $(document).ready(function(){
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="index.html";
+	}
 	$("#loading").show();
 	$("#shapeloading").show();
 	username = sessionStorage.getItem("username");

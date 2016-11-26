@@ -3,6 +3,9 @@
  */
 //$(".list_layout").load("schedule.html #schedule_layout",null,function(){alert("加载成功")});
 $(document).ready(function(){
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="index.html";
+	}
 	$(".icon_back").on("click",back);
 	getNotice();
 });
