@@ -2,6 +2,7 @@
  * Created by cy on 2016/8/15.
  */
 $(document).ready(function(){
+	
    $(".btn_ok").on("click",function(){
        var username = $(".username").val();
        var password = $(".password").val();

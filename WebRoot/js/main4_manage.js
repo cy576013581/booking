@@ -8,6 +8,9 @@ var bookingid;
 var elementid;
 var handleindex;
 $(document).ready(function(){
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="index.html";
+	}
 	$("#loading").show();
 	$("#shapeloading").show();
 	

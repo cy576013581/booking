@@ -2,7 +2,9 @@
  * Created by cy on 2016/8/15.
  */
 $(document).ready(function(){
-	
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="Pindex.html";
+	}
 	getRoom();
 	
 	$(".username").on("change",function(){

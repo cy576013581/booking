@@ -7,6 +7,9 @@ var name;
 var LocString;
 var username;
 $(document).ready(function(){
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="index.html";
+	}
 	LocString = window.location.href;
 	$(".icon_back").on("click",function(){
     	window.history.back(-1); 
@@ -29,22 +32,27 @@ $(document).ready(function(){
 
 function submit() {
 	var content=$("#inputcontent").val();
-	$.ajax({ //使用ajax与服务器异步交互
-        url:"Account?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
-        type:"POST",
-        data: {username:username,act:"updateAccount",type:act,value:content}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
-//        dataType:"json", //接收返回的数据方式为json
+	if(content==""){
+		mui.toast("所填内容不允许为空！");
+	}else{
+		$.ajax({ //使用ajax与服务器异步交互
+	        url:"Account?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+	        type:"POST",
+	        data: {username:username,act:"updateAccount",type:act,value:content}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+//	        dataType:"json", //接收返回的数据方式为json
 
-        error:function(XMLHttpRequest,textStatus,errorThrown){
-        	mui.toast("网络错误！");
-        }, //错误提示
+	        error:function(XMLHttpRequest,textStatus,errorThrown){
+	        	mui.toast("网络错误！");
+	        }, //错误提示
 
-        success:function(data){ //data为交互成功后，后台返回的数据
-        	mui.toast("修改成功！");
-        	window.history.back(-1); 
-        	
-        }
-    });
+	        success:function(data){ //data为交互成功后，后台返回的数据
+	        	mui.toast("修改成功！");
+	        	window.history.back(-1); 
+	        }
+	    });
+		return;
+	}
+	
 }
 
 function GetQueryString(str){

@@ -5,6 +5,9 @@ var username;
 var editid;
 var deleteid;
 $(document).ready(function(){
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="index.html";
+	}
     username = sessionStorage.getItem("username");
     getClass();
     $("#addclass").on("click",function(){

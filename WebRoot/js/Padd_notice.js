@@ -2,7 +2,10 @@
  * Created by cy on 2016/8/15.
  */
 $(document).ready(function(){
-   $(".btn_ok").on("click",function(){
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="Pindex.html";
+	}
+	$(".btn_ok").on("click",function(){
 
        var title = $(".title").val();
        var content = $(".content").val();

@@ -5,6 +5,9 @@
 var LocString;
 var id;
 $(document).ready(function(){
+	if(sessionStorage.getItem("username") == null){
+		window.location.href="index.html";
+	}
 	$("#loading").show();
 	$("#shapeloading").show();
 	
