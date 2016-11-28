@@ -246,6 +246,7 @@ public class Getschedule extends HttpServlet {
 		Map<String,String> dates = new HashMap<String, String>();
 		//获取格式的日期
 		Map<String,String> dateall = new HashMap<String, String>();
+		dates.put("monthday", strdate);
 		dates.put("month", month+"月");
 		dates.put("date1", String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
 		dateall.put("date1", sdf.format(date));
@@ -302,6 +303,7 @@ public class Getschedule extends HttpServlet {
 		Map<String,String> dates = new HashMap<String, String>();
 		//获取格式的日期
 		Map<String,String> dateall = new HashMap<String, String>();
+		dates.put("monthday", strdate);
 		dates.put("month", month+"月");
 		dates.put("date1", String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
 		dateall.put("date1", sdf.format(date));

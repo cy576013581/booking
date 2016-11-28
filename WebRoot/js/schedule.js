@@ -34,12 +34,10 @@ $(document).ready(function(){
 
 function doSwipeleft(){
 	var nowweek = $(".sel_week").children('option:selected').val();
-	$(".schedule_layout").fadeOut(100);
 	if(nowweek<20){
 		$(".sel_week").val(nowweek-(-1));
 		getWeek();
 	}
-	$(".schedule_layout").fadeIn(1000);
 }
 function doSwiperight(){
 	var nowweek = $(".sel_week").children('option:selected').val();
@@ -112,9 +110,11 @@ function getDataByWeek(){
         		var lesson = "lesson";
         		var date = data[int].classtime;
         		var section = data[int].section;
-        		var riqi = date.split("-");
-        		
-        		var num = riqi[riqi.length-1]-day+1;
+        		var dt = new Date(date);
+        		var num = dt.getDay();
+        		if(num==0){
+        			num=7;
+        		}
 //        		alert(num);
         		lesson = lesson + num + section;
         		var str=data[int].username+"-"+data[int].classname+"-"+data[int].coursename;

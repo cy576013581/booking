@@ -73,6 +73,23 @@ public class BookingDAO {
 		}, username);
 	}
 	
+	public int getbookingSum(String username,String start,String end) throws SQLException{
+		String sql = "select count(Id) from bookings where Username=? and Flag=0 and Classtime>=? and Classtime<=?";
+		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(ResultSet rs) throws SQLException {
+				
+				// TODO Auto-generated method stub
+				int n=0;
+				if(rs.next()){
+					n=rs.getInt(1);
+				}
+				return n;
+			}
+		}, username,start,end);
+	}
+	
 	//管理端
 	public int getCount() throws SQLException{
 		String sql = "select count(Id) from bookings where Flag=0";

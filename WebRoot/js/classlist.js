@@ -2,19 +2,11 @@
  * Created by cy on 2016/7/4.
  */
 //$(".list_layout").load("schedule.html #schedule_layout",null,function(){alert("加载成功")});
-mui.init();
-mui.ready(function() {
-	var header = document.querySelector('header.mui-bar');
-	var selectBox = document.getElementById('selectBox');
-	var list = document.getElementById('list');
-	//calc hieght
-	list.style.height = (document.body.offsetHeight - header.offsetHeight-selectBox.offsetHeight) + 'px';
-	//create
-	window.indexedList = new mui.IndexedList(list);
-});
+
 $(document).ready(function(){
 	$("#shapeloading").show();
 	$("#loading").show();
+	
 	$(".icon_back").on("click",back);
 	getRoom();
 	$("#nan").on("click",function(){

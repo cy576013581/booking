@@ -28,7 +28,6 @@ public class Classlist extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		if(CheckSession.check(request)){
 			RoomDAO cla = new RoomDAO();
 			try {
 				List<Map<String,String>> data = cla.findAllroom();
@@ -40,7 +39,7 @@ public class Classlist extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		
 		
 	}
 }

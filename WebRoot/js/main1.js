@@ -1,20 +1,22 @@
 /**
  * Created by cy on 2016/7/4.
  */
-mui.init();
-mui.ready(function() {
-	var header = document.querySelector('header.mui-bar');
-	var selectBox = document.getElementById('selectBox');
-	var list = document.getElementById('list');
-	//calc hieght
-	list.style.height = (document.body.offsetHeight - header.offsetHeight-selectBox.offsetHeight) + 'px';
-	//create
-	window.indexedList = new mui.IndexedList(list);
-});
+
 $(document).ready(function(){
+	
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="index.html";
 	}
+	mui.init();
+	mui.ready(function() {
+		var header = document.querySelector('header.mui-bar');
+		var selectBox = document.getElementById('selectBox');
+		var list = document.getElementById('list');
+		//calc hieght
+		list.style.height = (document.body.offsetHeight - header.offsetHeight-selectBox.offsetHeight) + 'px';
+		//create
+		window.indexedList = new mui.IndexedList(list);
+	});
 	$("#shapeloading").show();
 	$("#loading").show();
 	if(checkDate()==1){

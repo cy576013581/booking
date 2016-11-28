@@ -81,13 +81,11 @@ function getAlready() {
 function doSwipeleft(){
 	var nowweek = $(".sel_week").children('option:selected').val();
 //	alert(nowweek+"left");
-	$(".schedule_layout").fadeOut(100);
 	if(nowweek<20){
 		$(".sel_week").val(nowweek-(-1));
 		getWeek();
 
 	}
-	$(".schedule_layout").fadeIn(1000);
 }
 function doSwiperight(){
 	var nowweek = $(".sel_week").children('option:selected').val();
@@ -280,7 +278,9 @@ function getDataByWeek(){
 //            		var num = riqi[riqi.length-1]-day+1;//严重Bug
             		var dt = new Date(date);
             		var num = dt.getDay();
-            		
+            		if(num==0){
+            			num=7;
+            		}
 //            		alert("date"+date+"num"+num);
 //            		alert(num);
             		lesson = lesson + num + section;
@@ -293,7 +293,6 @@ function getDataByWeek(){
         }
     });
 }
-
 function switchClick() {
 	$("#loading").show();
 	$("#shapeloading").show();

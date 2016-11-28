@@ -33,12 +33,13 @@ $(document).ready(function(){
 	setClick();
 	
 	getbookingSum();
+	getNowSum();
 });
 
 function exportExcel() {
 	mui.toast("正在下载跳转中...");
 	var url = "CreateExcel?username="+username;
-	window.location.href=encodeURI(encodeURI(url));
+	window.location=encodeURI(encodeURI(url));
 }
 
 function getbookingSum(){
@@ -48,7 +49,7 @@ function getbookingSum(){
         data: {username:username,act:"getbookingSum"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"text", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+        	mui.toast('网络错误！');
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -58,26 +59,41 @@ function getbookingSum(){
         }
     });
 }
-
+function getNowSum(){
+	var nowweek = $(".sel_week").children('option:selected').val();
+	$.ajax({ //使用ajax与服务器异步交互
+        url:"Mybooking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+        type:"post",
+        data: {username:username,act:"getNowSum",nowweek:nowweek}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        dataType:"text", //接收返回的数据方式为json
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+        	mui.toast('网络错误！');
+        }, //错误提示
+        
+        success:function(data){ //data为交互成功后，后台返回的数据;
+//        	alert(data);
+        	$("#nowsum").text(data);
+        	
+        }
+    });
+}
 function doSwipeleft(){
 	var nowweek = $(".sel_week").children('option:selected').val();
 //	alert(nowweek+"left");
-	$(".schedule_layout").fadeOut(100);
 	if(nowweek<20){
 		$(".sel_week").val(nowweek-(-1));
 		getWeek();
+		getNowSum();
 	}
-	$(".schedule_layout").fadeIn(1000);
 }
 function doSwiperight(){
 	var nowweek = $(".sel_week").children('option:selected').val();
 //	alert(nowweek+"right");
-	$(".schedule_layout").fadeOut(100);
 	if(nowweek>1){
 		$(".sel_week").val(nowweek-1);
 		getWeek();
+		getNowSum();
 	}
-	$(".schedule_layout").fadeIn(1000);
 }
 
 
@@ -95,7 +111,7 @@ function getWeek(){
 	
 //	alert(weeks);
 	getDataByWeek();
-	
+	getNowSum();
 }
 
 var i =2;
@@ -172,14 +188,13 @@ function menuEdit() {
         data: {id:bookingid,act:"getBooking"}, 
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误,获取预定信息失败！");
-           
+            mui.toast("网络错误,获取预定信息失败！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
         	$("#roomname").val(data.roomid);
-        	$("#classname").find("option[text='"+data.classname+"']").attr("selected",true); 
-        	$("#coursename").find("option[text='"+data.coursename+"']").attr("selected",true); 
+        	$("#classname[name='"+data.classname+"']").attr("selected",true); 
+        	$("#coursename[name='"+data.coursename+"']").attr("selected",true); 
         	$("#weekes").val(data.weekes);
         	$("#week").val(data.week);
         	$("#section").val(data.section);
@@ -331,7 +346,7 @@ function getRoom(){//获取所有机房名称
         	var cla = new Array();
         	for (var i = 0; i < data.length; i++) {
 //        		alert(data[i].classname);
-        		var option = $("<option value='"+data[i].id+"'>"+ data[i].roomname +"</option>");
+        		var option = $("<option value='"+data[i].id+"' name='"+data[i].roomname+"'>"+ data[i].roomname +"</option>");
         		$("#roomname").append(option);
         	}
         	$("#roomname").selectmenu('refresh', true);//jqm 是动态加载的css 所以新增元素后 需要手动加载样式
@@ -356,7 +371,7 @@ function getClass(){
         	var cla = new Array();
         	for (var i = 0; i < data.length; i++) {
 //        		alert(data[i].classname);
-        		var option = $("<option>"+ data[i].classname +"</option>");
+        		var option = $("<option name='"+data[i].classname+"'>"+ data[i].classname +"</option>");
         		$("#classname").append(option);
         	}
         	$("#classname").selectmenu('refresh', true);//jqm 是动态加载的css 所以新增元素后 需要手动加载样式
@@ -422,7 +437,7 @@ function getDataByWeek(){
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据
-        	var day = data[0].date1;
+        	var monthday = data[0].monthday;
         	$("#month_first").text(data[0].month);
         	$(".date1").text(data[0].date1);
         	$(".date2").text(data[0].date2);
@@ -434,13 +449,15 @@ function getDataByWeek(){
 //        	alert(data.length);
         	for (var int = 1; int < data.length; int++) {
         			var lesson = "lesson";
-            		var date = data[int].classtime;
             		var section = data[int].section;
-            		var riqi = date.split("-");
-            		
-            		var num = riqi[riqi.length-1]-day+1;
-//            		alert(num);
+            		var dt = new Date(data[int].classtime);
+            		var num = dt.getDay();
+            		if(num==0){
+            			num=7;
+            		}
+//            		alert("num"+num+"endTime"+endTime);
             		lesson = lesson + num + section;
+//            		alert(num+"-"+section);
             		var str=data[int].roomname+"-"+data[int].classname+"-"+data[int].coursename;
             		if($("#"+lesson).text() != ""){
             			var old = $("#"+lesson).text();
@@ -458,5 +475,3 @@ function getDataByWeek(){
         }
     });
 }
-
-

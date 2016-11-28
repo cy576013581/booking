@@ -2,6 +2,9 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +18,7 @@ import org.json.JSONObject;
 
 import com.dao.BookingDAO;
 import com.dao.NoticeDAO;
+import com.dao.ScheduleDAO;
 import com.util.CheckSession;
 
 public class Mybooking extends HttpServlet {
@@ -32,6 +36,8 @@ public class Mybooking extends HttpServlet {
 		if(CheckSession.check(request)){
 			if(act.equals("getbookingSum")){
 				getbookingSum(request,response);
+			}else if(act.equals("getNowSum")){
+				getNowSum(request,response);
 			}else if(act.equals("getnoticeSum")){
 				getnoticeSum(request,response);
 			}else if(act.equals("getAllnotice")){
@@ -82,6 +88,33 @@ public class Mybooking extends HttpServlet {
 		NoticeDAO notice =new NoticeDAO();
 		try {
 			int sum = notice.getnoticeSum();
+			response.getWriter().println(sum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void getNowSum(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		String username = request.getParameter("username");
+		int nowweek = Integer.valueOf(request.getParameter("nowweek"));
+//		System.out.println(classname+"-"+coursename);
+		ScheduleDAO sche = new ScheduleDAO();
+		BookingDAO book =new BookingDAO();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		try {
+			String strWeek[] = sche.getWeek().split(",");
+			String start = strWeek[nowweek-1];
+			Date date = sdf.parse(start);
+			long time = date.getTime();
+			time+=6*24*60*60*1000; 
+			date = new Date(time);
+			String end = sdf.format(date);
+//			System.out.println(start+"-"+end);
+			int sum = book.getbookingSum(username,start,end);
+//			System.out.println(sum);
 			response.getWriter().println(sum);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
