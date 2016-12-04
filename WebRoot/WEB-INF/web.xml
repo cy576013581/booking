@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
+	<!-- 设置为首页 -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
   <servlet>
     <servlet-name>Login</servlet-name>
     <display-name>This is the display name of my J2EE component</display-name>
@@ -149,6 +154,13 @@
     <description>This is the description of my J2EE component</description>
     <servlet-class>com.servlet.CreateSumExcel</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Managerview</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>com.servlet.Managerview</servlet-class>
+  </servlet>
+
 
 
 
@@ -232,6 +244,10 @@
   <servlet-mapping>
     <servlet-name>CreateSumExcel</servlet-name>
     <url-pattern>/CreateSumExcel</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Managerview</servlet-name>
+    <url-pattern>/Managerview</url-pattern>
   </servlet-mapping>
   <error-page>
 	<error-code>404</error-code>

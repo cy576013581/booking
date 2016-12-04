@@ -6,7 +6,9 @@ $(document).ready(function () {
 		window.location.href="Pindex.html";
 	}
     bodyleft();
-
+    $(".header_left").on("click", function () {
+        $("#iframe").attr("src", "Pview.html");
+    });
 
     $("#schoolstart").on("click", function () {
         $("#iframe").attr("src", "Pset_schoolstart.html");

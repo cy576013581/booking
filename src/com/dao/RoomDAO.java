@@ -17,7 +17,19 @@ public class RoomDAO {
 		jdbcTemplete = new JdbcTemplete();
 	}
 	public List<Map<String,String>> findAllroom() throws SQLException{
-		String sql = "select Id,Roomname,Students,Position,Firstchar from rooms order by Firstchar";
+		String sql = "select Id,Roomname,Students,Branchid,Firstchar from rooms order by Firstchar";
+		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(final ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				return DataUtils.getHashMap(rs);
+			}
+		});
+	}
+	
+	public List<Map<String,String>> findAllBranch() throws SQLException{
+		String sql = "select * from branch";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -67,9 +79,9 @@ public class RoomDAO {
 		},pageindex,6);
 	}
 	
-	public void insertRoom(String roomname,String firstchar,int students,int position) throws SQLException{
-		String sql = "insert into rooms(Roomname,Firstchar,Students,Position) values(?,?,?,?)";
-		jdbcTemplete.update(sql,roomname,firstchar,students,position);
+	public void insertRoom(String roomname,String firstchar,int students,int branchid) throws SQLException{
+		String sql = "insert into rooms(Roomname,Firstchar,Students,Branchid) values(?,?,?,?)";
+		jdbcTemplete.update(sql,roomname,firstchar,students,branchid);
 	}
 	public void updateAll(int id,String roomname,String firstchar,int students) throws SQLException{
 		String sql = "update rooms set Roomname=?,Students=?,Firstchar=? where Id=?";
