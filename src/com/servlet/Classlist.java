@@ -2,6 +2,8 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.dao.RoomDAO;
+import com.dao.ScheduleDAO;
 import com.dao.UserDAO;
 import com.util.CheckSession;
 
@@ -28,18 +31,43 @@ public class Classlist extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-			RoomDAO cla = new RoomDAO();
-			try {
-				List<Map<String,String>> data = cla.findAllroom();
-//				List<Map<String,String>> data = dao.getNews(flag);
-				JSONArray result = new JSONArray(data);
-				response.setContentType("text/html;charset=utf-8");
-				response.getWriter().println(result.toString());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		String act = request.getParameter("act");
+		if(act.equals("getRoom")){
+			getRoom(request,response);
+		}else if(act.equals("getBranch")){
+			getBranch(request,response);
+		}
+			
 		
 		
+	}
+	public void getRoom(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		RoomDAO cla = new RoomDAO();
+		try {
+			List<Map<String,String>> data = cla.findAllroom();
+//			List<Map<String,String>> data = dao.getNews(flag);
+			JSONArray result = new JSONArray(data);
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().println(result.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void getBranch(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		RoomDAO cla = new RoomDAO();
+		try {
+			List<Map<String,String>> data = cla.findAllBranch();
+//			List<Map<String,String>> data = dao.getNews(flag);
+			JSONArray result = new JSONArray(data);
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().println(result.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

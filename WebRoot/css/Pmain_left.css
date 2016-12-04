@@ -39,57 +39,48 @@ li > a, a:hover {
 }
 
 .vtitle {
-    height: 35px;
-    background-color: #333333;
-    line-height: 35px;
-    border: 1px solid #333333;
+    height: 48px;
+    background-color: #3E3E3E;
+    line-height: 48px;
     margin-top: -1px;
     padding-left: 20px;
-    font-size: 15px;
-    color: #e4e5ff;
+    font-size: 16px;
+    color: #A3A7A6;
     font-family: "\5FAE\8F6F\96C5\9ED1";
     cursor: pointer;
 }
 
+.vtitle:hover {
+    color: #F36A5A;
+    text-decoration: none;
+    background: #575757;
+}
 .vtitle em {
     margin: 10px 10px 0 0;
 }
 
 .vconlist {
-    background: #333333;
+    background: #3E3E3E;
 }
 
 .vconlist li a {
-    height: 30px;
-    line-height: 30px;
-    padding-left: 40px;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 60px;
     display: block;
-    font-size: 14px;
-    color: #e4e5ff;
+    font-size: 15px;
+    color: #A3A7A6;
     font-family: "\5FAE\8F6F\96C5\9ED1";
     cursor: pointer;
 }
 
 .vconlist li.select a, .vconlist li a:hover {
-    color: #fff;
+    color: #F36A5A;
     text-decoration: none;
-    background: #5C5C5C;
+    background: #575757;
 }
 .clicking{
-	color: #fff;
+	color: #F36A5A !important;
     text-decoration: none;
-    background: #5C5C5C;
-}
-
-#managelist{
-    text-align: center;
-    font-size: 18px !important;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    height: 35px;
-    background-color: #333333;
-    line-height: 35px;
-    border: 1px solid #333333;
-    color: #e4e5ff;
-    font-family: "\5FAE\8F6F\96C5\9ED1";
+    background: #EDEDED;
 }

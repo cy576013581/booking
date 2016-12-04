@@ -66,7 +66,7 @@ function login() {
     	            	alert("登录成功！");
 //    	            	window.close();
 //    	              sessionStorage.username = $(".txt_username").val();
-//    	            	sessionStorage.setItem("username", $(".txt_username").val());
+    	            	sessionStorage.setItem("username", $(".username").val());
     	            	window.location.href="Pmain.html";
     	            }else if(flag==0){
     	            	alert("用户名或密码错误！");

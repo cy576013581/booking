@@ -7,6 +7,9 @@ iframe{
     border: none;
     padding: 0;
 }
+i{
+	display: inline;
+}
 
 .layout{
     width: 100%;
@@ -27,23 +30,27 @@ iframe{
     border-bottom: solid 1px #CCCCCC;
     background-color: #fff;
 }
-.title_icon1{
-    width: 35px;
-    height: 35px;
-    margin-top: 12px;
-    margin-left: 25px;
+.header_left{
+	width: 210px;
+	height: 70px;
+	background: #F36A5A;
+	cursor: pointer;
 }
-.title_text1{
-    font-size: 20px;
-    font-family: "Microsoft YaHei",sans-serif;/*设备默认字体*/
-    font-weight: 600;
-    color: #000;
-    line-height: 3px;
-    position: absolute;
-    top: 3px;
-    left: 70px;
+.title_icon{
+	height: 30px;
+	width: 30px;
+	margin-top: 20px;
+	margin-left: 20px;
 }
-
+.title_text{
+	position: absolute;
+	left: 58px;
+	top: 4px;
+	color: #fff;
+	font-size: 18px;
+	font-family: "Microsoft YaHei",sans-serif;/*设备默认字体*/;
+	font-weight: 600;
+}
 
 
 
@@ -56,20 +63,20 @@ iframe{
     margin: 0 auto;
 }
 .body_left{
-    width: 15%;
-    background-color: cornflowerblue;
+    width: 210px;
     position: fixed;
     left: 0;
     top: 70px;
     bottom: 0;
-    background: #333333; 
+    background: #3E3E3E; 
 }
 .body_right{
-    width: 85%;
+    width: calc(100% - 210px);
     text-align: center;
-    margin-left: 15%;
+    margin-left: 210px;
 }
 #iframe{
     width: 100%;
     height: 650px;
+    background: #EDEDED;
 }
