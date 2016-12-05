@@ -2,68 +2,70 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.dao.BookingDAO;
+import com.dao.RoomDAO;
+import com.dao.UserDAO;
+import com.util.CheckSession;
+
 public class Managerview extends HttpServlet {
 
-	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the GET method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		    doPost(request,response);
 	}
 
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		request.setCharacterEncoding("utf-8");
+		String act = request.getParameter("act");
+		if(CheckSession.check(request)){
+			if(act.equals("getCount")){
+				getCount(request,response);
+			}else if(act.equals("getSum")){
+				
+			}
+		}
+		
 	}
-
+	public void getCount(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		
+		int countuser = 0;
+		int countlogin = 0;
+		int countbooking = 0;
+		int countroom = 0;
+		UserDAO user = new UserDAO();
+		BookingDAO book = new BookingDAO();
+		RoomDAO room = new RoomDAO();
+		try {
+			countuser = user.getCount();
+			countlogin = user.getLoginCount();
+			countbooking = book.getCount();
+			countroom = room.getCount();
+//			System.out.println(data.get(0).get("id"));
+//			Map<String,String> data = dao.getNews(flag);
+			JSONObject data = new JSONObject();
+			data.put("countuser", countuser);
+			data.put("countlogin", countlogin);
+			data.put("countbooking", countbooking);
+			data.put("countroom", countroom);
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().println(data.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

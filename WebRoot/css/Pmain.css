@@ -30,6 +30,9 @@ i{
     border-bottom: solid 1px #CCCCCC;
     background-color: #fff;
 }
+.box_title1{
+	 height: 70px;
+}
 .header_left{
 	width: 210px;
 	height: 70px;
@@ -57,6 +60,14 @@ i{
 	right: 40px;
 	top: 25px;
 	cursor: pointer;
+}
+.username{
+	width:200px;
+	position:absolute;
+	left: 50%;
+	top:25px;
+	font:20px "Microsoft YaHei";
+	text-align: center;
 }
 
 

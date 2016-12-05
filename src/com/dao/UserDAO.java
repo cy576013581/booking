@@ -23,6 +23,11 @@ public class UserDAO {
 		jdbcTemplete.update(sql,username,password,depart,phone,power);
 	}
 	
+	public void insertLoginRecord(String username,String date) throws SQLException{
+		String sql = "insert into loginrecord(Username,Logindate) values(?,?)";
+		jdbcTemplete.update(sql,username,date);
+	}
+	
 	public boolean validate(String username,String password) throws SQLException{
 		String sql = "select Password,Depart,Power from users where Username=? and Password=?";
 		return (boolean) jdbcTemplete.query(sql, new ResultSetHandler() {
@@ -156,6 +161,22 @@ public class UserDAO {
 	
 	public int getCount() throws SQLException{
 		String sql = "select count(Username) from users";
+		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(final ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				int sum=0;
+				if(rs.next()){
+					sum = rs.getInt(1);
+				}
+				return sum;
+			}
+		});
+	}
+	
+	public int getLoginCount() throws SQLException{
+		String sql = "select COUNT(Id) from loginrecord where Logindate>=date(now()) and Logindate<DATE_ADD(date(now()),INTERVAL 1 DAY);";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override

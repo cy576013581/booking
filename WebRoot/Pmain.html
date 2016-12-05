@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>机房预定管理系统</title>
-    <link href="css/view/font-awesome.css" rel="stylesheet" />
+    <link href="css/sweetalert.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/Pmain.css" type="text/css">
     <link rel="stylesheet" href="css/Pmain_left.css" type="text/css">
     <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
     <script src="js/Pmain.js"></script>
 
 </head>
@@ -18,9 +19,9 @@
             <div class="header_left">
             	<img class="title_icon" src="image/icon_logo.png">
             	<p class="title_text">实验室预约系统</p>
-            	
             </div>
-            <img alt="退出登录" src="image/Pmain_exit.png">
+            <span class="username">---</span>
+            <img class="exit" alt="退出登录" src="image/Pmain_exit.png">
         </div>
     </div>
 
@@ -62,7 +63,7 @@
                     <li><a id="addnotice">添加公告</a></li>
                 </ul>
             </div>
-            <div class="vtitle"><em class="v"></em><img src="image/Pmain_export.png">Excel表格打印</div>
+            <div class="vtitle"><em class="v"></em><img src="image/Pmain_export.png">Excel表格导出</div>
             <div class="vcon" style="display: none;">
                 <ul class="vconlist clearfix">
                     <li><a id="teacherSch">教师课表</a></li>

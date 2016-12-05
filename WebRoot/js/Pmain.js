@@ -5,7 +5,25 @@ $(document).ready(function () {
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="Pindex.html";
 	}
+	$(".username").text(sessionStorage.getItem("username"));
     bodyleft();
+    $(".exit").on("click", function () {
+    	swal({
+    	    title: "您确定要退出系统吗?",
+    	    text: "您将退出实验室预定管理系统",
+    	    type: "warning",
+    	    showCancelButton: true,
+    	    confirmButtonColor: "#DD6B55",
+    	    confirmButtonText: "确定",
+    	    cancelButtonText: "返回",
+    	    closeOnConfirm: false,
+    	}, function () {
+    	    swal.close();
+    	    sessionStorage.removeItem("username");
+    	    window.location.href="Pindex.html";
+    	});
+    	
+    });
     $(".header_left").on("click", function () {
         $("#iframe").attr("src", "Pview.html");
     });

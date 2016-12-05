@@ -1,42 +1,78 @@
 /**
  * Created by cy on 2016/7/4.
  */
-//$(".list_layout").load("schedule.html #schedule_layout",null,function(){alert("加载成功")});
-
+var branchid = new Array();
+var areaname = new Array();
 $(document).ready(function(){
+	
 	$("#shapeloading").show();
 	$("#loading").show();
-	
 	$(".icon_back").on("click",back);
+	getBranch();//获取分区
+	Makebranch();
 	getRoom();
-	$("#nan").on("click",function(){
-		$(".position1").show();
-		$(".position2").hide();
-		$("#nan").addClass("border");
-		$("#bei").removeClass("border");
+	$(".branch").on("click",function(){
+		var eleid = $(this).attr("id");
+		var thisid = eleid.substring(8,eleid.length);
+		allHide();
+		$(".branchid"+thisid).show();
+		$(".branch").removeClass("border");
+		$("#branchid"+thisid).addClass("border");
 	});
-	$("#bei").on("click",function(){
-		$(".position2").show();
-		$(".position1").hide();
-		$("#bei").addClass("border");
-		$("#nan").removeClass("border");
-	});
-	$("#nan").click();
+	allHide();
+	$("#branchid"+branchid[0]).click();
+	$(".branchid"+branchid[0]).show();
 	$("#shapeloading").hide();
 	$("#loading").hide();
 });
+var myArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
-function back(){
-	window.history.back(-1); 
+function allHide() {
+	for(var i = 0; i < branchid.length; i++){
+		$(".branchid"+branchid[i]).hide();
+	}
 }
 
-var myArray = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+function Makebranch(){
+	var box = $("#selectBox");
+	for(var i = 0; i < branchid.length; i++){
+		var a;
+		if(i == 0){
+			a = $("<a class='branch border' id='branchid"+branchid[i]+"'>"+areaname[i]+"</a>");
+		}else{
+			a = $("<a class='branch' id='branchid"+branchid[i]+"'>"+areaname[i]+"</a>");
+		}
+		
+		box.append(a);
+	}
+	
+}
+
+function getBranch(){
+	$.ajax({ //使用ajax与服务器异步交互
+		async:false,
+        url:"Classlist?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+        type:"POST",
+        data: {act:"getBranch"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        dataType:"json", //接收返回的数据方式为json
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+        	mui.toast("网络错误！");
+        }, //错误提示
+        success:function(data){ //data为交互成功后，后台返回的数据
+        	for (var i = 0; i < data.length; i++) {
+        		branchid[i] = data[i].id;
+        		areaname[i] = data[i].areaname;
+			}
+        }
+    });
+}
+
 function getRoom(){
     $.ajax({ //使用ajax与服务器异步交互
     	async:false,
         url:"Classlist?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
         type:"POST",
-        data: {}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        data: {act:"getRoom"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
@@ -61,20 +97,20 @@ function getRoom(){
             			var char = data[i].firstchar.substring(0,1);
             			if(char == myArray[a]){
             				tool+=1;
-            				if(fenqu==parseInt(data[i].position) && tool==1){
-            					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group position"+ data[i].position +"'>"+char+"</li>");
+            				if(fenqu==parseInt(data[i].branchid) && tool==1){
+            					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group branchid"+ data[i].branchid +"'>"+char+"</li>");
                 				ul.append(firstli);
-//            					alert("1:feiqu"+fenqu+" tool "+ tool+" position "+ data[i].position);
+//            					alert("1:feiqu"+fenqu+" tool "+ tool+" branchid "+ data[i].branchid);
             						
             				}
-            				if(fenqu != parseInt(data[i].position)){
-            					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group position"+ data[i].position +"'>"+char+"</li>");
+            				if(fenqu != parseInt(data[i].branchid)){
+            					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group branchid"+ data[i].branchid +"'>"+char+"</li>");
                 				ul.append(firstli);
-                				fenqu = data[i].position;
-//            					alert("2:feiqu"+fenqu+" tool "+ tool+" position "+ data[i].position);
+                				fenqu = data[i].branchid;
+//            					alert("2:feiqu"+fenqu+" tool "+ tool+" branchid "+ data[i].branchid);
             					
             				}
-            				var li = $("<li  data-value='"+data[i].firstchar+"' data-tags='"+data[i].firstchar+"' class='mui-table-view-cell mui-indexed-list-item position"+ data[i].position +"'></li>");
+            				var li = $("<li  data-value='"+data[i].firstchar+"' data-tags='"+data[i].firstchar+"' class='mui-table-view-cell mui-indexed-list-item branchid"+ data[i].branchid +"'></li>");
             				var a =  $("<a target='_top' href=schedule.html?roomid="+data[i].id+"&roomname="+data[i].roomname+">"+data[i].roomname+"</a>");
             				
                         	var p = $("<p>可坐学生人数：  "+data[i].students+"人</p>");
@@ -92,3 +128,8 @@ function getRoom(){
         }
     });
 }
+
+function back(){
+	window.history.back(-1); 
+}
+

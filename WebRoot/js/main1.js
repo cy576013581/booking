@@ -37,6 +37,7 @@ $(document).ready(function(){
 		$("#branchid"+thisid).addClass("border");
 	});
 	allHide();
+	$("#branchid"+branchid[0]).click();
 	$(".branchid"+branchid[0]).show();
 	$("#shapeloading").hide();
 	$("#loading").hide();

@@ -2,6 +2,8 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,6 +45,7 @@ public class Login extends HttpServlet {
 		UserDAO dao = new UserDAO();
 		int flag=0;
 		try {
+			
 			JSONObject result = new JSONObject();
 			if(kaptchaValue == null || kaptchaValue == ""||!verifyCode.equalsIgnoreCase(kaptchaValue)) {
 				
@@ -71,10 +74,11 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException{
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		UserDAO dao = new UserDAO();
 		boolean flag=false;
 		try {
+			dao.insertLoginRecord(username, sdf.format(new Date()));
 			flag = dao.validate(username, password);
 			if(flag){
 				HttpSession session = request.getSession();
