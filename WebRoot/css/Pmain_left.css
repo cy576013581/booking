@@ -58,7 +58,12 @@ li > a, a:hover {
 .vtitle em {
     margin: 10px 10px 0 0;
 }
-
+.vtitle > img{
+	width: 18px;
+	margin-right:15px;
+	position: relative;
+	top:4px;
+}
 .vconlist {
     background: #3E3E3E;
 }

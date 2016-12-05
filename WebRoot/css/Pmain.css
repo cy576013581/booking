@@ -50,8 +50,19 @@ i{
 	font-size: 18px;
 	font-family: "Microsoft YaHei",sans-serif;/*设备默认字体*/;
 	font-weight: 600;
+<<<<<<< HEAD
 }
 
+=======
+}
+.box_title1 > img{
+	width:32px;
+	position:absolute;
+	right: 40px;
+	top: 25px;
+	cursor: pointer;
+}
+>>>>>>> chenyang
 
 
 
