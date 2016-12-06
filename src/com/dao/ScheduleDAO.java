@@ -117,7 +117,7 @@ public class ScheduleDAO {
 				+ "LEFT JOIN rooms AS b ON a.Roomid = b.Id "
 				+ "LEFT JOIN classinfo AS c ON a.Classid = c.Id "
 				+ "LEFT JOIN users AS d ON a.Username = d.Username "
-				+ "WHERE a.Flag = 0 and a.Classtime=? and b.Position=?";
+				+ "WHERE a.Flag = 0 and a.Classtime=? and b.Branchid=?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override

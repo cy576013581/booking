@@ -253,8 +253,6 @@ public class Managerbooking extends HttpServlet {
 		try {
 			int yearid = sche.getYearID();
 			data = booking.findAll(page,yearid);
-//			System.out.println(data.get(0).get("id"));
-//			List<Map<String,String>> data = dao.getNews(flag);
 			JSONArray result = new JSONArray(data);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());

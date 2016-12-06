@@ -34,7 +34,7 @@ $(document).ready(function(){
                 next_text:"下一页",
                 prev_text:"上一页",
                 num_edge_entries:2,//链接分页主体，显示的条目数
-                callback:handlePaginationClick
+                callback:handlePaginationClickBysearch
             });
         }
     });
@@ -286,7 +286,7 @@ function  getCount() {
 	return false;
 }
 
-function handlePaginationClick(new_page_index, pagination_container) {
+function handlePaginationClickBysearch(new_page_index, pagination_container) {
     // This selects 20 elements from a content array
 	var date = $(".searchbybookingdate").val();
 	var username = $(".searchbyteacher").val();

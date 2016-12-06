@@ -156,7 +156,12 @@ public class BookingDAO {
 	}
 	
 	public List<Map<String,String>> findAll(int pageindex,int yearid) throws SQLException{
-		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,a.Classtime,Bookingtime,Section from bookings  as a LEFT JOIN rooms as b ON a.Roomid=b.Id LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Yearid=? order by Classtime limit ?,?";
+		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,a.Classtime,Bookingtime,Section "
+				+ "from bookings  as a "
+				+ "LEFT JOIN rooms as b ON a.Roomid=b.Id "
+				+ "LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
+				+ "LEFT JOIN users AS d ON a.Username=d.Username "
+				+ "WHERE a.Flag=0 and a.Yearid=? order by Classtime limit ?,?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -165,7 +170,6 @@ public class BookingDAO {
 				final List<Map<String,String>> list = new ArrayList<Map<String,String>>();
 				Map<String,String> u;
 				while(rs.next()){
-//					System.out.println(p++);
 					u = new HashMap<String, String>();
 					u.put("id", String.valueOf(rs.getInt("Id")));
 					u.put("coursename", rs.getString("Coursename"));
@@ -179,10 +183,9 @@ public class BookingDAO {
 					u.put("section", rs.getString("Section"));
 					list.add(u);
 				}
-				
 				return list;
 			}
-		},pageindex,6,yearid);
+		},yearid,pageindex,6);
 	}
 	
 	public List<Map<String,String>> findAllbyusername(int pageindex,String username,int yearid) throws SQLException{
@@ -215,7 +218,7 @@ public class BookingDAO {
 				
 				return list;
 			}
-		},username,pageindex,6,yearid);
+		},username,yearid,pageindex,6);
 	}
 	
 	public List<Map<String,String>> findAllbySearch(int pageindex,String username,String date,int yearid) throws SQLException{

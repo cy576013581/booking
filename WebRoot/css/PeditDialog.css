@@ -18,7 +18,7 @@ body{
     display: none;
 }
 
-#SelectBox {
+#AddBox,#SelectBox {
     position: fixed;
     left: 0;
     right: 0;
@@ -35,7 +35,7 @@ body{
     text-align: center;
 }
 
-#dialogtitle{
+#addareaname,#dialogtitle{
 	margin-left: 65px!important;
 }
 
@@ -72,7 +72,7 @@ body{
     cursor: pointer;
 }
 
-#btn_ok {
+#btn_add,#btn_ok {
 	width: 100px;
     color: White;
     background: #4490f7;

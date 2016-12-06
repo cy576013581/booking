@@ -31,7 +31,7 @@ function getRoom() {
 //		async:false,
         url:"Classlist?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
         type:"POST",
-        data: {}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        data: {act:"getRoom"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
@@ -39,7 +39,7 @@ function getRoom() {
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据
-        	var ul = $("ol");
+        	var ul = $("ul");
         	ul.empty();
         	for (var i = 0; i < data.length; i++) {
 				var li = $("<li value='"+data[i].id+"'>"+data[i].roomname+"</li>")
