@@ -32,16 +32,7 @@ function submitdate(){
     var end = $("#endtime").val();
     var d1 = new Date(start);  
     var d2 = new Date(end); 
-     
-    if (start ==''){
-        alert("开启时间不能为空！");
-        $("#starttime").focus();
-        return false;
-    }else if(end ==''){
-        alert("关闭时间不能为空！");
-        $("#endtime").focus();
-        return false;
-    }else if(d1 >=d2)  
+    if(d1 >=d2)  
     {  
         alert("开始时间不能大于结束时间！");  
         return false;

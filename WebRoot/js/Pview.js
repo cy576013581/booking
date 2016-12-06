@@ -15,10 +15,10 @@ function getCount(){
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
-        	$("#sum_logins").text(data.countuser);
-        	$("#sum_bookings").text(data.countlogin);
-        	$("#sum_rooms").text(data.countbooking);
-        	$("#sum_users").text(data.countroom);
+        	$("#sum_logins").text(data.countlogin);
+        	$("#sum_bookings").text(data.countbooking);
+        	$("#sum_rooms").text(data.countroom);
+        	$("#sum_users").text(data.countuser);
         }
     });
 }

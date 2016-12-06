@@ -105,6 +105,7 @@ public class Mybooking extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
 		try {
+			int yearid = sche.getYearID();
 			String strWeek[] = sche.getWeek().split(",");
 			String start = strWeek[nowweek-1];
 			Date date = sdf.parse(start);
@@ -113,7 +114,7 @@ public class Mybooking extends HttpServlet {
 			date = new Date(time);
 			String end = sdf.format(date);
 //			System.out.println(start+"-"+end);
-			int sum = book.getbookingSum(username,start,end);
+			int sum = book.getbookingSum(username,start,end,yearid);
 //			System.out.println(sum);
 			response.getWriter().println(sum);
 		} catch (Exception e) {
@@ -127,8 +128,10 @@ public class Mybooking extends HttpServlet {
 		String username = request.getParameter("username");
 //		System.out.println(classname+"-"+coursename);
 		BookingDAO book =new BookingDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		try {
-			int sum = book.getbookingSum(username);
+			int yearid = sche.getYearID();
+			int sum = book.getbookingSum(username,yearid);
 			response.getWriter().println(sum);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

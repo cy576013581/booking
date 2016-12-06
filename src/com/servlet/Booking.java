@@ -69,19 +69,31 @@ public class Booking extends HttpServlet {
 		ScheduleDAO sche = new ScheduleDAO();
 		
 		try {
-			Map<String, String> map_time = sche.getSystemtime();
-			systemstart = sdf.parse(map_time.get("systemstart").replace('T', ' ').concat(":00"));
-			systemclose = sdf.parse(map_time.get("systemclose").replace('T', ' ').concat(":00"));
-			starttime = systemstart.getTime();
-			closetime = systemclose.getTime();
-			nowtime = date.getTime();
 			JSONObject result = new JSONObject();
-			if(nowtime>=starttime && nowtime<=closetime){
-				result.put("result", "1");
-//				System.out.println(1);
+			nowtime = date.getTime();
+			Map<String, String> map_time = sche.getSystemtime();
+			if(map_time.get("systemstart") ==null || map_time.get("systemstart") ==""){
+				if(map_time.get("systemclose") ==null || map_time.get("systemclose") ==""){
+					result.put("result", "1");
+				}else{
+					systemclose = sdf.parse(map_time.get("systemclose").replace('T', ' ').concat(":00"));
+					closetime = systemclose.getTime();
+					if(nowtime<=closetime){
+						result.put("result", "1");
+					}else{
+						result.put("result", "0");
+					}
+				}				
 			}else{
-				result.put("result", "0");
-//				System.out.println(0);
+				systemstart = sdf.parse(map_time.get("systemstart").replace('T', ' ').concat(":00"));
+				systemclose = sdf.parse(map_time.get("systemclose").replace('T', ' ').concat(":00"));
+				starttime = systemstart.getTime();
+				closetime = systemclose.getTime();
+				if(nowtime>=starttime && nowtime<=closetime){
+					result.put("result", "1");
+				}else{
+					result.put("result", "0");
+				}
 			}
 			
 			response.setContentType("text/html;charset=utf-8");
@@ -125,15 +137,16 @@ public class Booking extends HttpServlet {
 //		System.out.println(classname+"-"+coursename+"-"+classtime);
 		BookingDAO book = new BookingDAO();
 		try {
+			int yearid = sche.getYearID();
 			String bookingtime = sdf.format(new Date());
-			int classid = book.findByUsername(classname, coursename);
+			int classid = book.findByUsername(classname, coursename,yearid);
 //			System.out.println(classid);
 			JSONObject result = new JSONObject();
 //			System.out.println(roomid+"-"+classid+"-"+classtime+"-"+section);
-			boolean flag = book.checkBooking(roomid, classtime, section);
+			boolean flag = book.checkBooking(roomid, classtime, section,yearid);
 			if(flag){
-				book.booking(roomid, username, classid, classtime, bookingtime, section);
-				int successid = book.getBookingID(roomid, classtime, section);
+				book.booking(roomid, username, classid, classtime, bookingtime, section,yearid);
+				int successid = book.getBookingID(roomid, classtime, section,yearid);
 				result.put("state", "success");
 				result.put("id", successid);
 			}else{
@@ -230,12 +243,13 @@ public class Booking extends HttpServlet {
 //		System.out.println(classname+"-"+coursename+"-"+classtime);
 		BookingDAO book = new BookingDAO();
 		try {
+			int yearid = sche.getYearID();
 			String bookingtime = sdf.format(new Date());
-			int classid = book.findByUsername(classname, coursename);
+			int classid = book.findByUsername(classname, coursename,yearid);
 //			System.out.println(classid);
 			JSONObject result = new JSONObject();
 //			System.out.println(roomid+"-"+classid+"-"+classtime+"-"+section);
-			boolean flag = book.checkBooking(roomid, classtime, section);
+			boolean flag = book.checkBooking(roomid, classtime, section,yearid);
 			if(flag){
 				book.updateBooking(id, roomid, classid, classtime, bookingtime, section);;
 				result.put("state", "success");
@@ -286,8 +300,8 @@ public class Booking extends HttpServlet {
 			Date classdate;
 			
 			String strWeek[] = sche.getWeek().split(",");
-			
-			List<Map<String,String>> data = book.findAllByusername(username, roomid);
+			int yearid = sche.getYearID();
+			List<Map<String,String>> data = book.findAllByusername(username, roomid,yearid);
 //			System.out.println(data.size());
 			for (int i = 0; i < data.size(); i++) {
 				section = Integer.valueOf(data.get(i).get("section"));
@@ -332,26 +346,27 @@ public class Booking extends HttpServlet {
 		int section = Integer.valueOf(request.getParameter("section"));
 		String classtime = request.getParameter("classtime");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
+		ScheduleDAO sche = new ScheduleDAO();
 //		System.out.println(classname+"-"+coursename);
 		BookingDAO book =new BookingDAO();
 		try {
+			int yearid = sche.getYearID();
 			String bookingtime = sdf.format(new Date());
 //			System.out.println(bookingtime);
-			int classid = book.findByUsername(classname, coursename);
+			int classid = book.findByUsername(classname, coursename,yearid);
 			JSONObject result = new JSONObject();
 //			System.out.println(classname+"-"+coursename+"-"+classid);
 //			System.out.println(roomid+"-"+username+"-"+classid+"-"+classtime+"-"+bookingtime+"-"+section);
-			boolean flag = book.checkBooking(roomid, classtime, section);
+			boolean flag = book.checkBooking(roomid, classtime, section,yearid);
 //			System.out.println(flag);
 			if(flag){
-				book.booking(roomid, username, classid, classtime, bookingtime, section);
+				book.booking(roomid, username, classid, classtime, bookingtime, section,yearid);
 				result.put("state", "success");
 			}else{
 				//已经有人预定 
 				result.put("state", "error");
 			}
-			int maxid = book.getBookingID(roomid, classtime, section);
+			int maxid = book.getBookingID(roomid, classtime, section,yearid);
 			result.put("id", maxid);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 
 import com.dao.ClassDAO;
+import com.dao.ScheduleDAO;
 import com.util.CheckSession;
 
 public class GetClassInfo extends HttpServlet {
@@ -28,11 +29,15 @@ public class GetClassInfo extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		if(CheckSession.check(request)){
 			String act = request.getParameter("act");
+			ClassDAO cla = new ClassDAO();
+			ScheduleDAO sche = new ScheduleDAO();
+			
 			if(act.equals("getClass")){
 				String username = request.getParameter("username");
-				ClassDAO cla = new ClassDAO();
+				
 				try {
-					List<Map<String,String>> data = cla.getClass(username);;
+					int yearid = sche.getYearID();
+					List<Map<String,String>> data = cla.getClass(username,yearid);
 //					List<Map<String,String>> data = dao.getNews(flag);
 					JSONArray result = new JSONArray(data);
 					response.setContentType("text/html;charset=utf-8");
@@ -46,9 +51,9 @@ public class GetClassInfo extends HttpServlet {
 				String classname = request.getParameter("classname");
 				classname = URLDecoder.decode(classname,"UTF-8");
 //				System.out.println(classname);
-				ClassDAO cla = new ClassDAO();
 				try {
-					List<Map<String,String>> data = cla.getCourse(username,classname);
+					int yearid = sche.getYearID();
+					List<Map<String,String>> data = cla.getCourse(username,classname,yearid);
 //					List<Map<String,String>> data = dao.getNews(flag);
 					JSONArray result = new JSONArray(data);
 					response.setContentType("text/html;charset=utf-8");

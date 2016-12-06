@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import com.dao.BookingDAO;
 import com.dao.RoomDAO;
+import com.dao.ScheduleDAO;
 import com.dao.UserDAO;
 import com.util.CheckSession;
 
@@ -78,19 +79,21 @@ public class Managerbooking extends HttpServlet {
 		String username = request.getParameter("username");
 //		System.out.println("classtime"+classtime+"username"+username);
 		BookingDAO booking = new BookingDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		int sum =0;
 		try {
+			int yearid = sche.getYearID();
 			if(classtime.isEmpty() && !username.isEmpty()){
 //				System.out.println("username");
-				sum = booking.getCountbyusername(username);
+				sum = booking.getCountbyusername(username,yearid);
 			}
 			if(!classtime.isEmpty() && username.isEmpty()){
 //				System.out.println("classtime");
-				sum = booking.getCountbydate(classtime);
+				sum = booking.getCountbydate(classtime,yearid);
 			}
 			if(!classtime.isEmpty() && !username.isEmpty()){
 //				System.out.println("two");
-				sum = booking.getCountbydateandusername(classtime, username);
+				sum = booking.getCountbydateandusername(classtime, username,yearid);
 			}
 			
 //			List<Map<String,String>> data = dao.getNews(flag);
@@ -113,20 +116,22 @@ public class Managerbooking extends HttpServlet {
 		String username = request.getParameter("username");
 //		System.out.println("page"+page);
 		BookingDAO booking = new BookingDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		List<Map<String,String>> data = new ArrayList<>();
 		try {
+			int yearid = sche.getYearID();
 			if(classtime.isEmpty() && !username.isEmpty()){
 //				System.out.println("usernamesad");
-				data = booking.findAllbyusername(page,username);
+				data = booking.findAllbyusername(page,username,yearid);
 			}
 			if(!classtime.isEmpty() && username.isEmpty()){
 //				System.out.println("classtime");
 				
-				data = booking.findAllbydate(page,classtime);
+				data = booking.findAllbydate(page,classtime,yearid);
 			}
 			if(!classtime.isEmpty() && !username.isEmpty()){
 //				System.out.println("two");
-				data = booking.findAllbySearch(page, username, classtime);
+				data = booking.findAllbySearch(page, username, classtime,yearid);
 			}
 //			System.out.println(data.get(0).get("id"));
 //			List<Map<String,String>> data = dao.getNews(flag);
@@ -154,14 +159,16 @@ public class Managerbooking extends HttpServlet {
 		
 //		System.out.println(classname+"-"+coursename);
 		BookingDAO book =new BookingDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		try {
+			int yearid = sche.getYearID();
 			String bookingtime = sdf.format(new Date());
 			JSONObject result = new JSONObject();
-			int classid = book.findByUsername(classname, coursename);
+			int classid = book.findByUsername(classname, coursename,yearid);
 //			System.out.println(roomid+"-"+classid+"-"+classtime+"-"+section);
-			boolean flag = book.checkBooking(roomid, classtime, section);
+			boolean flag = book.checkBooking(roomid, classtime, section,yearid);
 			if(flag){
-				book.booking(roomid, username, classid, classtime, bookingtime, section);
+				book.booking(roomid, username, classid, classtime, bookingtime, section,yearid);
 				result.put("state", "success");
 			}else{
 				//已经有人预定 
@@ -190,15 +197,17 @@ public class Managerbooking extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		System.out.println(classname+"-"+coursename+"-"+classtime);
 		BookingDAO book = new BookingDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		try {
+			int yearid = sche.getYearID();
 			String bookingtime = sdf.format(new Date());
-			int classid = book.findByUsername(classname, coursename);
+			int classid = book.findByUsername(classname, coursename,yearid);
 //			System.out.println(classid);
 			JSONObject result = new JSONObject();
 //			System.out.println(roomid+"-"+classid+"-"+classtime+"-"+section);
-			boolean flag = book.checkBooking(roomid, classtime, section);
+			boolean flag = book.checkBooking(roomid, classtime, section,yearid);
 			if(flag){
-				book.booking(roomid, username, classid, classtime, bookingtime, section);
+				book.booking(roomid, username, classid, classtime, bookingtime, section,yearid);
 				UserDAO user = new UserDAO();
 				Map<String , String> map = user.getAccount(username);
 				result.put("state", "success");
@@ -239,9 +248,11 @@ public class Managerbooking extends HttpServlet {
 		int page = Integer.valueOf(request.getParameter("page"))*6;
 //		System.out.println("page"+page);
 		BookingDAO booking = new BookingDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		List<Map<String,String>> data = new ArrayList<>();
 		try {
-			data = booking.findAll(page);
+			int yearid = sche.getYearID();
+			data = booking.findAll(page,yearid);
 //			System.out.println(data.get(0).get("id"));
 //			List<Map<String,String>> data = dao.getNews(flag);
 			JSONArray result = new JSONArray(data);
@@ -256,9 +267,11 @@ public class Managerbooking extends HttpServlet {
 	public void getSum(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
 		BookingDAO booking = new BookingDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		int sum =0;
 		try {
-			sum = booking.getCount();
+			int yearid = sche.getYearID();
+			sum = booking.getCount(yearid);
 //			List<Map<String,String>> data = dao.getNews(flag);
 			JSONObject result = new JSONObject();
 			result.put("sum", sum);

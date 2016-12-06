@@ -16,8 +16,8 @@ public class ClassDAO {
 		jdbcTemplete = new JdbcTemplete();
 	}
 
-	public List<Map<String,String>> getClass(String username) throws SQLException{
-		String sql = "select DISTINCT Classname from classinfo where Username=? and Flag=0";
+	public List<Map<String,String>> getClass(String username,int yearid) throws SQLException{
+		String sql = "select DISTINCT Classname from classinfo where Username=? and Flag=0 and Yearid=?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -25,10 +25,10 @@ public class ClassDAO {
 				// TODO Auto-generated method stub
 				return DataUtils.getHashMap(rs);
 			}
-		},username);
+		},username,yearid);
 	}
-	public List<Map<String,String>> getCourse(String username,String classname) throws SQLException{
-		String sql = "select DISTINCT Coursename from classinfo where Username=? and classname =? and Flag=0";
+	public List<Map<String,String>> getCourse(String username,String classname,int yearid) throws SQLException{
+		String sql = "select DISTINCT Coursename from classinfo where Username=? and classname =? and Flag=0 and Yearid=?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -36,10 +36,10 @@ public class ClassDAO {
 				// TODO Auto-generated method stub
 				return DataUtils.getHashMap(rs);
 			}
-		},username,classname);
+		},username,classname,yearid);
 	}
-	public List<Map<String,String>> getClass1(String username) throws SQLException{
-		String sql = "select Id,Coursename,Classname,Students from classinfo where Username=? and Flag=0";
+	public List<Map<String,String>> getClass1(String username,int yearid) throws SQLException{
+		String sql = "select Id,Coursename,Classname,Students from classinfo where Username=? and Flag=0 and Yearid=?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -47,7 +47,7 @@ public class ClassDAO {
 				// TODO Auto-generated method stub
 				return DataUtils.getHashMap(rs);
 			}
-		},username);
+		},username,yearid);
 	}
 	
 	public Map<String,String> getClassById(int id) throws SQLException{
@@ -78,9 +78,9 @@ public class ClassDAO {
 		});
 	}
 	
-	public void addClass(String username,String coursename,String classname,int students) throws SQLException{
-		String sql = "insert into classinfo(Username,Coursename,Classname,Students,Flag) values(?,?,?,?,?)";
-		jdbcTemplete.update(sql,username,coursename,classname,students,0);
+	public void addClass(String username,String coursename,String classname,int students,int yearid) throws SQLException{
+		String sql = "insert into classinfo(Username,Coursename,Classname,Students,Flag,Yearid) values(?,?,?,?,?,?)";
+		jdbcTemplete.update(sql,username,coursename,classname,students,0,yearid);
 	}
 	public void editClass(int id,String coursename,String classname,int students) throws SQLException{
 		String sql = "update classinfo set Coursename=?,Classname=?,Students=? where Id=?";
