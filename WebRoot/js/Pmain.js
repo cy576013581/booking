@@ -52,6 +52,11 @@ $(document).ready(function () {
     });
 
 
+    $("#listbranch").on("click", function () {
+        $("#iframe").attr("src", "Plist_branch.html");
+        removeClass();
+        $("#listbranch").addClass("clicking");
+    });
     $("#listroom").on("click", function () {
         $("#iframe").attr("src", "Plist_room.html");
         removeClass();
@@ -117,6 +122,7 @@ function removeClass() {
 	$("#teacherSch").removeClass("clicking");
 	$("#roomSch").removeClass("clicking");
 	$("#positionSch").removeClass("clicking");
+	$("#listbranch").removeClass("clicking");
 }
 function bodyleft(){
     var tabs_i = 0

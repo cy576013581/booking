@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link href="css/Plistbase.css" rel="stylesheet" type="text/css">
+    <link href="css/PeditDialog.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/Plist_branch.js"></script>
+    <style>
+        #SelectBox{
+        	height: 180px !important;
+        }
+        #AddBox{
+        	height: 180px !important;
+        }
+        #btn_addBranch{
+        	margin-top: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+<div class="layout">
+    <div class="layout_header">
+        <h2 id="title">分区管理</h2>
+    </div>
+    <div class="layout_body">
+        <div class="box_body">
+            <table>
+                <tr>
+                    <th class="h1">校区名称</th>
+                    <th class="h2">操作</th>
+
+                </tr>
+            </table>
+            <button id="btn_addBranch">添加分区</button>
+        </div>
+    </div>
+    <div id="SelectBox">
+        <div class="row1">
+           	<span id="dialogtitle">编辑分区</span>
+           	 <span title="关闭窗口" class="close_btn" id="closeBtn">×</span>
+        </div>
+        <div class="row">
+             <p>校区名称：<input type="text" id="areaname"></p>
+        </div>
+        <p class="warning"></p>
+        <button id="btn_ok">确认修改</button>
+    </div>
+    <div id="AddBox">
+        <div class="row1">
+           	<span id="addareaname">添加分区</span>
+           	 <span title="关闭窗口" class="close_btn" id="closeBtn1">×</span>
+        </div>
+        <div class="row">
+             <p>校区名称：<input type="text" id="add_areaname"></p>
+        </div>
+        <p class="warning1"></p>
+        <button id="btn_add">确认添加</button>
+    </div>
+</div>
+
+</body>
+</html>

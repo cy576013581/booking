@@ -78,6 +78,19 @@ public class RoomDAO {
 			}
 		},pageindex,6);
 	}
+	public void deleteBranch(int id) throws SQLException{
+		String sql = "delete from branch where Id=?";
+		jdbcTemplete.update(sql,id);
+	}
+	
+	public void updateBranch(int id,String areaname) throws SQLException{
+		String sql = "update branch set Areaname=? where Id=?";
+		jdbcTemplete.update(sql,areaname,id);
+	}
+	public void insertBranch(String areaname) throws SQLException{
+		String sql = "insert into branch(Areaname) values(?)";
+		jdbcTemplete.update(sql,areaname);
+	}
 	
 	public void insertRoom(String roomname,String firstchar,int students,int branchid) throws SQLException{
 		String sql = "insert into rooms(Roomname,Firstchar,Students,Branchid) values(?,?,?,?)";
@@ -91,6 +104,10 @@ public class RoomDAO {
 	public void deleteRoom(int id) throws SQLException{
 		String sql = "delete from rooms where Id=?";
 		jdbcTemplete.update(sql,id);
+	}
+	public void deleteRoomByBranchid(int branchid) throws SQLException{
+		String sql = "delete from rooms where Branchid=?";
+		jdbcTemplete.update(sql,branchid);
 	}
 	
 }
