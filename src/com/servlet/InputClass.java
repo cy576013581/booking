@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import com.dao.BookingDAO;
 import com.dao.ClassDAO;
+import com.dao.ScheduleDAO;
 import com.util.CheckSession;
 
 public class InputClass extends HttpServlet {
@@ -53,10 +54,12 @@ public class InputClass extends HttpServlet {
 		int id = Integer.valueOf(request.getParameter("id"));
 //		System.out.println("id:"+id);
 		ClassDAO cla = new ClassDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		BookingDAO book = new BookingDAO();
 		try {
+			int yearid = sche.getYearID();
 			cla.deleteClass(id);
-			book.delByroomid(id);
+			book.delByroomid(id,yearid);
 			response.getWriter().println("true");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -92,10 +95,11 @@ public class InputClass extends HttpServlet {
 		String classname = request.getParameter("classname");
 		int students = Integer.valueOf(request.getParameter("students"));
 		ClassDAO cla = new ClassDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		try {
 			Map<String,String> data = new HashMap<String, String>();
-			
-			cla.addClass(username, coursename, classname, students);;
+			int yearid = sche.getYearID();
+			cla.addClass(username, coursename, classname, students,yearid);
 			int id = cla.getMaxId();
 //			System.out.println("id"+id);
 			data.put("id", String.valueOf(id));
@@ -129,8 +133,10 @@ public class InputClass extends HttpServlet {
 			throws ServletException, IOException{
 		String username = request.getParameter("username");
 		ClassDAO cla = new ClassDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		try {
-			List<Map<String,String>> data = cla.getClass1(username);
+			int yearid = sche.getYearID();
+			List<Map<String,String>> data = cla.getClass1(username,yearid);
 //			List<Map<String,String>> data = dao.getNews(flag);
 			JSONArray result = new JSONArray(data);
 			response.setContentType("text/html;charset=utf-8");

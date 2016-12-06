@@ -9,7 +9,11 @@
     </style>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/Pset_schoolstart.js"></script>
-
+	<style type="text/css">
+		#yearname,#selectdate{
+			width: 145px;
+		}
+	</style>
 </head>
 <body>
     <div class="layout">
@@ -21,6 +25,10 @@
             <div class="box_body">
                 <span>选择时间：</span>
                 <input type="date" id="selectdate" >
+                <br/>
+                <br/>
+                <span>学年名称：</span>
+                <input type="text" id="yearname" placeholder="例如：1617-1学年">
                 <br/>
                 <button id="btn_ok">确认</button>
             </div>

@@ -18,8 +18,8 @@ public class BookingDAO {
 		jdbcTemplete = new JdbcTemplete();
 	}
 	
-	public int findByUsername(String classname,String coursename) throws SQLException{
-		String sql = "select Id from classinfo where Classname=? and Coursename=? and Flag=0";
+	public int findByUsername(String classname,String coursename,int yearid) throws SQLException{
+		String sql = "select Id from classinfo where Classname=? and Coursename=? and Flag=0 and Yearid=?";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -32,17 +32,17 @@ public class BookingDAO {
 				}
 				return n;
 			}
-		}, classname,coursename);
+		}, classname,coursename,yearid);
 	}
 	
-	public void delByroomid(int roomid) throws SQLException{
-		String sql = "update bookings set Flag=1 where Roomid = ?";
-		jdbcTemplete.update(sql,roomid);
+	public void delByroomid(int roomid,int yearid) throws SQLException{
+		String sql = "update bookings set Flag=1 where Roomid = ? and Yearid=?";
+		jdbcTemplete.update(sql,roomid,yearid);
 	}
 	
 	
-	public List<Map<String,String>> findAllByusername(String username,int roomid) throws SQLException{
-		String sql = "select a2.Classname,a2.Coursename,Classtime,Section from bookings a1,classinfo a2 where a1.Username=? and a1.Roomid=? and a1.Flag=0 and a1.Classid = a2.Id order by a1.Classtime";
+	public List<Map<String,String>> findAllByusername(String username,int roomid,int yearid) throws SQLException{
+		String sql = "select a2.Classname,a2.Coursename,Classtime,Section from bookings a1,classinfo a2 where a1.Username=? and a1.Roomid=? and a1.Flag=0 and a1.Classid = a2.Id and a1.Yearid=? order by a1.Classtime";
 //		String sql = "select Classid,Classtime,Section from bookings where Username=? and Roomid=? and Flag=0";
 
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
@@ -53,11 +53,11 @@ public class BookingDAO {
 				List<Map<String,String>> list =  DataUtils.getHashMap(rs);
 				return list;
 			}
-		},username,roomid);
+		},username,roomid,yearid);
 	}
 	
-	public int getbookingSum(String username) throws SQLException{
-		String sql = "select count(Id) from bookings where Username=? and Flag=0";
+	public int getbookingSum(String username,int yearid) throws SQLException{
+		String sql = "select count(Id) from bookings where Username=? and Flag=0 and Yearid=?";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -70,11 +70,11 @@ public class BookingDAO {
 				}
 				return n;
 			}
-		}, username);
+		}, username,yearid);
 	}
 	
-	public int getbookingSum(String username,String start,String end) throws SQLException{
-		String sql = "select count(Id) from bookings where Username=? and Flag=0 and Classtime>=? and Classtime<=?";
+	public int getbookingSum(String username,String start,String end,int yearid) throws SQLException{
+		String sql = "select count(Id) from bookings where Username=? and Flag=0 and Classtime>=? and Classtime<=? and Yearid=?";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -87,12 +87,12 @@ public class BookingDAO {
 				}
 				return n;
 			}
-		}, username,start,end);
+		}, username,start,end,yearid);
 	}
 	
 	//管理端
-	public int getCount() throws SQLException{
-		String sql = "select count(Id) from bookings where Flag=0";
+	public int getCount(int yearid) throws SQLException{
+		String sql = "select count(Id) from bookings where Flag=0 and Yearid=?";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -104,11 +104,11 @@ public class BookingDAO {
 				}
 				return sum;
 			}
-		});
+		},yearid);
 	}
 	
-	public int getCountbydate(String date) throws SQLException{
-		String sql = "select count(Id) from bookings where Flag=0 and Bookingtime=?";
+	public int getCountbydate(String date,int yearid) throws SQLException{
+		String sql = "select count(Id) from bookings where Flag=0 and Bookingtime=? and Yearid=?";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -120,11 +120,11 @@ public class BookingDAO {
 				}
 				return sum;
 			}
-		},date);
+		},date,yearid);
 	}
 	
-	public int getCountbydateandusername(String date,String username) throws SQLException{
-		String sql = "select count(Id) from bookings where Flag=0 and Bookingtime=? and Username=?";
+	public int getCountbydateandusername(String date,String username,int yearid) throws SQLException{
+		String sql = "select count(Id) from bookings where Flag=0 and Bookingtime=? and Username=? and Yearid=?";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -136,11 +136,11 @@ public class BookingDAO {
 				}
 				return sum;
 			}
-		},date,username);
+		},date,username,yearid);
 	}
 	
-	public int getCountbyusername(String username) throws SQLException{
-		String sql = "select count(Id) from bookings where Flag=0 and Username=?";
+	public int getCountbyusername(String username,int yearid) throws SQLException{
+		String sql = "select count(Id) from bookings where Flag=0 and Username=? and Yearid=?";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -152,11 +152,11 @@ public class BookingDAO {
 				}
 				return sum;
 			}
-		},username);
+		},username,yearid);
 	}
 	
-	public List<Map<String,String>> findAll(int pageindex) throws SQLException{
-		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,a.Classtime,Bookingtime,Section from bookings  as a LEFT JOIN rooms as b ON a.Roomid=b.Id LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 order by Classtime limit ?,?";
+	public List<Map<String,String>> findAll(int pageindex,int yearid) throws SQLException{
+		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,a.Classtime,Bookingtime,Section from bookings  as a LEFT JOIN rooms as b ON a.Roomid=b.Id LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Yearid=? order by Classtime limit ?,?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -182,14 +182,14 @@ public class BookingDAO {
 				
 				return list;
 			}
-		},pageindex,6);
+		},pageindex,6,yearid);
 	}
 	
-	public List<Map<String,String>> findAllbyusername(int pageindex,String username) throws SQLException{
+	public List<Map<String,String>> findAllbyusername(int pageindex,String username,int yearid) throws SQLException{
 		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,"
 				+ "a.Classtime,Bookingtime,Section from bookings  as a LEFT JOIN rooms as b ON "
 				+ "a.Roomid=b.Id LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
-				+ "LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Username=? order by Classtime limit ?,?";
+				+ "LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Username=? and a.Yearid=? order by Classtime limit ?,?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -215,14 +215,14 @@ public class BookingDAO {
 				
 				return list;
 			}
-		},username,pageindex,6);
+		},username,pageindex,6,yearid);
 	}
 	
-	public List<Map<String,String>> findAllbySearch(int pageindex,String username,String date) throws SQLException{
+	public List<Map<String,String>> findAllbySearch(int pageindex,String username,String date,int yearid) throws SQLException{
 		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,"
 				+ "a.Classtime,Bookingtime,Section from bookings  as a LEFT JOIN rooms as b ON "
 				+ "a.Roomid=b.Id LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
-				+ "LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Username=? and a.Classtime=? order by Classtime limit ?,?";
+				+ "LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Yearid=? and a.Username=? and a.Classtime=? order by Classtime limit ?,?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -248,14 +248,14 @@ public class BookingDAO {
 				
 				return list;
 			}
-		},username,date,pageindex,6);
+		},username,date,pageindex,6,yearid);
 	}
 	
-	public List<Map<String,String>> findAllbydate(int pageindex,String date) throws SQLException{
+	public List<Map<String,String>> findAllbydate(int pageindex,String date,int yearid) throws SQLException{
 		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,"
 				+ "a.Classtime,Bookingtime,Section from bookings  as a LEFT JOIN rooms as b ON "
 				+ "a.Roomid=b.Id LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
-				+ "LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Classtime=? order by Classtime limit ?,?";
+				+ "LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Yearid=? and a.Classtime=? order by Classtime limit ?,?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -281,7 +281,7 @@ public class BookingDAO {
 				
 				return list;
 			}
-		},date,pageindex,6);
+		},date,pageindex,6,yearid);
 	}
 	
 	public Map<String,String> findbyId(int id) throws SQLException{
@@ -315,8 +315,8 @@ public class BookingDAO {
 		jdbcTemplete.update(sql,delid);
 	}
 	
-	public boolean checkBooking(int roomid,String classtime,int section) throws SQLException{
-		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0";
+	public boolean checkBooking(int roomid,String classtime,int section,int yearid) throws SQLException{
+		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0 and Yearid=?";
 		return (boolean)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -329,11 +329,11 @@ public class BookingDAO {
 					return true;
 				}
 			}
-		},roomid,classtime,section);
+		},roomid,classtime,section,yearid);
 	}
 	
-	public int selectBookingId(int roomid,String classtime,int section) throws SQLException{
-		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0";
+	public int selectBookingId(int roomid,String classtime,int section,int yearid) throws SQLException{
+		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0 and Yearid=?";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -346,11 +346,11 @@ public class BookingDAO {
 				}
 				return id;
 			}
-		},roomid,classtime,section);
+		},roomid,classtime,section,yearid);
 	}
 	
-	public int getBookingID(int roomid,String classtime,int section) throws SQLException{
-		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0";
+	public int getBookingID(int roomid,String classtime,int section,int yearid) throws SQLException{
+		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0 and Yearid=?";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -363,12 +363,12 @@ public class BookingDAO {
 				}
 				return id;
 			}
-		},roomid,classtime,section);
+		},roomid,classtime,section,yearid);
 	}
 	
-	public void booking(int roomid,String username,int classid,String classtime,String bookingtime,int section) throws SQLException{
-		String sql = "insert into bookings(Roomid,Username,Classid,Classtime,Bookingtime,Section,Flag) values(?,?,?,?,?,?,?)";
-		jdbcTemplete.update(sql,roomid,username,classid,classtime,bookingtime,section,0);
+	public void booking(int roomid,String username,int classid,String classtime,String bookingtime,int section,int yearid) throws SQLException{
+		String sql = "insert into bookings(Roomid,Username,Classid,Classtime,Bookingtime,Section,Flag,Yearid) values(?,?,?,?,?,?,?,?)";
+		jdbcTemplete.update(sql,roomid,username,classid,classtime,bookingtime,section,0,yearid);
 	}
 	//修改没有写
 	

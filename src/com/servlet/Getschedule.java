@@ -161,11 +161,10 @@ public class Getschedule extends HttpServlet {
 			throws ServletException, IOException{
 
 		ScheduleDAO sche = new ScheduleDAO();
-		String date =null;
+		Map<String, String> date = new HashMap<>();
 		try {
 			date = sche.getSchooldate();
-			JSONObject result = new JSONObject();
-			result.put("date", date);
+			JSONObject result = new JSONObject(date);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());
 //			response.getWriter().println(result.toString());
@@ -372,13 +371,14 @@ public class Getschedule extends HttpServlet {
 	public void insertSchoolDate(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
 		String date = request.getParameter("date");
+		String yearname = request.getParameter("yearname");
 		System.out.println(date);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		ScheduleDAO sche = new ScheduleDAO();
 		try {
 			String strweek = produceMonthday(date);
 			sche.deleteSchooldate();
-			sche.insertSchooldate(date, strweek);
+			sche.insertSchooldate(yearname,date, strweek);
 //			System.out.print(strweek.length());
 //			response.getWriter().println("succss");
 		} catch (Exception e) {

@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import com.dao.BookingDAO;
 import com.dao.RoomDAO;
+import com.dao.ScheduleDAO;
 import com.dao.UserDAO;
 import com.util.CheckSession;
 
@@ -49,10 +50,12 @@ public class Managerview extends HttpServlet {
 		UserDAO user = new UserDAO();
 		BookingDAO book = new BookingDAO();
 		RoomDAO room = new RoomDAO();
+		ScheduleDAO sche = new ScheduleDAO();
 		try {
+			int yearid = sche.getYearID();
 			countuser = user.getCount();
 			countlogin = user.getLoginCount();
-			countbooking = book.getCount();
+			countbooking = book.getCount(yearid);
 			countroom = room.getCount();
 //			System.out.println(data.get(0).get("id"));
 //			Map<String,String> data = dao.getNews(flag);

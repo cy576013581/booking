@@ -19,19 +19,36 @@ public class ScheduleDAO {
 	public ScheduleDAO(){
 		jdbcTemplete = new JdbcTemplete();
 	}
-	
+
+	public Integer getYearID() throws SQLException{
+		String sql = "select Id from schooldate WHERE Flag = 0";
+		return (Integer) jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				int id = 0;
+				if(rs.next()){
+					id = rs.getInt(1);
+				}
+				return id;
+				
+			}
+		});
+		 
+	}
 	public void deleteSchooldate() throws SQLException{
-		String sql = "delete from schooldate";
+		String sql = "UPDATE schooldate SET Flag=1";
 		jdbcTemplete.update(sql);
 	}
 	
-	public void insertSchooldate(String schooldate,String week) throws SQLException{
-		String sql = "insert into schooldate(Schooldate,Week_monday) values(?,?)";
-		jdbcTemplete.update(sql,schooldate,week);
+	public void insertSchooldate(String yearname,String schooldate,String week) throws SQLException{
+		String sql = "insert into schooldate(Yearname,Schooldate,Week_monday,Flag) values(?,?,?,0)";
+		jdbcTemplete.update(sql,yearname,schooldate,week);
 	}
 	
 	public String getWeek() throws SQLException{
-		String sql = "select Week_monday from schooldate";
+		String sql = "select Week_monday from schooldate WHERE Flag = 0";
 		return (String) jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -77,6 +94,7 @@ public class ScheduleDAO {
 		},username,date);
 	}
 	
+	//导出机房的Excel
 	public List<Map<String,String>> findClassbyroomid(String date,int roomid) throws SQLException{
 		String sql = "SELECT a.Classtime,a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,Section FROM	bookings AS a "
 				+ "LEFT JOIN rooms AS b ON a.Roomid = b.Id "
@@ -93,6 +111,7 @@ public class ScheduleDAO {
 		},date,roomid);
 	}
 	
+	//导出分校区的Excel
 	public List<Map<String,String>> findClassbyPosition(String date,int position) throws SQLException{
 		String sql = "SELECT b.Roomname,a.Classtime,a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,Section FROM bookings AS a "
 				+ "LEFT JOIN rooms AS b ON a.Roomid = b.Id "
@@ -121,16 +140,17 @@ public class ScheduleDAO {
 		},roomid);
 	}
 	
-	public String getSchooldate() throws SQLException{
-		String sql = "select Schooldate from schooldate";
-		return (String) jdbcTemplete.query(sql, new ResultSetHandler() {
+	public Map<String, String> getSchooldate() throws SQLException{
+		String sql = "select Schooldate,Yearname from schooldate WHERE Flag = 0";
+		return (Map<String, String>) jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
 			public Object doHandler(ResultSet rs) throws SQLException {
 				// TODO Auto-generated method stub
-				String date = null;
+				Map<String, String> date = new HashMap<String, String>();
 				if(rs.next()){
-					date = rs.getString(1);
+					date.put("date", rs.getString(1));
+					date.put("yearname", rs.getString(2));
 				}
 				return date;
 				
@@ -140,7 +160,7 @@ public class ScheduleDAO {
 	}
 	
 	public Map<String, String> getSystemtime() throws SQLException{
-		String sql = "select Systemstart,Systemclose from schooldate";
+		String sql = "select Systemstart,Systemclose from schooldate WHERE Flag = 0";
 		return (Map<String, String>) jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -148,10 +168,14 @@ public class ScheduleDAO {
 				// TODO Auto-generated method stub
 				Map<String, String> date = new HashMap<String, String>();
 				if(rs.next()){
-					String a = rs.getString(1).substring(0,16);
-					String b = rs.getString(2).substring(0,16);
-					a = a.replace(' ', 'T');
-					b = b.replace(' ', 'T');
+					String a ="";
+					String b ="";
+					if(rs.getString(1) != null){
+						a = rs.getString(1).substring(0,16).replace(' ', 'T');
+					}
+					if(rs.getString(2) != null){
+						b = rs.getString(2).substring(0,16).replace(' ', 'T');
+					}
 //					System.out.println(b);
 					date.put("systemstart", a);
 					date.put("systemclose", b);
@@ -164,7 +188,7 @@ public class ScheduleDAO {
 	}
 	
 	public void insertSystemtime(String start,String end) throws SQLException{
-		String sql = "update schooldate set Systemstart=?,Systemclose=?";
+		String sql = "update schooldate set Systemstart=?,Systemclose=? WHERE Flag = 0";
 		jdbcTemplete.update(sql,start,end);
 	}
 	
