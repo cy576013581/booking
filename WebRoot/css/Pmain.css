@@ -69,6 +69,14 @@ i{
 	font:20px "Microsoft YaHei";
 	text-align: center;
 }
+.boxyearname{
+	position:absolute;
+	left:230px;
+	top:40px;
+	font-family: "Microsoft YaHei",sans-serif;/*设备默认字体*/;
+	font-size: 15px;
+	color: #FF8C00;
+}
 
 
 

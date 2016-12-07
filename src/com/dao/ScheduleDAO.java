@@ -159,6 +159,24 @@ public class ScheduleDAO {
 		 
 	}
 	
+	public String getYearname() throws SQLException{
+		String sql = "select Yearname from schooldate WHERE Flag = 0";
+		return (String) jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				String name = null;
+				if(rs.next()){
+					name=rs.getString(1);
+				}
+				return name;
+				
+			}
+		});
+		 
+	}
+	
 	public Map<String, String> getSystemtime() throws SQLException{
 		String sql = "select Systemstart,Systemclose from schooldate WHERE Flag = 0";
 		return (Map<String, String>) jdbcTemplete.query(sql, new ResultSetHandler() {
