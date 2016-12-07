@@ -379,4 +379,21 @@ public class BookingDAO {
 		String sql = "update bookings set Roomid=?,Classid=?,Classtime=?,Bookingtime=?,Section=? where id=?";
 		jdbcTemplete.update(sql,roomid,classid,classtime,bookingtime,section,id);
 	}
+	
+	public int getBookingCount7(int day,int yearid) throws SQLException{
+		String sql = "SELECT count(Id) FROM bookings WHERE TO_DAYS( NOW( ) ) - TO_DAYS(Bookingtime) = ? and Yearid = ?";
+		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(final ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				int sum=0;
+				if(rs.next()){
+					sum = rs.getInt(1);
+				}
+				return sum;
+			}
+		},day,yearid);
+	}
+	
 }

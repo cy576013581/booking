@@ -7,6 +7,7 @@ $(document).ready(function () {
 	}
 	$(".username").text(sessionStorage.getItem("username"));
     bodyleft();
+    getYearname();
     $(".exit").on("click", function () {
     	swal({
     	    title: "您确定要退出系统吗?",
@@ -25,6 +26,7 @@ $(document).ready(function () {
     	
     });
     $(".header_left").on("click", function () {
+    	removeClass();
         $("#iframe").attr("src", "Pview.html");
     });
 
@@ -107,6 +109,24 @@ $(document).ready(function () {
         $("#positionSch").addClass("clicking");
     });
 });
+
+function getYearname(){
+    $.ajax({ //使用ajax与服务器异步交互
+    	async:false,
+        url:"Managerview?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+        type:"post",
+        data: {act:"getYearname"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        dataType:"json", //接收返回的数据方式为json
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            alert("网络错误！");
+        }, //错误提示
+        
+        success:function(data){ //data为交互成功后，后台返回的数据;
+        	$(".yearname").text(data.yearname);
+        }
+    });
+}
+
 
 function removeClass() {
 	$("#schoolstart").removeClass("clicking");

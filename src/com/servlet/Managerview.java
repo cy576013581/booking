@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,67 @@ public class Managerview extends HttpServlet {
 		if(CheckSession.check(request)){
 			if(act.equals("getCount")){
 				getCount(request,response);
-			}else if(act.equals("getSum")){
-				
+			}else if(act.equals("getLogin")){
+				getLogin(request,response);
+			}else if(act.equals("getBooking")){
+				getBooking(request,response);
+			}else if(act.equals("getYearname")){
+				getYearname(request,response);
 			}
+		}
+		
+	}
+	
+	public void getYearname(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		ScheduleDAO sche = new ScheduleDAO();
+		try {
+			String yearname = sche.getYearname();
+			JSONObject data = new JSONObject();
+			data.put("yearname", yearname);
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().println(data.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void getBooking(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		ScheduleDAO sche = new ScheduleDAO();
+		BookingDAO book = new BookingDAO();
+		JSONObject data = new JSONObject();
+		try {
+			int yearid = sche.getYearID();
+			int count;
+			for (int i = 1; i <= 7; i++) {
+				count = book.getBookingCount7(i, yearid);
+				data.put("day"+(8-i), count);
+			}
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().println(data.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public void getLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		UserDAO user = new UserDAO();
+		JSONObject data = new JSONObject();
+		try {
+			for (int i = 1; i <= 7; i++) {
+				data.put("day"+(8-i), user.getLoginCount7(i));
+			}
+			
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().println(data.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

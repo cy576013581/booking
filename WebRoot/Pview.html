@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
     
-	<!-- Bootstrap Styles-->
     <link href="css/view/bootstrap.css" rel="stylesheet" />
-    <!-- FontAwesome Styles-->
     <link href="css/view/font-awesome.css" rel="stylesheet" />
     <link href="css/view/custom-styles.css" rel="stylesheet" />
     <link href='css/Pview.css' rel='stylesheet' type='text/css' />
     
     <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/highcharts.js"></script>
     <script src="js/Pview.js"></script>
 </head>
 <body>
@@ -22,7 +21,7 @@
 	                        <div class="panel panel-primary">
 								<div class="number">
 									<h3>
-										<h3 id="sum_logins">44,023</h3>
+										<h3 id="sum_logins">0</h3>
 										<small>今日登陆</small>
 									</h3> 
 								</div>
@@ -39,7 +38,7 @@
 	                        <div class="panel panel-primary">
 								<div class="number">
 									<h3>
-										<h3 id="sum_bookings">32,850</h3>
+										<h3 id="sum_bookings">0</h3>
 										<small>预定统计</small>
 									</h3> 
 								</div>
@@ -56,7 +55,7 @@
 	                        <div class="panel panel-primary">
 								<div class="number">
 									<h3>
-										<h3 id="sum_rooms">56,150</h3>
+										<h3 id="sum_rooms">0</h3>
 										<small>机房总数</small>
 									</h3> 
 								</div>
@@ -73,7 +72,7 @@
 	                        <div class="panel panel-primary">
 								<div class="number">
 									<h3>
-										<h3 id="sum_users">89,645</h3>
+										<h3 id="sum_users">0</h3>
 										<small>用户总数</small>
 									</h3> 
 								</div>
@@ -85,8 +84,8 @@
                     </div>
 				   
                 </div>
-	
-	
+		
+		<div id="container" style="min-width:400px;height:400px"></div>	
 	</div>
 </body>
 </html>

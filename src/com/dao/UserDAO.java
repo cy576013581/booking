@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 
+
 import com.util.JdbcTemplete;
 import com.util.ResultSetHandler;
 
@@ -190,4 +191,21 @@ public class UserDAO {
 			}
 		});
 	}
+	
+	public int getLoginCount7(int day) throws SQLException{
+		String sql = "SELECT count(Id) FROM loginrecord WHERE TO_DAYS( NOW( ) ) - TO_DAYS(Logindate) = ?";
+		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(final ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				int sum=0;
+				if(rs.next()){
+					sum = rs.getInt(1);
+				}
+				return sum;
+			}
+		},day);
+	}
+	
 }

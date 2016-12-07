@@ -9,3 +9,6 @@ body{
 #sum_logins,#sum_bookings,#sum_rooms,#sum_users{
 	font-family: "Microsoft YaHei",sans-serif;/*设备默认字体*/
 }
+#container{
+	background-color: #fff;
+}
