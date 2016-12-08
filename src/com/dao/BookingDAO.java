@@ -381,7 +381,7 @@ public class BookingDAO {
 	}
 	
 	public int getBookingCount7(int day,int yearid) throws SQLException{
-		String sql = "SELECT count(Id) FROM bookings WHERE TO_DAYS( NOW( ) ) - TO_DAYS(Bookingtime) = ? and Yearid = ?";
+		String sql = "SELECT count(Id) FROM bookings WHERE TO_DAYS( NOW( ) ) - TO_DAYS(Bookingtime) = ? and Yearid = ? and Flag=0";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override

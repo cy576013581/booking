@@ -135,7 +135,7 @@ public class ExportExcel {
 	public void wirteExcel(String sheetName[],String titleName[][],int titleSize[],String[][][] dataList){
     	//添加Worksheet（不添加sheet时生成的xls文件打开时会报错)
 		OutputStream out = null;
-		try {
+		/*try {
 			if(fileDir!=null){
 				//有文件路径
 				
@@ -153,6 +153,18 @@ public class ExportExcel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		*/
+		
+		try {
+			out = response.getOutputStream();
+			fileName = fileName+".xls";
+			response.setContentType("application/x-msdownload");
+			response.setHeader("Content-Disposition", "attachment; filename="
+					+ URLEncoder.encode(fileName, "UTF-8"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
     	for(int sheetindex = 0; sheetindex < 20; sheetindex++){

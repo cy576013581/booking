@@ -110,9 +110,23 @@ public class Mybooking extends HttpServlet {
 			String start = strWeek[nowweek-1];
 			Date date = sdf.parse(start);
 			long time = date.getTime();
-			time+=6*24*60*60*1000; 
-			date = new Date(time);
-			String end = sdf.format(date);
+			String end = null;
+			if(nowweek ==1){
+				c.setTime(date);
+				int weekday=c.get(Calendar.DAY_OF_WEEK)-1;
+				if(weekday == 0){
+					weekday = 7;
+				}
+//				System.out.println("weekday"+weekday);
+				time+=(7-weekday)*24*60*60*1000; 
+				date = new Date(time);
+				end = sdf.format(date);
+			}else{
+				time+=6*24*60*60*1000; 
+				date = new Date(time);
+				end = sdf.format(date);
+			}
+			
 //			System.out.println(start+"-"+end);
 			int sum = book.getbookingSum(username,start,end,yearid);
 //			System.out.println(sum);
