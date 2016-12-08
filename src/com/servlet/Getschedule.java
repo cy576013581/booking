@@ -245,26 +245,59 @@ public class Getschedule extends HttpServlet {
 		Map<String,String> dates = new HashMap<String, String>();
 		//获取格式的日期
 		Map<String,String> dateall = new HashMap<String, String>();
-		dates.put("monthday", strdate);
-		dates.put("month", month+"月");
-		dates.put("date1", String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
-		dateall.put("date1", sdf.format(date));
-		for (int i = 0; i < 6; i++) {
-			long time = date.getTime(); 
-			time+=24*60*60*1000; 
-			date = new Date(time);
-//			System.out.println(sdf.format(date));
-			dateall.put("date"+(i+2), sdf.format(date));
-			c.setTime(date);
-			if(c.get(Calendar.MONTH)+1 == month){
-//				System.out.println("tian"+(c.get(Calendar.MONTH)+1));
-				dates.put("date"+(i+2), String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
+		int weekday=c.get(Calendar.DAY_OF_WEEK)-1;
+//		System.out.println("weekday" + weekday);
+		if(weekday == 0){
+			weekday = 7;
+		}
+		if(weekday == 1){
+			dates.put("monthday", strdate);
+			dates.put("month", month+"月");
+			dates.put("date1", String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
+			dateall.put("date1", sdf.format(date));
+			for (int i = 0; i < 6; i++) {
+				long time = date.getTime(); 
+				time+=24*60*60*1000;
+				date = new Date(time);
+//				System.out.println(sdf.format(date));
+				dateall.put("date"+(i+2), sdf.format(date));
+				c.setTime(date);
+				if(c.get(Calendar.MONTH)+1 == month){
+//					System.out.println("tian"+(c.get(Calendar.MONTH)+1));
+					dates.put("date"+(i+2), String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
+					
+				}else {
+					dates.put("date"+(i+2), (c.get(Calendar.MONTH)+1)+"月");
+					month=c.get(Calendar.MONTH)+1;
+				}
+			}
+		}else{
+			dates.put("monthday", strdate);
+			dates.put("month", month+"月");
+			for(int i = 1; i < weekday; i++){
+				dates.put("date"+i, "未开放");
+				dateall.put("date"+i, "");
+			}
+			for (int i = weekday; i <= 7; i++) {
+//				System.out.println(sdf.format(date));
+				dateall.put("date"+i, sdf.format(date));
 				
-			}else {
-				dates.put("date"+(i+2), (c.get(Calendar.MONTH)+1)+"月");
-				month=c.get(Calendar.MONTH)+1;
+				
+				if(c.get(Calendar.MONTH)+1 == month){
+//					System.out.println("tian"+(c.get(Calendar.MONTH)+1));
+					dates.put("date"+i, String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
+					
+				}else {
+					dates.put("date"+i, (c.get(Calendar.MONTH)+1)+"月");
+					month=c.get(Calendar.MONTH)+1;
+				}
+				long time = date.getTime(); 
+				time+=24*60*60*1000;
+				date = new Date(time);
+				c.setTime(date);
 			}
 		}
+		
 //		System.out.println(dateall);
 		list.add(dates);
 		for (int i = 1; i < 8; i++) {
@@ -302,27 +335,60 @@ public class Getschedule extends HttpServlet {
 		Map<String,String> dates = new HashMap<String, String>();
 		//获取格式的日期
 		Map<String,String> dateall = new HashMap<String, String>();
-		dates.put("monthday", strdate);
-		dates.put("month", month+"月");
-		dates.put("date1", String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
-		dateall.put("date1", sdf.format(date));
-		for (int i = 0; i < 6; i++) {
-			long time = date.getTime(); 
-			time+=24*60*60*1000; 
-			date = new Date(time);
-//			System.out.println(sdf.format(date));
-			dateall.put("date"+(i+2), sdf.format(date));
-			c.setTime(date);
-			if(c.get(Calendar.MONTH)+1 == month){
-//				System.out.println("tian"+(c.get(Calendar.MONTH)+1));
-				dates.put("date"+(i+2), String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
+		
+		int weekday=c.get(Calendar.DAY_OF_WEEK)-1;
+		
+//		System.out.println("weekday" + weekday);
+		if(weekday == 0){
+			weekday = 7;
+		}
+		if(weekday == 1){
+			dates.put("monthday", strdate);
+			dates.put("month", month+"月");
+			dates.put("date1", String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
+			dateall.put("date1", sdf.format(date));
+			for (int i = 0; i < 6; i++) {
+				long time = date.getTime(); 
+				time+=24*60*60*1000;
+				date = new Date(time);
+//				System.out.println(sdf.format(date));
+				dateall.put("date"+(i+2), sdf.format(date));
+				c.setTime(date);
+				if(c.get(Calendar.MONTH)+1 == month){
+//					System.out.println("tian"+(c.get(Calendar.MONTH)+1));
+					dates.put("date"+(i+2), String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
+					
+				}else {
+					dates.put("date"+(i+2), (c.get(Calendar.MONTH)+1)+"月");
+					month=c.get(Calendar.MONTH)+1;
+				}
+			}
+		}else{
+			dates.put("monthday", strdate);
+			dates.put("month", month+"月");
+			for(int i = 1; i < weekday; i++){
+				dates.put("date"+i, "未开放");
+				dateall.put("date"+i, "");
+			}
+			for (int i = weekday; i <= 7; i++) {
+//				System.out.println(sdf.format(date));
+				dateall.put("date"+i, sdf.format(date));
 				
-			}else {
-				dates.put("date"+(i+2), (c.get(Calendar.MONTH)+1)+"月");
-				month=c.get(Calendar.MONTH)+1;
+				
+				if(c.get(Calendar.MONTH)+1 == month){
+//					System.out.println("tian"+(c.get(Calendar.MONTH)+1));
+					dates.put("date"+i, String.valueOf(c.get(Calendar.DAY_OF_MONTH)));
+					
+				}else {
+					dates.put("date"+i, (c.get(Calendar.MONTH)+1)+"月");
+					month=c.get(Calendar.MONTH)+1;
+				}
+				long time = date.getTime(); 
+				time+=24*60*60*1000;
+				date = new Date(time);
+				c.setTime(date);
 			}
 		}
-//		System.out.println(dateall);
 		list.add(dates);
 		for (int i = 1; i < 8; i++) {
 			String riqi = dateall.get("date"+i);

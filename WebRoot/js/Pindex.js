@@ -4,18 +4,21 @@ $(document).ready(function() {
         $(this).parent().find('.error').fadeOut('fast');
     });
 	
-	function changeVerifyCode(){
-        $("#yzmImg").attr("src","Kaptcha.jpg?"+Math.floor(Math.random()*100));
-    }
-	
+	changeVerifyCode();
+	$("#yzmImg").on("click",function(){
+		changeVerifyCode();
+	});
     $('#btn_ok').on("click",login);
 
     
 
 });
 
+function changeVerifyCode(){
+    $("#yzmImg").attr("src","Kaptcha.jpg?"+Math.floor(Math.random()*100));
+}
+
 function login() {
-	
 	var verifyCode = $("#verifyCode").val();
 	var username = $(".username").val();
     var password = $(".password").val();
@@ -70,8 +73,10 @@ function login() {
     	            	window.location.href="Pmain.html";
     	            }else if(flag==0){
     	            	alert("用户名或密码错误！");
+    	            	changeVerifyCode();
     				}else if(flag==2){
     	            	alert("验证码错误！");
+    	            	changeVerifyCode();
     				}
     	        }
     	       

@@ -10,7 +10,7 @@ $(document).ready(function () {
 	
    $("#btn_ok").on("click",function(){
 	    var position = $(".areaname").children('option:selected').val();
-	    alert(position);
+//	    alert(position);
         var url = "CreateSumExcel?position="+position;
         window.open(encodeURI(encodeURI(url)));
     });

@@ -62,7 +62,7 @@ function handlePaginationClick(new_page_index, pagination_container) {
 				(function(i) {
 					var tr = $("<tr class='tr_td id"+data[i].id+"'></tr>");
 					var td1 = $("<td class='title"+i+"'>"+data[i].title+"</td>");
-					var td2 = $("<td class='content"+i+"'>"+data[i].content+"</td>");
+					var td2 = $("<td class='content content"+i+"'>"+data[i].content+"</td>");
 					var td3 = $("<td class='releasetime"+i+"'>"+data[i].releasetime+"</td>");
 					var td4 = $("<td></td>");
 					var btn_edit = $("<button class='btn_edit'>编辑</button>");
