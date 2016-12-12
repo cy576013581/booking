@@ -7,6 +7,7 @@ var username;
 var bookingid;
 var elementid;
 var handleindex;
+var selcoursename="";
 $(document).ready(function(){
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="index.html";
@@ -26,7 +27,9 @@ $(document).ready(function(){
     $(".schedule_body").on("swipeleft",doSwipeleft);
     $(".schedule_body").on("swiperight",doSwiperight);
     $("#dowmload").on("click",exportExcel);
-    $("#classname").on("change",getCourse);
+    $("#classname").on("change",function(){
+    	getCourse();
+    });
     
     $("#loading").hide();
 	$("#shapeloading").hide();
@@ -55,7 +58,6 @@ function getbookingSum(){
         success:function(data){ //data为交互成功后，后台返回的数据;
 //        	alert(data);
         	$("#sum").text(data);
-        	
         }
     });
 }
@@ -155,10 +157,7 @@ function menuDelete() {//菜单删除事件
 									strid = arryid[i];
 									strtext = arrytext[i];
 								}
-								
 							}
-							
-							
 						}
 						$("#"+elementid).text(strtext);
 			        	$("#"+elementid).attr("value",strid);
@@ -170,18 +169,16 @@ function menuDelete() {//菜单删除事件
 		        	$("#sum").text($("#sum").text()-1);
 		        	mui.toast('您的预定已经成功删除！');
 		        	swal.close();
-//		        	swal("Deleted!", "您的预定已经成功删除！", "success");
-		        	
 		        }
 		    });
 		});
 }
 
 function menuEdit() {
-	mui('#sheet1').popover('toggle');
+	
+	
 	getRoom();
-	getClass();//获取编辑框班级下拉框的教师班级
-//	alert(bookingid);
+	getClass();
 	$.ajax({ //根据id获取原来的预定信息
         url:"Booking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
         type:"post",
@@ -190,25 +187,28 @@ function menuEdit() {
         error:function(XMLHttpRequest,textStatus,errorThrown){
             mui.toast("网络错误,获取预定信息失败！");
         }, //错误提示
-        
         success:function(data){ //data为交互成功后，后台返回的数据;
+//        	alert(data.classname);
+//        	alert("edit:"+data.coursename);
         	$("#roomname").val(data.roomid);
-        	$("#classname[name='"+data.classname+"']").attr("selected",true); 
-        	$("#coursename[name='"+data.coursename+"']").attr("selected",true); 
-        	$("#weekes").val(data.weekes);
+        	selcoursename = data.coursename;
+        	$("#classname").val(data.classname);
+//        	$("#coursename").val(data.coursename);
+        	
+        	$("#weeks").val(data.weeks);
         	$("#week").val(data.week);
         	$("#section").val(data.section);
-        	//手动触发一次
-//        	alert(data.classname+"-----"+data.coursename);
+        	
+        	
         	$("#roomname").trigger("change");
-        	$("#classname").trigger("change");  //失效
-        	$("#coursename").trigger("change"); //失效
-        	$("#weekes").trigger("change");
+        	$("#classname").trigger("change");  
+        	
+        	$("#weeks").trigger("change");
         	$("#week").trigger("change");
         	$("#section").trigger("change");
-        	
         }
     });
+	mui('#sheet1').popover('toggle');
 	
 	$("#edit_btn_ok").on("click",function(){
 		var classname = $("#classname").children('option:selected').val();
@@ -221,7 +221,7 @@ function menuEdit() {
 		$.ajax({ //使用ajax与服务器异步交互
 	        url:"Booking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
 	        type:"post",
-	        data: {id:bookingid,act:"updateBooking",classname:classname,coursename:coursename,weeks:weekes,week:week,section:section,roomid:roomid}, 
+	        data: {id:bookingid,act:"updateBooking",classname:classname,coursename:coursename,weeks:weekes,week:week,section:section,roomid:roomid,username:username}, 
 	        dataType:"json", //接收返回的数据方式为json
 	        error:function(XMLHttpRequest,textStatus,errorThrown){
 	            alert("网络错误！");
@@ -232,46 +232,70 @@ function menuEdit() {
 	        	var nowweek = $(".sel_week").children('option:selected').val();
 	        	if(state == "success"){
 	        		mui.toast("预定修改成功！");
-	        		var arryid = $("#"+elementid).attr("value").split('-');
-					var arrytext = $("#"+elementid).text().split('、');
-	        		if("#"+elementid != "#lesson"+week+section){
-//						alert(arryid.length);
-						var strid;
-						var strtext;
-						for(var i=0;i<arryid.length;i++){
-							if(i!= handleindex){
-								if(strid != null){
-									strid =  strid + "-" + arryid[i];
+	        		if($("#"+elementid).attr("value").indexOf("-")>=0){
+	        			//是同一时段多节课的booking
+	        			var arryid = $("#"+elementid).attr("value").split('-');
+						var arrytext = $("#"+elementid).text().split('、');
+		        		if("#"+elementid != "#lesson"+week+section){//如果操作的不是同一个时间段的课
+							alert(1);
+							alert("length:"+arryid.indexOf("-"));
+							var strid;
+							var strtext;
+							for(var i=0;i<arryid.length;i++){
+								if(i!= handleindex){
+									if(strid != null){
+										strid =  strid + "-" + arryid[i];
+										strtext = strtext + "、" + arrytext[i];
+									}else{
+										strid = arryid[i];
+										strtext = arrytext[i];
+									}
+								}
+							}
+							$("#"+elementid).text(strtext);
+				        	$("#"+elementid).attr("value",strid);
+				        	if(weekes == nowweek){
+			        			var roomname = $("#roomname").children('option:selected').text(); 
+			        			$("#lesson"+week+section).text(roomname+"-"+classname+"-"+coursename);
+			        			alert("handleindex" + handleindex);
+//			        			alert("id"+arryid[handleindex]);
+			        			$("#lesson"+week+section).attr("value",arryid[handleindex]);
+			        			$("#"+elementid).text("");
+					        	$("#"+elementid).attr("value","");
+			        		}
+			        	}else{
+			        		alert(2);
+			        		var strid;
+							var strtext;
+							var roomname = $("#roomname").children('option:selected').text(); 
+							arrytext[handleindex] = roomname+"-"+classname+"-"+coursename;
+							for(var i=0;i<arrytext.length;i++){
+								if(strtext != null){
 									strtext = strtext + "、" + arrytext[i];
 								}else{
-									strid = arryid[i];
 									strtext = arrytext[i];
-								}
-								
+								}	
 							}
-							
-						}
-						$("#"+elementid).text(strtext);
-			        	$("#"+elementid).attr("value",strid);
-			        	if(weekes == nowweek){
-		        			var roomname = $("#roomname").children('option:selected').text(); 
-		        			$("#lesson"+week+section).text(roomname+"-"+classname+"-"+coursename);
-		        			$("#lesson"+week+section).attr("value",arryid[handleindex]);
-		        		}
-		        	}else{//没有多组数据情况
-		        		var strid;
-						var strtext;
-						var roomname = $("#roomname").children('option:selected').text(); 
-						arrytext[handleindex] = roomname+"-"+classname+"-"+coursename;
-						for(var i=0;i<arrytext.length;i++){
-							if(strtext != null){
-								strtext = strtext + "、" + arrytext[i];
-							}else{
-								strtext = arrytext[i];
-							}	
-						}
-						$("#"+elementid).text(strtext);
-		        	}
+							$("#"+elementid).text(strtext);
+			        	}
+	        		}else{
+	        			//每个时段只有一个课的booking
+	        			var arryid = $("#"+elementid).attr("value");
+		        		if("#"+elementid != "#lesson"+week+section){//如果操作的不是同一个时间段的课
+				        	if(weekes == nowweek){
+				        		$("#"+elementid).text("");
+					        	$("#"+elementid).attr("value","");
+			        			var roomname = $("#roomname").children('option:selected').text(); 
+			        			$("#lesson"+week+section).text(roomname+"-"+classname+"-"+coursename);
+//			        			alert("id"+arryid[handleindex]);
+			        			$("#lesson"+week+section).attr("value",arryid);
+			        			
+			        		}
+			        	}else{
+							var roomname = $("#roomname").children('option:selected').text(); 
+							$("#"+elementid).text(roomname+"-"+classname+"-"+coursename);
+			        	}
+	        		}
 	        		
 	        	}else if(state == "error"){
 	        		mui.toast("预定修改失败，该时间段已有人预定！");
@@ -282,6 +306,65 @@ function menuEdit() {
 	    });
 	});
 }
+//获取用户的所有教课班级
+function getClass(){
+//	alert(weeks+":"+roomid);
+    $.ajax({ //使用ajax与服务器异步交互
+        url:"GetClassInfo?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+        type:"post",
+        data: {username:username,act:"getClass"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        dataType:"json", //接收返回的数据方式为json
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            alert("网络错误！");
+        }, //错误提示
+        
+        success:function(data){ //data为交互成功后，后台返回的数据;
+        	$("#classname").empty();
+        	var cla = new Array();
+        	for (var i = 0; i < data.length; i++) {
+//        		alert(data[i].classname);
+        		var option = $("<option value='"+data[i].classname+"'>"+ data[i].classname +"</option>");
+        		$("#classname").append(option);
+        	}
+        	$("#classname").selectmenu('refresh', true);//jqm 是动态加载的css 所以新增元素后 需要手动加载样式
+        }
+    });
+}
+
+function getCourse(){
+//	alert(weeks+":"+roomid);
+	var classname = $("#classname").children('option:selected').val();
+    $.ajax({ //使用ajax与服务器异步交互
+        url:"GetClassInfo?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+        type:"post",
+        data: {username:username,act:"getCourse",classname:encodeURI(classname)}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        dataType:"json", //接收返回的数据方式为json
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            alert("网络错误！");
+        }, //错误提示
+        
+        success:function(data){ //data为交互成功后，后台返回的数据;
+//        	alert(data.length);
+        	var cla = new Array();
+        	var index=0;
+        	$("#coursename").empty();
+        	for (var i = 0; i < data.length; i++) {
+        		var option = $("<option value='"+data[i].coursename+"'>"+ data[i].coursename +"</option>");
+        		$("#coursename").append(option);
+        	}
+        	$("#coursename").selectmenu('refresh', true);//jqm 是动态加载的css 所以新增元素后 需要手动加载样式
+//        	alert("selcoursename:"+selcoursename);
+        	if(selcoursename!=""){
+        		$("#coursename").val(selcoursename);
+            	$("#coursename").trigger("change");
+            	
+            	selcoursename = "";
+        	}
+        	
+        }
+    });
+}
+
 
 function setClick() {//设置每节课的点击事件
 	
@@ -305,7 +388,7 @@ function setClick() {//设置每节课的点击事件
 						var li = $("<li value='"+ arryid[i] +"'>"+ arrytext[i].split('-')[0] +"</li>");
 						li.on("click",function(){
 							handleindex=i;
-//							alert(i);
+							alert("click"+i);
 							bookingid = $(this).attr("value");
 //							alert(bookingid);
 							$(".selectcoursename").hide();
@@ -321,10 +404,7 @@ function setClick() {//设置每节课的点击事件
 				bookingid = $(this).attr("value");
 				mui('#sheet1').popover('toggle');
 			}
-			
 		}
-			
-		
     });			
 }
 
@@ -335,13 +415,14 @@ function getRoom(){//获取所有机房名称
     $.ajax({ //使用ajax与服务器异步交互
         url:"Classlist?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
         type:"post",
-        data: {}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        data: {act:"getRoom"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
             alert("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
+//        	alert(1);
         	$("#roomname").empty();
         	var cla = new Array();
         	for (var i = 0; i < data.length; i++) {
@@ -354,59 +435,6 @@ function getRoom(){//获取所有机房名称
     });
 }
 
-//获取用户的所有教课班级
-function getClass(){
-//	alert(weeks+":"+roomid);
-    $.ajax({ //使用ajax与服务器异步交互
-        url:"GetClassInfo?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
-        type:"post",
-        data: {username:username,act:"getClass"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
-        dataType:"json", //接收返回的数据方式为json
-        error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
-        }, //错误提示
-        
-        success:function(data){ //data为交互成功后，后台返回的数据;
-        	$("#classname").empty();
-        	var cla = new Array();
-        	for (var i = 0; i < data.length; i++) {
-//        		alert(data[i].classname);
-        		var option = $("<option name='"+data[i].classname+"'>"+ data[i].classname +"</option>");
-        		$("#classname").append(option);
-        	}
-        	$("#classname").selectmenu('refresh', true);//jqm 是动态加载的css 所以新增元素后 需要手动加载样式
-        	getCourse();
-        }
-    });
-}
-
-function getCourse(){
-//	alert(weeks+":"+roomid);
-	var classname = $("#classname").children('option:selected').val();
-//	alert(classname);
-    $.ajax({ //使用ajax与服务器异步交互
-        url:"GetClassInfo?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
-        type:"post",
-        data: {username:username,act:"getCourse",classname:encodeURI(classname)}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
-        dataType:"json", //接收返回的数据方式为json
-        error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
-        }, //错误提示
-        
-        success:function(data){ //data为交互成功后，后台返回的数据;
-//        	alert(data.length);
-        	var cla = new Array();
-        	var index=0;
-        	$("#coursename").empty();
-        	for (var i = 0; i < data.length; i++) {
-        		var option = $("<option>"+ data[i].coursename +"</option>");
-        		$("#coursename").append(option);
-        	}
-        	$("#coursename").selectmenu('refresh', true);//jqm 是动态加载的css 所以新增元素后 需要手动加载样式
-
-        }
-    });
-}
 
 
 function setNull() {
