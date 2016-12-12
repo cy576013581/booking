@@ -200,7 +200,6 @@ public class Booking extends HttpServlet {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
 			JSONObject result = new JSONObject(data);
 //			System.out.println(result);
 			response.setContentType("text/html;charset=utf-8");
@@ -216,6 +215,7 @@ public class Booking extends HttpServlet {
 		int id = Integer.valueOf(request.getParameter("id"));
 		String classname = request.getParameter("classname");
 		String coursename = request.getParameter("coursename");
+		String username = request.getParameter("username");
 		
 		int roomid = Integer.valueOf(request.getParameter("roomid"));
 		int section = Integer.valueOf(request.getParameter("section"));
@@ -249,7 +249,7 @@ public class Booking extends HttpServlet {
 //			System.out.println(classid);
 			JSONObject result = new JSONObject();
 //			System.out.println(roomid+"-"+classid+"-"+classtime+"-"+section);
-			boolean flag = book.checkBooking(roomid, classtime, section,yearid);
+			boolean flag = book.checkBookingMy(roomid, classtime, section,yearid,username);
 			if(flag){
 				book.updateBooking(id, roomid, classid, classtime, bookingtime, section);;
 				result.put("state", "success");

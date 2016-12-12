@@ -318,6 +318,23 @@ public class BookingDAO {
 		jdbcTemplete.update(sql,delid);
 	}
 	
+	public boolean checkBookingMy(int roomid,String classtime,int section,int yearid,String username) throws SQLException{
+		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0 and Yearid=? and Username !=?";
+		return (boolean)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(ResultSet rs) throws SQLException {
+				
+				// TODO Auto-generated method stub
+				if(rs.next()){
+					return false;
+				}else{
+					return true;
+				}
+			}
+		},roomid,classtime,section,yearid,username);
+	}
+	
 	public boolean checkBooking(int roomid,String classtime,int section,int yearid) throws SQLException{
 		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0 and Yearid=?";
 		return (boolean)jdbcTemplete.query(sql, new ResultSetHandler() {
