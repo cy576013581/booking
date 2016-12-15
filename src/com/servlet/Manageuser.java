@@ -130,7 +130,7 @@ public class Manageuser extends HttpServlet {
 		List<Map<String,String>> data = new ArrayList<>();
 		try {
 			data = user.findAll(page);
-//			System.out.println(data.get(0).get("id"));
+//			System.out.println(data.size());
 //			List<Map<String,String>> data = dao.getNews(flag);
 			JSONArray result = new JSONArray(data);
 			response.setContentType("text/html;charset=utf-8");

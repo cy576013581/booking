@@ -29,7 +29,7 @@
             width: 50px;
         }
         .h6{
-            width: 180px;
+            width: 150px;
         }
         .h7{
             width: 100px;
@@ -41,14 +41,14 @@
             width: 100px;
         }
         .h10{
-            width: 90px;
+            width: 120px;
         }
         .box_page{
             width: 1140px;
         }
         .search{
-            width: 580px;
-            margin-top:30px;
+            width: 720px;
+            
         }
         #SelectBox{
         	height: 415px;
@@ -69,17 +69,23 @@
         .layout_body{
         	margin-top: 30px !important;
         }
+        .searchbyyear,.searchbybookingdate,.searchbyteacher{
+        	width: 120px !important;
+        }
     </style>
 </head>
 <body>
 <div class="layout">
     <div class="layout_header">
         <h2 id="title">预定管理</h2>
+        <span id="remarks">预定管理筛选条件可以任选填写,列表按照上课时间排序</span>
         <hr>
     </div>
     <div class="search">
+        学年选择:
+        <select class="searchbyyear"></select>&nbsp;&nbsp;
         预定日期:
-        <input class="searchbybookingdate" type="date">&nbsp;&nbsp;&nbsp;
+        <input class="searchbybookingdate" type="date">&nbsp;&nbsp;
         预定教师:
         <input class="searchbyteacher" type="text" placeholder="输入教师名">
         <button class="btn_search">查询</button>
