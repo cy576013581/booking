@@ -39,3 +39,11 @@ input{
     margin-bottom: 20px;
     width: 152px;
 }
+.btn_ok{
+	cursor: pointer;
+    background: #F36A5A;
+    border: none;
+    padding: 5px 20px;
+    color: #fff;
+    border-radius:5px;
+}

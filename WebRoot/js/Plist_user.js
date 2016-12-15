@@ -25,6 +25,7 @@ $(document).ready(function(){
     });
     
 });
+
 //获取user总数
 function  getCount() {
 	$.ajax({ //使用ajax与服务器异步交互
@@ -40,6 +41,7 @@ function  getCount() {
 
         success:function(data){ //data为交互成功后，后台返回的数据
         	count = data.sum;
+//        	alert(count);
         }
     });
 	return false;

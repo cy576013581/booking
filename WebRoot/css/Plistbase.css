@@ -67,4 +67,31 @@ table,th,tr,td{
 
 .btn_search{
     margin-left: 30px;
+    cursor: pointer;
+		    background: #F36A5A;
+		    border: none;
+		    padding: 5px 20px;
+		    color: #fff;
+		    border-radius:5px;
+}
+.btn_del{
+	margin-left: 5px;
+	background: #87CECB;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	padding: 3px 13px;
+	cursor: pointer;
+}
+.btn_edit{
+	background: #87CECB;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	padding: 3px 13px;
+	cursor: pointer;
+}
+#btn_ok{
+	background: #F36A5A;
+	color: white;
 }
