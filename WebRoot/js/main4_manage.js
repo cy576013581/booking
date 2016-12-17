@@ -14,13 +14,14 @@ $(document).ready(function(){
 	}
 	$("#loading").show();
 	$("#shapeloading").show();
-	
+	getNowWeek();
 	username = sessionStorage.getItem("username");
     $(".icon_back").on("click",function(){
-    	window.history.back(-1); 
+    	window.location.href="main.html?action=3";
     });
 //    alert(roomid);
-    getWeek();
+    
+	getWeek();
     
     $(".sel_week").on("change",getWeek);
     
@@ -29,7 +30,7 @@ $(document).ready(function(){
     $("#dowmload").on("click",exportExcel);
     $("#classname").on("change",function(){
     	getCourse();
-    });
+    });;
     
     $("#loading").hide();
 	$("#shapeloading").hide();
@@ -43,6 +44,27 @@ function exportExcel() {
 	mui.toast("正在下载跳转中...");
 	var url = "CreateExcel?username="+username;
 	window.location=encodeURI(encodeURI(url));
+}
+
+function getNowWeek(){
+	$.ajax({ //使用ajax与服务器异步交互
+		async: false,
+        url:"Mybooking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+        type:"post",
+        data: {act:"getNowWeek"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        dataType:"text", //接收返回的数据方式为json
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+        	mui.toast('网络错误！');
+        }, //错误提示
+        
+        success:function(data){ //data为交互成功后，后台返回的数据;
+        	
+        	weeks = data;
+        	$(".sel_week").val(parseInt(data));
+        	mui.toast("当前是第  "+ data + " 周");
+//        	alert(data);
+        }
+    });
 }
 
 function getbookingSum(){
@@ -75,7 +97,6 @@ function getNowSum(){
         success:function(data){ //data为交互成功后，后台返回的数据;
 //        	alert(data);
         	$("#nowsum").text(data);
-        	
         }
     });
 }
@@ -231,14 +252,14 @@ function menuEdit() {
 	        	var state = data.state;
 	        	var nowweek = $(".sel_week").children('option:selected').val();
 	        	if(state == "success"){
-	        		mui.toast("预定修改成功！");
 	        		if($("#"+elementid).attr("value").indexOf("-")>=0){
+//	        			alert(222);
 	        			//是同一时段多节课的booking
 	        			var arryid = $("#"+elementid).attr("value").split('-');
 						var arrytext = $("#"+elementid).text().split('、');
-		        		if("#"+elementid != "#lesson"+week+section){//如果操作的不是同一个时间段的课
-							alert(1);
-							alert("length:"+arryid.indexOf("-"));
+		        		if(("#"+elementid != "#lesson"+week+section) && (weekes == nowweek)){//如果操作的不是同一个时间段的课
+//							alert(1);
+//							alert("length:"+arryid.indexOf("-"));
 							var strid;
 							var strtext;
 							for(var i=0;i<arryid.length;i++){
@@ -260,11 +281,9 @@ function menuEdit() {
 			        			alert("handleindex" + handleindex);
 //			        			alert("id"+arryid[handleindex]);
 			        			$("#lesson"+week+section).attr("value",arryid[handleindex]);
-			        			$("#"+elementid).text("");
-					        	$("#"+elementid).attr("value","");
 			        		}
-			        	}else{
-			        		alert(2);
+			        	}else if(("#"+elementid == "#lesson"+week+section) && (weekes == nowweek)){
+//			        		alert(2);
 			        		var strid;
 							var strtext;
 							var roomname = $("#roomname").children('option:selected').text(); 
@@ -277,26 +296,50 @@ function menuEdit() {
 								}	
 							}
 							$("#"+elementid).text(strtext);
+			        	}else if(weekes != nowweek){
+			        		var strid;
+							var strtext;
+							for(var i=0;i<arryid.length;i++){
+								if(i!= handleindex){
+									if(strid != null){
+										strid =  strid + "-" + arryid[i];
+										strtext = strtext + "、" + arrytext[i];
+									}else{
+										strid = arryid[i];
+										strtext = arrytext[i];
+									}
+								}
+							}
+							$("#"+elementid).text(strtext);
+				        	$("#"+elementid).attr("value",strid);
 			        	}
 	        		}else{
+	        			alert(123123);
 	        			//每个时段只有一个课的booking
 	        			var arryid = $("#"+elementid).attr("value");
-		        		if("#"+elementid != "#lesson"+week+section){//如果操作的不是同一个时间段的课
+//	        			alert(elementid + "---" + "#lesson"+week+section);
+		        		if(("#"+elementid != "#lesson"+week+section) && (weekes == nowweek)){//如果操作的不是同一个时间段的课
+//		        			alert(1);
 				        	if(weekes == nowweek){
-				        		$("#"+elementid).text("");
-					        	$("#"+elementid).attr("value","");
 			        			var roomname = $("#roomname").children('option:selected').text(); 
 			        			$("#lesson"+week+section).text(roomname+"-"+classname+"-"+coursename);
 //			        			alert("id"+arryid[handleindex]);
 			        			$("#lesson"+week+section).attr("value",arryid);
 			        			
 			        		}
-			        	}else{
+//				        	alert(111);
+				        	$("#"+elementid).text("");
+				        	$("#"+elementid).attr("value","");
+			        	}else if(("#"+elementid == "#lesson"+week+section) && (weekes == nowweek)){
+//			        		alert(2);
 							var roomname = $("#roomname").children('option:selected').text(); 
 							$("#"+elementid).text(roomname+"-"+classname+"-"+coursename);
+			        	}else if(weekes != nowweek){
+			        		$("#"+elementid).text("");
+				        	$("#"+elementid).attr("value","");
 			        	}
 	        		}
-	        		
+	        		mui.toast("预定修改成功！");
 	        	}else if(state == "error"){
 	        		mui.toast("预定修改失败，该时间段已有人预定！");
 	        	}

@@ -45,7 +45,7 @@ $(document).ready(function(){
 //                      sessionStorage.username = $(".txt_username").val();
                     	sessionStorage.setItem("username", $(".txt_username").val());
                     	
-                    	window.location.href="main.html";
+                    	window.location.href="main.html?action=1";
                     	
                     }else {
                     	$("#shapeloading").hide();

@@ -175,7 +175,7 @@ public class CreateExcel extends HttpServlet {
 		List<Map<String,String>> list= new ArrayList<>();
 		ScheduleDAO sche = new ScheduleDAO();
 		try {
-			list = sche.findClass2(date,username);
+			list = sche.findClass3(date,username);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
