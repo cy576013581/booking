@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,9 +45,41 @@ public class Mybooking extends HttpServlet {
 				getAllnotice(request,response);
 			}else if(act.equals("getnoticeById")){
 				getnoticeById(request,response);
+			}else if(act.equals("getNowWeek")){
+				getNowWeek(request,response);
 			}
 		}
 		
+	}
+	
+	public void getNowWeek(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		ScheduleDAO sche = new ScheduleDAO();
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		Date today = new Date();
+//		System.out.println(date);
+		int week = 0;
+		try {
+			int yearid = sche.getYearID();
+			String strWeek[] = sche.getWeek().split(",");
+			for(int p = 0; p < strWeek.length; p++){
+				date = dateformat.parse(strWeek[p]);
+//				System.out.println(monday);
+				  if (date.getTime() <= today.getTime()) {
+					  	if(daysBetween(date,today)<7){
+					  		week=p+1;
+					  		break;
+					  	}
+		            } 
+			}
+//			System.out.println(result);
+			response.setContentType("text/html;charset=utf-8");
+			response.getWriter().println(String.valueOf(week));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void getnoticeById(HttpServletRequest request, HttpServletResponse response)
@@ -151,6 +184,17 @@ public class Mybooking extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public int daysBetween(Date smdate,Date bdate) throws Exception{ 
+		Calendar cal = Calendar.getInstance(); 
+		cal.setTime(smdate); 
+		long time1 = cal.getTimeInMillis(); 
+		cal.setTime(bdate); 
+		long time2 = cal.getTimeInMillis(); 
+		long between_days=(time2-time1)/(1000*3600*24); 
+
+		return Integer.parseInt(String.valueOf(between_days)); 
 	}
 
 }

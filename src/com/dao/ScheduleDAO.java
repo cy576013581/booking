@@ -65,10 +65,10 @@ public class ScheduleDAO {
 		 
 	}
 	
-	public List<Map<String,String>> findClass(String date,int roomid) throws SQLException{
+	public List<Map<String,String>> findClass(String start,String end,int roomid) throws SQLException{
 		String sql = "select a.Id,a.Username,c.Coursename,c.Classname,a.Roomid,a.Classtime,Section "
 				+ "from bookings as a LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
-				+ "WHERE a.Flag=0 and a.Roomid=? and a.Classtime=?";
+				+ "WHERE a.Flag=0 and a.Roomid=? and a.Classtime>=? and a.Classtime<=?";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -76,10 +76,25 @@ public class ScheduleDAO {
 				// TODO Auto-generated method stub
 				return DataUtils.getHashMap(rs);
 			}
-		},roomid,date);
+		},roomid,start,end);
 	}
 	
-	public List<Map<String,String>> findClass2(String date,String username) throws SQLException{
+	public List<Map<String,String>> findClass2(String start,String end,String username) throws SQLException{
+		String sql = "select b.Roomname,a.Id,a.Username,c.Coursename,c.Classname,a.Roomid,a.Classtime,Section "
+				+ "from bookings as a LEFT JOIN rooms AS b ON a.Roomid=b.Id "
+				+ "LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
+				+ "WHERE a.Flag=0 and a.Username=? and a.Classtime>=? and a.Classtime<=?";
+		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(final ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				return DataUtils.getHashMap(rs);
+			}
+		},username,start,end);
+	}
+	
+	public List<Map<String,String>> findClass3(String start,String username) throws SQLException{
 		String sql = "select b.Roomname,a.Id,a.Username,c.Coursename,c.Classname,a.Roomid,a.Classtime,Section "
 				+ "from bookings as a LEFT JOIN rooms AS b ON a.Roomid=b.Id "
 				+ "LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
@@ -91,7 +106,7 @@ public class ScheduleDAO {
 				// TODO Auto-generated method stub
 				return DataUtils.getHashMap(rs);
 			}
-		},username,date);
+		},username,start);
 	}
 	
 	//导出机房的Excel

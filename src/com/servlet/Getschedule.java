@@ -300,19 +300,23 @@ public class Getschedule extends HttpServlet {
 		
 //		System.out.println(dateall);
 		list.add(dates);
+		String start = "";
+		String end = dateall.get("date7");
 		for (int i = 1; i < 8; i++) {
-			String riqi = dateall.get("date"+i);
-//			System.out.println(riqi);
-			List<Map<String,String>> li= new ArrayList<>();
-			li = getClass(riqi,room);
-			if(li.size() != 0){
-//				System.out.println("-----"+li+li.size());
-				for(int j = 0; j < li.size(); j++)  
-		        {  
-					list.add(li.get(j));  
-//		            System.out.println(list.get(i));  
-		        }
+			if(!"未开放".equals(dateall.get("date"+i))){
+				start = dateall.get("date"+i);
+				break;
 			}
+		}
+		List<Map<String,String>> li= new ArrayList<>();
+		li = getClass(start,end,room);
+		if(li.size() != 0){
+//			System.out.println("-----"+li+li.size());
+			for(int j = 0; j < li.size(); j++)  
+	        {  
+				list.add(li.get(j));  
+//	            System.out.println(list.get(i));  
+	        }
 		}
 		return list;
 	}
@@ -390,28 +394,32 @@ public class Getschedule extends HttpServlet {
 			}
 		}
 		list.add(dates);
+		String start = "";
+		String end = dateall.get("date7");
 		for (int i = 1; i < 8; i++) {
-			String riqi = dateall.get("date"+i);
-//			System.out.println(riqi);
-			List<Map<String,String>> li= new ArrayList<>();
-			li = getClass2(riqi,username);
-			if(li.size() != 0){
-//				System.out.println("-----"+li+li.size());
-				for(int j = 0; j < li.size(); j++)  
-		        {  
-					list.add(li.get(j));  
-//		            System.out.println(list.get(i));  
-		        }
+			if(!"未开放".equals(dateall.get("date"+i))){
+				start = dateall.get("date"+i);
+				break;
 			}
+		}
+		List<Map<String,String>> li= new ArrayList<>();
+		li = getClass2(start,end,username);
+		if(li.size() != 0){
+//			System.out.println("-----"+li+li.size());
+			for(int j = 0; j < li.size(); j++)  
+	        {  
+				list.add(li.get(j));  
+//	            System.out.println(list.get(i));  
+	        }
 		}
 		return list;
 	}
 	
-	public List<Map<String,String>> getClass(String date,int room){
+	public List<Map<String,String>> getClass(String start,String end,int room){
 		List<Map<String,String>> list= new ArrayList<>();
 		ScheduleDAO sche = new ScheduleDAO();
 		try {
-			list = sche.findClass(date,room);
+			list = sche.findClass(start,end,room);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -421,11 +429,11 @@ public class Getschedule extends HttpServlet {
 		
 	}
 	
-	public List<Map<String,String>> getClass2(String date,String username){
+	public List<Map<String,String>> getClass2(String start,String end,String username){
 		List<Map<String,String>> list= new ArrayList<>();
 		ScheduleDAO sche = new ScheduleDAO();
 		try {
-			list = sche.findClass2(date,username);
+			list = sche.findClass2(start,end,username);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

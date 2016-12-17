@@ -49,6 +49,20 @@
     right: 5px;
     color: white;
 }
+#list_readyBooking > li{
+	cursor: pointer;
+}
+#list_readyBooking > li:HOVER{
+	background: cornflowerblue;
+	color: #fff;
+	text-shadow: none;
+}
+#list_readyBooking > li >a{
+	padding: 6px 0px;
+}
+#list_readyBooking > li >a:HOVER{
+	color: #fff !important;
+}
 #popupBasic{
 	padding: 5px !important;
 	position: absolute !important;

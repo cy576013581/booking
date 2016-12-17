@@ -35,7 +35,7 @@ $(document).ready(function(){
     setDate();
     username = sessionStorage.getItem("username");
     $(".icon_back").on("click",function(){
-    	window.location.href="main.html";
+    	window.location.href="main.html?action=1";
     });
     LocString = window.location.href;
     roomid = decodeURI(GetQueryString("roomid"));
