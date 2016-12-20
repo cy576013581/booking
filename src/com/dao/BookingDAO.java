@@ -319,7 +319,9 @@ public class BookingDAO {
 	}
 	
 	public boolean checkBookingMy(int roomid,String classtime,int section,int yearid,String username) throws SQLException{
-		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0 and Yearid=? and Username !=?";
+		String sql = "select Id from bookings "
+				+ "where Roomid=? and Classtime=? and Section=? and Flag=0 "
+				+ "and Yearid=? and Username !=?";
 		return (boolean)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override

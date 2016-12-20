@@ -251,7 +251,7 @@ public class Booking extends HttpServlet {
 //			System.out.println(roomid+"-"+classid+"-"+classtime+"-"+section);
 			boolean flag = book.checkBookingMy(roomid, classtime, section,yearid,username);
 			if(flag){
-				book.updateBooking(id, roomid, classid, classtime, bookingtime, section);;
+				book.updateBooking(id, roomid, classid, classtime, bookingtime, section);
 				result.put("state", "success");
 			}else{
 				//已经有人预定 
