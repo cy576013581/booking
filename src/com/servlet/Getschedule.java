@@ -51,7 +51,24 @@ public class Getschedule extends HttpServlet {
 				getSystemtime(request,response);
 			}else if(act.equals("getScheduleSpeed")){
 				getScheduleSpeed(request,response);
+			}else if(act.equals("activation")){
+				activation(request,response);
 			}
+		}
+	}
+	
+	public void activation(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		String date = request.getParameter("date");
+		ScheduleDAO sche = new ScheduleDAO();
+		try {
+			sche.deleteSchooldate();
+			sche.activation(date);
+//			System.out.print(strweek.length());
+//			response.getWriter().println("succss");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -161,10 +178,10 @@ public class Getschedule extends HttpServlet {
 			throws ServletException, IOException{
 
 		ScheduleDAO sche = new ScheduleDAO();
-		Map<String, String> date = new HashMap<>();
+		List<Map<String, String>> date = new ArrayList<>();
 		try {
-			date = sche.getSchooldate();
-			JSONObject result = new JSONObject(date);
+			date = sche.getAllSchooldate();
+			JSONArray result = new JSONArray(date);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());
 //			response.getWriter().println(result.toString());

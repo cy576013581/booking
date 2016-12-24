@@ -4,37 +4,67 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="css/Psetbase.css" rel="stylesheet" type="text/css">
-    <style>
-
-    </style>
+    <link href="css/PeditDialog.css" rel="stylesheet" type="text/css">
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/Pset_schoolstart.js"></script>
-	<style type="text/css">
-		#yearname,#selectdate{
-			width: 145px;
-		}
-	</style>
+    <style type="text/css">
+    	#add_selectdate,#add_yearname{
+    		width: 150px;
+    	}
+    	#AddBox{
+    		height: 250px;
+    	}
+    	.close_btn {
+    		margin-right: 15px !important;
+    	}
+    	#dialogtitle{
+    		margin-left: 60px !important;
+    	}
+    	.btn_add{
+    		margin-left: 18px;
+    	}
+    	.btn_ok{
+    		background-color: #A9A9A9;
+    		margin-top: 30px;
+		    cursor: pointer;
+		    border: none;
+		    padding: 5px 20px;
+		    color: #fff;
+		    border-radius:5px;
+    	}
+    </style>
 </head>
 <body>
     <div class="layout">
         <div class="layout_header">
             <span id="title">开学时间设置</span>
-            <span id="remarks">设置新学期的开学时间和学年名称，这是新学期启用时的必填项，一经填写无法更改</span>
+            <span id="remarks">可以新增学年，这是新学期启用时的必填项，一经填写无法更改。选择相应学年点击激活，即可回退到之前学年</span>
             <hr>
         </div>
 
         <div class="layout_body">
             <div class="box_body">
-                <span>开学时间：</span>
-                <input type="date" id="selectdate" >
+                <span>当前学年：</span>
+                <select id="selectdate">
+                
+                </select>
                 <br/>
-                <br/>
-                <span>学年名称：</span>
-                <input type="text" id="yearname" placeholder="例如：1617-1学年">
-                <br/>
-                <button id="btn_ok">确认</button>
+                <button class="btn_ok">激活学年</button><button class="btn_add">新增学年</button>
             </div>
         </div>
+        
+        <div id="AddBox">
+	        <div class="row1">
+	           	<span id="dialogtitle">新增学年</span>
+	           	 <span title="关闭窗口" class="close_btn" id="closeBtn">×</span>
+	        </div>
+	        <div class="row">
+	             <p>开学时间：<input type="date" id="add_selectdate" ></p>
+	             <p>学年名称：<input type="text" id="add_yearname" placeholder="例如：1617-1学年"></p>
+	        </div>
+	        <p class="warning"></p>
+	        <button id="btn_addok">添加</button>
+    	</div>
     </div>
 </body>
 </html>

@@ -4,11 +4,11 @@
 var LocString;
 var action=0;
 $(document).ready(function(){
-//	var len = sessionStorage.length;
-//	alert(len);
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="index.html";
+//		window.history.forward(1);
 	}
+	
 	LocString = window.location.href;
 	action = decodeURI(GetQueryString("action"));
 	
@@ -59,3 +59,5 @@ function GetQueryString(str){
 	 if(tmp=rs)return tmp[2];
 	 return "没有这个参数";
 }
+
+

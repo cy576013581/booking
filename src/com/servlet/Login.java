@@ -78,11 +78,12 @@ public class Login extends HttpServlet {
 		UserDAO dao = new UserDAO();
 		boolean flag=false;
 		try {
-			dao.insertLoginRecord(username, sdf.format(new Date()));
+			
 			flag = dao.validate(username, password);
 			if(flag){
 				HttpSession session = request.getSession();
 				session.setAttribute("username", username);
+				dao.insertLoginRecord(username, sdf.format(new Date()));
 			}
 			JSONObject result = new JSONObject();
 			result.put("flag", flag);

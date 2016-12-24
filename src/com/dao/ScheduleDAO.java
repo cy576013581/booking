@@ -19,6 +19,11 @@ public class ScheduleDAO {
 	public ScheduleDAO(){
 		jdbcTemplete = new JdbcTemplete();
 	}
+	
+	public void activation(String date){
+		String sql = "update schooldate set Flag = 0 WHERE Schooldate = ?";
+		jdbcTemplete.update(sql,date);
+	}
 
 	public Integer getYearID() throws SQLException{
 		String sql = "select Id from schooldate WHERE Flag = 0";
@@ -168,6 +173,21 @@ public class ScheduleDAO {
 					date.put("yearname", rs.getString(2));
 				}
 				return date;
+				
+			}
+		});
+		 
+	}
+	
+	public List<Map<String, String>> getAllSchooldate() throws SQLException{
+		String sql = "select Schooldate,Yearname,Flag,Id from schooldate";
+		return (List<Map<String, String>>) jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				List<Map<String,String>> list =  DataUtils.getHashMap(rs);
+				return list;
 				
 			}
 		});

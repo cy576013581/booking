@@ -31,7 +31,7 @@
     text-align: center;
 }
 
-#btn_ok{
+#btn_ok,.btn_add{
     margin-top: 30px;
     cursor: pointer;
     background: #F36A5A;

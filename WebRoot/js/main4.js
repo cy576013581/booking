@@ -3,9 +3,9 @@
  */
 var username;
 $(document).ready(function(){
-	if(sessionStorage.getItem("username") == null){
+	/*if(sessionStorage.getItem("username") == null){
 		window.location.href="index.html";
-	}
+	}*/
 	username = sessionStorage.getItem("username");
 	getbookingSum();
 	getnoticeSum();
