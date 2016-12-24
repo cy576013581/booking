@@ -114,24 +114,24 @@ public class Managerbooking extends HttpServlet {
 		int page = Integer.valueOf(request.getParameter("page"))*6;
 		String classtime = request.getParameter("date");
 		String username = request.getParameter("username");
+		int yearid = Integer.valueOf(request.getParameter("yearid"));
 //		System.out.println("page"+page);
 		BookingDAO booking = new BookingDAO();
 		ScheduleDAO sche = new ScheduleDAO();
 		List<Map<String,String>> data = new ArrayList<>();
 		try {
-			int yearid = sche.getYearID();
+			
 			if(classtime.isEmpty() && !username.isEmpty()){
 //				System.out.println("usernamesad");
 				data = booking.findAllbyusername(page,username,yearid);
-			}
-			if(!classtime.isEmpty() && username.isEmpty()){
+			}else if(!classtime.isEmpty() && username.isEmpty()){
 //				System.out.println("classtime");
-				
 				data = booking.findAllbydate(page,classtime,yearid);
-			}
-			if(!classtime.isEmpty() && !username.isEmpty()){
+			}else if(!classtime.isEmpty() && !username.isEmpty()){
 //				System.out.println("two");
 				data = booking.findAllbySearch(page, username, classtime,yearid);
+			}else{
+				data = booking.findAllbySearch(page,yearid);
 			}
 //			System.out.println(data.get(0).get("id"));
 //			List<Map<String,String>> data = dao.getNews(flag);

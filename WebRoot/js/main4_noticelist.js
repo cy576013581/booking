@@ -29,7 +29,7 @@ function getNotice(){
             for(var i  in  data)  {
             	(function(i) {
             		var card = $("<div class='mui-card'></div>");
-                	var header = $("<div class='mui-card-header mui-card-media' style='background-image:url(image/cbd.jpg)'></div>");
+                	var header = $("<div class='mui-card-header mui-card-media' style='background-image:url(image/cbd.jpg);max-height:200px;'></div>");
                 	var content = $("<div class='mui-card-content'></div>");
                 	var footer = $("<div class='mui-card-footer'></div>");
                 	

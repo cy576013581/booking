@@ -251,7 +251,40 @@ public class BookingDAO {
 				
 				return list;
 			}
-		},username,date,pageindex,6,yearid);
+		},yearid,username,date,pageindex,6);
+	}
+	
+	public List<Map<String,String>> findAllbySearch(int pageindex,int yearid) throws SQLException{
+		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,"
+				+ "a.Classtime,Bookingtime,Section from bookings  as a LEFT JOIN rooms as b ON "
+				+ "a.Roomid=b.Id LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
+				+ "LEFT JOIN users AS d ON a.Username=d.Username WHERE a.Flag=0 and a.Yearid=? order by Classtime limit ?,?";
+		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(final ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				final List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+				Map<String,String> u;
+				while(rs.next()){
+//					System.out.println(p++);
+					u = new HashMap<String, String>();
+					u.put("id", String.valueOf(rs.getInt("Id")));
+					u.put("coursename", rs.getString("Coursename"));
+					u.put("classname", rs.getString("Classname"));
+					u.put("phone", rs.getString("Phone"));
+					u.put("students", rs.getString("Students"));
+					u.put("username", rs.getString("Username"));
+					u.put("roomname", rs.getString("Roomname"));
+					u.put("classtime", rs.getString("Classtime"));
+					u.put("bookingtime", rs.getString("Bookingtime").substring(0, 19));
+					u.put("section", rs.getString("Section"));
+					list.add(u);
+				}
+				
+				return list;
+			}
+		},yearid,pageindex,6);
 	}
 	
 	public List<Map<String,String>> findAllbydate(int pageindex,String date,int yearid) throws SQLException{
@@ -319,7 +352,9 @@ public class BookingDAO {
 	}
 	
 	public boolean checkBookingMy(int roomid,String classtime,int section,int yearid,String username) throws SQLException{
-		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0 and Yearid=? and Username !=?";
+		String sql = "select Id from bookings "
+				+ "where Roomid=? and Classtime=? and Section=? and Flag=0 "
+				+ "and Yearid=? and Username !=?";
 		return (boolean)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override

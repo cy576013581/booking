@@ -44,9 +44,11 @@ $(document).ready(function(){
                     	sessionStorage.removeItem("username");
 //                      sessionStorage.username = $(".txt_username").val();
                     	sessionStorage.setItem("username", $(".txt_username").val());
-                    	
+                    	//window.opener=null;
+                    	//window.open('','_self');
+//                    	window.close();
                     	window.location.href="main.html?action=1";
-                    	
+//                    	window.open("main.html?action=1");
                     }else {
                     	$("#shapeloading").hide();
                     	$("#loading").hide();

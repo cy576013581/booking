@@ -8,7 +8,7 @@ $(document).ready(function(){
 		window.location.href="Pindex.html";
 	}
 	editdialog();
-	
+	getSchooldate();
 	getCount();
 	
 	$("#News-Pagination").pagination(count, {
@@ -22,23 +22,47 @@ $(document).ready(function(){
     });
 
     $(".btn_search").on("click",function(){
-        if($(".searchbybookingdate").val() =='' && $(".searchbyteacher").val() ==''){
-            alert("请至少输入一个查询条件！");
-        }else{
-        	getCountbydate();
-        	
-        	$("#News-Pagination").pagination(searchcount, {
-                items_per_page:6,//每页显示多少条数据
-                current_page:0,//当前显示第几页数据
-                num_display_entries:6,//分页显示的条目数
-                next_text:"下一页",
-                prev_text:"上一页",
-                num_edge_entries:2,//链接分页主体，显示的条目数
-                callback:handlePaginationClickBysearch
-            });
-        }
+    	getCountbydate();
+    	
+    	$("#News-Pagination").pagination(searchcount, {
+            items_per_page:6,//每页显示多少条数据
+            current_page:0,//当前显示第几页数据
+            num_display_entries:6,//分页显示的条目数
+            next_text:"下一页",
+            prev_text:"上一页",
+            num_edge_entries:2,//链接分页主体，显示的条目数
+            callback:handlePaginationClickBysearch
+        });
     });
 });
+
+function getSchooldate() {
+	$.ajax({ //使用ajax与服务器异步交互
+        url:"Getschedule?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+        type:"POST",
+        data: {act:"admingetSchoolDate"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        dataType:"json", //接收返回的数据方式为json
+
+        error:function(XMLHttpRequest,textStatus,errorThrown){
+            alert("网络错误！");
+        }, //错误提示
+
+        success:function(data){ //data为交互成功后，后台返回的数据
+        	var select = $(".searchbyyear");
+        	var sledate;
+        	for (var i = 0; i < data.length; i++) {
+        		if(data[i].flag == 0){
+        			sledate = data[i].id;
+        		}
+				var option = $("<option value="+data[i].id+">"+data[i].yearname+"</option>");
+				select.append(option);
+			}
+        	select.val(sledate);
+        }
+    });
+}
+
+
 function  getCountbydate() {
 	var date = $(".searchbybookingdate").val();
 	var username = $(".searchbyteacher").val();
@@ -290,10 +314,11 @@ function handlePaginationClickBysearch(new_page_index, pagination_container) {
     // This selects 20 elements from a content array
 	var date = $(".searchbybookingdate").val();
 	var username = $(".searchbyteacher").val();
+	var yearid = $(".searchbyyear").children('option:selected').val();
 	$.ajax({ //使用ajax与服务器异步交互
         url:"Managerbooking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
         type:"POST",
-        data: {act:"getAllbyrearch",page:new_page_index,date:date,username:username}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+        data: {act:"getAllbyrearch",page:new_page_index,date:date,username:username,yearid:yearid}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){

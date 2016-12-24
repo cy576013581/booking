@@ -37,7 +37,7 @@ $(document).ready(function(){
 	setClick();
 	
 	getbookingSum();
-	getNowSum();
+	
 });
 
 function exportExcel() {
@@ -106,7 +106,7 @@ function doSwipeleft(){
 	if(nowweek<20){
 		$(".sel_week").val(nowweek-(-1));
 		getWeek();
-		getNowSum();
+		
 	}
 }
 function doSwiperight(){
@@ -115,7 +115,7 @@ function doSwiperight(){
 	if(nowweek>1){
 		$(".sel_week").val(nowweek-1);
 		getWeek();
-		getNowSum();
+		
 	}
 }
 
@@ -347,6 +347,7 @@ function menuEdit() {
 	        	
 	        }
 	    });
+		return false;
 	});
 }
 //获取用户的所有教课班级

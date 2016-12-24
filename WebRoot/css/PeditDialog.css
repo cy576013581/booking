@@ -72,15 +72,15 @@ body{
     cursor: pointer;
 }
 
-#btn_add,#btn_ok {
+#btn_add,#btn_ok,#btn_addok {
 	width: 100px;
     color: White;
-    background: #4490f7;
+    background: #F36A5A;
     text-decoration: none;
     padding: 5px 20px;
     border-radius: 5px;
     opacity: 0.8;
-    filter: alpha(opacity=80);
+    /* filter: alpha(opacity=80); */
     text-shadow: none;
     margin-left: 20px;
 }
