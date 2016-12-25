@@ -36,14 +36,14 @@ function getNotice(){
                 	var inner = $("<div class='mui-card-content-inner'></div>");
                 	var p1 = $("<p class='text_title'>"+data[i].title+"</p>");
                 	var p2 = $("<p class='text_releasetime'>发表于："+data[i].releasetime+"</p>");
-                	var p3 = $("<p class='text_content'>"+data[i].content+"</p>");
+//                	var p3 = $("<p class='text_content'>"+data[i].content+"</p>");
                 	inner.append(p1);
                 	inner.append(p2);
-                	inner.append(p3);
+//                	inner.append(p3);
                 	content.append(inner);
 
-					var a1 = $("<a class='mui-card-link'>置顶</a>");
-					var a2 = $("<a class='mui-card-link' href='main4_noticelist_info.html?id="+data[i].id+"'>阅读更多</a>");
+					var a1 = $("<a class='mui-card-link'></a>");
+					var a2 = $("<a class='mui-card-link' href='main4_noticelist_info.html?id="+data[i].id+"'>查看详细</a>");
 					footer.append(a1);
 					footer.append(a2);
 					

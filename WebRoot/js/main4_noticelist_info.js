@@ -45,7 +45,9 @@ function getInfo(){
         success:function(data){ //data为交互成功后，后台返回的数据
         	$("#text_title").text(data.title);
         	$("#releasetime").text(data.releasetime);
-        	$("#text_content").text(data.content);
+        	/*$("#text_content").text(data.content);*/
+        	var p = $("<p id='text_content'>"+data.content+"</p>");
+        	$(".box_body").append(p);
         }
     });
 }
