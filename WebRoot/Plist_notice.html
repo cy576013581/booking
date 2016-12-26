@@ -6,7 +6,11 @@
     <link href="css/Plistbase.css" rel="stylesheet" type="text/css">
     <link href="css/pagination.css" rel="stylesheet" type="text/css">
     <link href="css/PeditDialog.css" rel="stylesheet" type="text/css">
-    <script src="js/jquery-2.1.1.min.js"></script>
+    <link href="ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="ueditor/third-party/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/umeditor.js"></script>
+    <script type="text/javascript" src="ueditor/lang/zh-cn/zh-cn.js"></script>
     <script src="js/jquery.pagination.js"></script>
     <script src="js/Plist_notice.js"></script>
     <style>
@@ -23,16 +27,30 @@
         .content{
         	text-align: left !important;
         }
-        #notice_title,textarea{
+        #notice_title{
         	width: 200px;
         	
         }
-        textarea{
-        	height: 120px;
-        }
         #SelectBox{
-        	height: 350px;
+        	height: 440px;
+        	width: 800px;
+        	text-align: left !important;
+        	pad
         }
+        .row1,.row{
+        	width: 800px;
+        	
+        }
+        .row{
+        	text-align: left !important;
+        	padding-left: 20px;
+        }
+        p{
+        	line-height: 20px !important;
+        }
+        
+        #box_editor{ margin-left: 60px; margin-top: -30px;}
+        #btn_ok{margin-left: 360px; }
         
     </style>
 </head>
@@ -73,8 +91,11 @@
            	 <span title="关闭窗口" class="close_btn" id="closeBtn">×</span>
         </div>
         <div class="row">
-             <p>标题：<input type="text" id="notice_title"></p>
-             <p>内容：<textarea id="notice_content"></textarea></p>
+             <span>标题：</span><input type="text" id="notice_title"><br/>
+             <span>内容：</span>
+             <div id="box_editor">
+	             <script type="text/plain" id="myEditor" style="width:680px;height:150px;"></script>
+			</div>
         </div>
         <p class="warning"></p>
         <button id="btn_ok">确认修改</button>

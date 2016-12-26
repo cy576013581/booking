@@ -2,11 +2,13 @@
  * Created by cy on 2016/8/14.
  */
 var count;
-
+var um;
 $(document).ready(function(){
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="Pindex.html";
 	}
+	//实例化编辑器
+	um = UM.getEditor('myEditor');
 	editdialog();
 	
 	getCount();
@@ -75,14 +77,13 @@ function handlePaginationClick(new_page_index, pagination_container) {
 				        $("#SelectBox").fadeIn("slow");
 				        
 						$("#notice_title").val($(".title"+i).text());
-						$("#notice_content").val($(".content"+i).text());
-						
+						um.execCommand('insertHtml', data[i].content);
 						$("#btn_ok").on("click",function(){
 							var title = $("#notice_title").val();
-							var content = $("#notice_content").val();
+							var content = UM.getEditor('myEditor').getContent();
 						    if (title==''){
 						        $(".warning").text("警告：公告标题不能为空！");
-						        $("#user_username").focus();
+						        $("#notice_title").focus();
 						    }else{
 						    	$.ajax({ //使用ajax与服务器异步交互
 //						    		async:false,
@@ -100,11 +101,12 @@ function handlePaginationClick(new_page_index, pagination_container) {
 						            	$("#SelectBox").fadeOut("fast");
 					                    $("#mask").css({ display: 'none' });
 					                    $(".title"+i).text(title);
-					                    $(".content"+i).text(content);
+					                    $(".content"+i).html(content);
 					                    alert("修改成功");
+					                    return false;
 						            }
 						        });
-						    	return false;
+						    	
 						    }
 						});
 					});
@@ -122,6 +124,7 @@ function handlePaginationClick(new_page_index, pagination_container) {
 					        success:function(data){ //data为交互成功后，后台返回的数据
 					        	$(".id"+id).remove();
 					        	alert("删除成功！");
+					        	return false;
 					        }
 					    });
 					});
