@@ -3,9 +3,8 @@ body{
     padding: 0;
 }
 iframe{
-	margin-top: 70px;
     border: none;
-    padding: 0;
+    padding: 0px;
 }
 i{
 	display: inline;
@@ -77,15 +76,11 @@ i{
 	font-size: 15px;
 	color: #FF8C00;
 }
-
-
-
-
 .layout_body{
     width: 100%;
-    max-width: 100%;
-    min-width: 100%;
+    height: 100%;
     margin: 0 auto;
+    
 }
 .body_left{
     width: 210px;
@@ -98,10 +93,15 @@ i{
 .body_right{
     width: calc(100% - 210px);
     text-align: center;
-    margin-left: 210px;
+    position: relative;
 }
 #iframe{
-    width: 100%;
-    height: 650px;
+	width: calc(100% - 210px);
     background: #EDEDED;
+    height:calc(100% - 70px);
+    position: fixed;
+    top:70px;
+    left:210px;
+    right:0;
+    bottom: 0;
 }
