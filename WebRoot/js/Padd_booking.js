@@ -64,19 +64,6 @@ $(document).ready(function(){
    });
 });
 
-function booking(classtime) {
-	var selectClass = $("#selectClass").children('option:selected').val();
-    var selectCourse = $("#selectCourse").children('option:selected').val();
-    
-    var sec = $("td[name]").attr("name").charAt(1); 
-	var week = $("td[name]").attr("name").charAt(0); 
-	var month;
-	var year = new Date().getFullYear();
-	$("td[name]").removeAttr("name"); 
-	
-	var day = $(".date"+week).text();
-	
-}
 
 function getClass(){
 //	alert(weeks+":"+roomid);

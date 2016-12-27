@@ -27,8 +27,7 @@ $(document).ready(function(){
 
       	        success:function(data){ //data为交互成功后，后台返回的数据
       	        	alert("添加成功！");
-      	        	$(".title").val("");
-      	        	um.execCommand('insertHtml', "");
+      	        	location.reload();
       	        }
       	    });
 
