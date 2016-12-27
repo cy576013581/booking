@@ -1,10 +1,13 @@
 /**
  * Created by cy on 2016/8/15.
  */
+var um;
 $(document).ready(function(){
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="Pindex.html";
 	}
+	//实例化编辑器
+	um = UM.getEditor('myEditor');
 	$(".btn_ok").on("click",function(){
 		var arr = UM.getEditor('myEditor').getContent();
 	    var title = $(".title").val();
@@ -24,8 +27,7 @@ $(document).ready(function(){
 
       	        success:function(data){ //data为交互成功后，后台返回的数据
       	        	alert("添加成功！");
-      	        	$(".title").val("");
-      	        	$(".content").val("");
+      	        	location.reload();
       	        }
       	    });
 
