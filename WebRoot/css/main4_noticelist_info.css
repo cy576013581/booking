@@ -61,6 +61,6 @@
 
 #text_content{
 	margin-top:30px;
-	text-align:left;
+	text-align:left !important;
 	line-height: 22px;
 }
