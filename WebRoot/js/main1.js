@@ -4,7 +4,6 @@
 var branchid = new Array();
 var areaname = new Array();
 $(document).ready(function(){
-	
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="index.html";
 	}
@@ -99,49 +98,36 @@ function getRoom(){
             //alert(errorThrown);
             mui.toast("网络错误！");
         }, //错误提示
-
         success:function(data){ //data为交互成功后，后台返回的数据
-//        	alert(data.length);
         	$('ul').empty();
         	var ul = $('ul');
         	for (var a = 0; a < myArray.length; a++) {
-        		
-        			var tool=0;
-        			var fenqu=1;
-            		for(var i=0;i<data.length;i++)  {
-            		
-            		(function(a,i){
-            			var char = data[i].firstchar.substring(0,1);
-            			if(char == myArray[a]){
-            				tool+=1;
-            				if(fenqu==parseInt(data[i].branchid) && tool==1){
-            					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group branchid"+ data[i].branchid +"'>"+char+"</li>");
-                				ul.append(firstli);
-//            					alert("1:feiqu"+fenqu+" tool "+ tool+" branchid "+ data[i].branchid);
-            						
-            				}
-            				if(fenqu != parseInt(data[i].branchid)){
-            					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group branchid"+ data[i].branchid +"'>"+char+"</li>");
-                				ul.append(firstli);
-                				fenqu = data[i].branchid;
-//            					alert("2:feiqu"+fenqu+" tool "+ tool+" branchid "+ data[i].branchid);
-            					
-            				}
-            				var li = $("<li  data-value='"+data[i].firstchar+"' data-tags='"+data[i].firstchar+"' class='mui-table-view-cell mui-indexed-list-item branchid"+ data[i].branchid +"'></li>");
-            				var a =  $("<a target='_top' href=booking.html?roomid="+data[i].id+"&roomname="+data[i].roomname+">"+data[i].roomname+"</a>");
-            				
-                        	var p = $("<p>可坐学生人数：  "+data[i].students+"人</p>");
-                        	a.append(p);
-                        	li.append(a);
-                        	ul.append(li);
-            			}
-            		})(a,i);
-                        
-        			}
-        		
+    			var tool=0;
+    			var fenqu=1;
+        		for(var i=0;i<data.length;i++)  {
+	        		(function(a,i){
+	        			var char = data[i].firstchar.substring(0,1);
+	        			if(char == myArray[a]){
+	        				tool+=1;
+	        				if(parseInt(fenqu)==parseInt(data[i].branchid) && tool==1){
+	        					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group branchid"+ data[i].branchid +"'>"+char+"</li>");
+	            				ul.append(firstli);
+	        				}
+	        				if(parseInt(fenqu) != parseInt(data[i].branchid)){
+	        					var firstli = $("<li data-group='"+char+"' class='mui-table-view-divider mui-indexed-list-group branchid"+ data[i].branchid +"'>"+char+"</li>");
+	            				ul.append(firstli);
+	            				fenqu = data[i].branchid;
+	        				}
+	        				var li = $("<li  data-value='"+data[i].firstchar.substring(0,3)+"' data-tags='"+data[i].firstchar+"' class='mui-table-view-cell mui-indexed-list-item branchid"+ data[i].branchid +"'></li>");
+	        				var a =  $("<a target='_top' href=booking.html?roomid="+data[i].id+"&roomname="+data[i].roomname+">"+data[i].roomname+"</a>");
+	                    	var p = $("<p>可坐学生人数：  "+data[i].students+"人</p>");
+	                    	a.append(p);
+	                    	li.append(a);
+	                    	ul.append(li);
+	        			}
+	        		})(a,i);
+        		}
 			}
-            
-            
         }
     });
 }

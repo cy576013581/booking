@@ -63,7 +63,7 @@ function getData(){
         data: {roomid:roomid,act:"getScheduleSpeed"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -92,7 +92,7 @@ function getClass(){
         data: {username:username,act:"getClass"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -119,7 +119,7 @@ function getCourse(){
         data: {username:username,act:"getCourse",classname:encodeURI(classname)}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -166,7 +166,7 @@ function setTaphold() {
 //        	        dataType:"json", //接收返回的数据方式为json
 
         	        error:function(XMLHttpRequest,textStatus,errorThrown){
-        	            alert("网络错误！");
+        	            mui.toast("网络错误！");
         	        }, //错误提示
         	        success:function(data){ //data为交互成功后，后台返回的数据
         	        	$("#"+station).text("");
@@ -236,9 +236,8 @@ function setClick() {
     		        data: {act:"bookingBySpeed",username:username,classname:classname,coursename:coursename,weeks:weekes1,week:week1,section:section1,roomid:roomid}, 
     		        dataType:"json", //接收返回的数据方式为json
     		        error:function(XMLHttpRequest,textStatus,errorThrown){
-    		            alert("网络错误！");
+    		            mui.toast("网络错误！");
     		        }, //错误提示
-    		        
     		        success:function(data){ //data为交互成功后，后台返回的数据;
     		        	var state = data.state;
     		        	var nowweek = $(".sel_week").children('option:selected').val();
@@ -269,17 +268,14 @@ function setClick() {
         			var weekes = str[1];
         			var week = str[2];
         			var section = str[3];
-//        			var roomid = $("#roomname").children('option:selected').val();
-//        			alert(classname+"-"+coursename+"-"+weekes+"-zhou"+week+"-"+section+"-rommid"+roomid);
         			$.ajax({ //使用ajax与服务器异步交互
         		        url:"Booking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
         		        type:"post",
         		        data: {act:"bookingBySpeed",username:username,classname:classname,coursename:coursename,weeks:weekes,week:week,section:section,roomid:roomid}, 
         		        dataType:"json", //接收返回的数据方式为json
         		        error:function(XMLHttpRequest,textStatus,errorThrown){
-        		            alert("网络错误！");
+        		            mui.toast("网络错误！");
         		        }, //错误提示
-        		        
         		        success:function(data){ //data为交互成功后，后台返回的数据;
         		        	var state = data.state;
         		        	var nowweek = $(".sel_week").children('option:selected').val();
@@ -287,8 +283,6 @@ function setClick() {
         		        		$("#"+strclass).text("✔");
         		        		$("#"+strclass).val(data.id+"-"+username+"-"+classname+"-"+coursename);
         		        		mui.toast("预定成功！");
-        		        		
-        		        		
         		        	}else if(state == "error"){
         		        		mui.toast("预定失败，该时间段已有人预定！");
         		        	}

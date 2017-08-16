@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0"/>
+    <title>机房列表</title>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/layer/layer.js"></script>
+    
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/main4_roomview.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+    	.box_body{
+    		text-align: center;
+    	}
+    	.row{
+    		width: 100%;
+    	}
+		.txt_phone{
+		    width: 65%;
+			border: 1px solid #51B2F9; 
+			margin-top: 30px;
+			height: 30px;
+			border-radius: 20px;
+			font: 15px "Microsoft YaHei";
+			background-color: transparent !important;
+			padding-left: 10px;
+		}
+		.txt_number{
+			width: 35%;
+			border: 1px solid #51B2F9;
+			height: 30px;
+			border-radius: 20px;
+			background-color: transparent !important;
+			font: 15px "Microsoft YaHei";
+			padding-left: 10px;
+		}
+		.btn_login,.btn_getNumber{
+		    width: 30%;
+		    font: 15px "Microsoft YaHei";
+		    border-radius: 20px;
+		    background-color: #51B2F9;
+		    color: white;
+		    margin-top: 25px;
+		    border: 0;
+		    cursor: pointer;
+		    height: 30px;
+		}
+    	
+    </style>
+    
+</head>
+<body>
+    <div class="list_layout">
+        <div class="list_header">
+            <div class="box_list">
+                <img class="icon_back" src="image/icon_back.png">
+                <p class="txt_title">手机号验证</p>
+            </div>
+
+        </div>
+
+        <div class="list_body">
+	        <div class="box_body">
+	        	<div class="row"><input class="txt_phone" type="text" placeholder="请输入您的输入手机号"></div>
+	        	<div class="row"><input class="txt_number" type="text" placeholder="输入验证码"><input type="button" class="btn_getNumber" value="获取验证码"></div>
+	        	<div class="row"><input type="button" class="btn_login" value="下一步"></div>
+	        </div>
+   		</div>
+
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+	$(function(){
+		$(".icon_back").on("click",function(){
+			window.history.back(-1); 
+		});    
+		$(".btn_getNumber").on("click",function(){
+			var phone = $(".txt_phone").val();
+			if(phone == ""){
+				layer.alert("手机号不能为空！");
+				return false;
+			}else{
+				var count = 59;
+				$(".btn_getNumber").css("background-color","#A9A9A9");
+				$(".btn_getNumber").attr("disabled", true);
+				window.setInterval(function(){
+					if(count == -1){
+						return false;
+					}
+					$(".btn_getNumber").val((count--)+"s");
+					
+					
+				}, 1000);
+			}
+		});   
+		$(".btn_login").on("click",function(){
+			var phone = $(".txt_phone").val();
+			var number = $(".txt_number").val();
+			if(phone == ""){
+				layer.alert("手机号不能为空！");
+				return false;
+			}else if(number == ""){
+				layer.alert("验证码不能为空！");
+				return false;
+			}
+			
+		});   
+	});
+	
+	
+</script>

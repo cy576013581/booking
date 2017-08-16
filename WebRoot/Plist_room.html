@@ -2,15 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>用户管理</title>
-    <link href="css/Plistbase.css" rel="stylesheet" type="text/css">
-    <link href="css/pagination.css" rel="stylesheet" type="text/css">
+    <title机房户管理</title>
+    <link rel="stylesheet" type="text/css" href="lib/easyui/themes/metro-red/easyui.css">
+    <link rel="stylesheet" type="text/css" href="lib/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="lib/easyui/demo/demo.css">
+    <script type="text/javascript" src="lib/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="lib/easyui/datagrid-filter.js"></script>
+    <script type="text/javascript" src="lib/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="lib/layer/layer.js"></script>
+    
     <link href="css/PeditDialog.css" rel="stylesheet" type="text/css">
-    <script src="js/jquery-2.1.1.min.js"></script>
-    <script src="js/jquery.pagination.js"></script>
     <script src="js/PinYin.js"></script>
     <script src="js/Plist_room.js"></script>
     <style>
+    	*{
+		    font-family: "Microsoft YaHei UI";
+		}
+		.layout{
+		    width: 100%;
+		}
+		.layout_header{
+		    width: 100%;
+		     padding-top: 30px;
+		}
+		#title{
+		    margin-left: 30px;
+		    color: #323232;
+		    font-family: inherit;
+		    font-weight: 400;
+		    font-size: 28px;
+		    display: inline;
+		}
+		#remarks{
+			margin-left: 30px;
+			color: #7E7E7E;
+			font-size: 16px;
+		}
+		.box_body{
+			margin-top: 30px;
+		}
         .h1{
             width: 400px !important;
         }
@@ -28,30 +59,35 @@
     </div>
     <div class="layout_body">
         <div class="box_body">
-            <table>
-                <tr>
-                    <th class="h1">机房名称</th>
-                    <th class="h2">可坐学生人数</th>
-                    <th class="h3">操作</th>
+            <table id="dg" title="实验室信息" class="easyui-datagrid" style="width:100%;height:auto"
+	            pagination="true" url='Manageroom?act=getAllroom' remoteFilter="true"
+	            pageSize="10" toolbar="#toolbar"
+	            rownumbers="true" fitColumns="true" singleSelect="true">
+		        <thead>
+		            <tr>
+		            	<th field="id"  hidden="true"></th>
+		                <th field="roomname" width="100">机房名称</th>
+		                <th field="students" width="100">可坐学生人数</th>
+		            </tr>
+		        </thead>
+		    </table>
+		    <div id="toolbar">
+				<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit()">编辑</a>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="remove()">删除</a>
+			</div>
+        </div>
+		<div id="dlg" class="easyui-dialog" title="编辑实验室信息" closed="true" data-options="modal:true,
+				buttons:[{
+					id : 'btn_ok',
+					text:' 确认保存  '
+				}]">
+	        <div class="row">
+	        	 <input type="text" id="user_id" hidden="true">
+	             <p>机房名称：<input type="text" id="room_roomname"></p>
+	             <p>学生人数：<input type="text" id="room_students" placeholder="不修改密码则留空"></p>
+	        </div>
+	    </div>
 
-                </tr>
-            </table>
-            <div class="box_page">
-                <div id="News-Pagination"></div>
-            </div>
-        </div>
-    </div>
-    <div id="SelectBox">
-        <div class="row1">
-           	<span id="dialogtitle">编辑信息</span>
-           	 <span title="关闭窗口" class="close_btn" id="closeBtn">×</span>
-        </div>
-        <div class="row">
-             <p>机房名称：<input type="text" id="room_roomname"></p>
-             <p>学生人数：<input type="text" id="room_students"></p>
-        </div>
-        <p class="warning"></p>
-        <button id="btn_ok">确认修改</button>
     </div>
 </div>
 

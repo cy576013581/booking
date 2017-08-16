@@ -12,7 +12,7 @@ $(document).ready(function(){
 		var arr = UM.getEditor('myEditor').getContent();
 	    var title = $(".title").val();
 	    if (title==''){
-           alert("请输入标题！");
+	    	layer.alert("请输入标题！");
            $(".title").focus();
 	    }else{
     	   $.ajax({ //使用ajax与服务器异步交互
@@ -22,12 +22,15 @@ $(document).ready(function(){
 //      	        dataType:"json", //接收返回的数据方式为json
 
       	        error:function(XMLHttpRequest,textStatus,errorThrown){
-      	            alert("网络错误！");
+      	        	layer.alert("网络错误！");
       	        }, //错误提示
 
       	        success:function(data){ //data为交互成功后，后台返回的数据
-      	        	alert("添加成功！");
-      	        	location.reload();
+      	        	layer.confirm('添加成功！', {
+    	        		btn: ['确定'] //按钮
+	        		}, function(){
+	        			location.reload();
+	        		});
       	        }
       	    });
 

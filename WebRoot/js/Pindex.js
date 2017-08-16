@@ -60,22 +60,20 @@ function login() {
 //    	            alert(XMLHttpRequest.readyState);
 //    	            alert(textStatus);
 //    	            alert(errorThrown);
-    	        	alert("网络错误！");
+    	        	layer.alert("网络错误！");
     	        }, //错误提示
 
     	        success:function(data){ //data为交互成功后，后台返回的数据
     	            var flag =data.flag;//服务器返回标记
     	            if(flag==1){
     	            	alert("登录成功！");
-//    	            	window.close();
-//    	              sessionStorage.username = $(".txt_username").val();
-    	            	sessionStorage.setItem("username", $(".username").val());
+	        			sessionStorage.setItem("username", $(".username").val());
     	            	window.location.href="Pmain.html";
     	            }else if(flag==0){
     	            	alert("用户名或密码错误！");
     	            	changeVerifyCode();
     				}else if(flag==2){
-    	            	alert("验证码错误！");
+    					alert("验证码错误！");
     	            	changeVerifyCode();
     				}
     	        }

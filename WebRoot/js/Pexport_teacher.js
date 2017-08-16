@@ -10,7 +10,7 @@ $(document).ready(function () {
     $("#btn_ok").on("click",function(){
         var value = $("#teacher_username").val();
         if (value == ''){
-            alert("账号不能为空")
+        	layer.alert("账号不能为空")
             $("#teacher_username").focus();
         }else{
         	var url = "CreateExcel?username="+value;
@@ -29,7 +29,7 @@ function getTeacher() {
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+        	layer.alert("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -187,6 +188,7 @@ public class Managerbooking extends HttpServlet {
 	}
 	public void updateBooking(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
+		String id = request.getParameter("id");
 		String username = request.getParameter("username");
 		String classname = request.getParameter("classname");
 		String coursename = request.getParameter("coursename");
@@ -205,9 +207,9 @@ public class Managerbooking extends HttpServlet {
 //			System.out.println(classid);
 			JSONObject result = new JSONObject();
 //			System.out.println(roomid+"-"+classid+"-"+classtime+"-"+section);
-			boolean flag = book.checkBooking(roomid, classtime, section,yearid);
+			boolean flag = book.checkBookingMy(roomid, classtime, section, yearid, username);
 			if(flag){
-				book.booking(roomid, username, classid, classtime, bookingtime, section,yearid);
+				book.updateBooking(Integer.valueOf(id), roomid, classid, classtime, bookingtime, section);
 				UserDAO user = new UserDAO();
 				Map<String , String> map = user.getAccount(username);
 				result.put("state", "success");
@@ -245,15 +247,19 @@ public class Managerbooking extends HttpServlet {
 	
 	public void getAllbooking(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
-		int page = Integer.valueOf(request.getParameter("page"))*6;
 //		System.out.println("page"+page);
 		BookingDAO booking = new BookingDAO();
 		ScheduleDAO sche = new ScheduleDAO();
 		List<Map<String,String>> data = new ArrayList<>();
+		int sum =0;
 		try {
 			int yearid = sche.getYearID();
-			data = booking.findAll(page,yearid);
-			JSONArray result = new JSONArray(data);
+			data = booking.findAll(yearid);
+			sum = booking.getCount(yearid);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("total", sum);
+			map.put("rows", data);
+			JSONObject result = new JSONObject(map);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());
 		} catch (Exception e) {

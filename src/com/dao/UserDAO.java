@@ -137,6 +137,30 @@ public class UserDAO {
 		},pageindex,6);
 	}
 	
+	public List<Map<String,String>> findAll() throws SQLException{
+		String sql = "select Id,Username,Depart,Phone from users where Power=0";
+		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
+			
+			@Override
+			public Object doHandler(final ResultSet rs) throws SQLException {
+				// TODO Auto-generated method stub
+				final List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+				Map<String,String> u;
+				while(rs.next()){
+//					System.out.println(p++);
+					u = new HashMap<String, String>();
+					u.put("id", String.valueOf(rs.getInt("Id")));
+					u.put("username", rs.getString("Username"));
+					u.put("depart", rs.getString("Depart"));
+					u.put("phone", rs.getString("Phone"));
+					list.add(u);
+				}
+				
+				return list;
+			}
+		});
+	}
+	
 	public List<Map<String,String>> findAllexcel() throws SQLException{
 		String sql = "select Username from users where Power=0";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
@@ -161,7 +185,7 @@ public class UserDAO {
 	
 	
 	public int getCount() throws SQLException{
-		String sql = "select count(Username) from users";
+		String sql = "select count(Username) from users where Power=0";
 		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override

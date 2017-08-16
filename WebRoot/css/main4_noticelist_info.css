@@ -47,7 +47,6 @@
     min-width: 300px;
     margin:0 auto;
     padding: 20px 30px;
-    text-align: center;
 }
 
 #text_title{
@@ -61,6 +60,5 @@
 
 #text_content{
 	margin-top:30px;
-	text-align:left !important;
-	line-height: 22px;
+	line-height: 30px;
 }

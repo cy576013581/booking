@@ -3,7 +3,7 @@ var PinYin = {"a":"\u554a\u963f\u9515","ai":"\u57c3\u6328\u54ce\u5509\u54c0\u769
 function getPinyin(l1) {
     var l2 = l1.length;
     var I1 = "";
-    var reg = new RegExp('[a-zA-Z0-9\- ]');
+    var reg = new RegExp('[a-zA-Z\- ]');
     for (var i=0;i<l2;i++) {
         var val = l1.substr(i,1);
         var name = arraySearch(val,PinYin);
@@ -22,7 +22,7 @@ function getPinyin(l1) {
     var arry = I1.split(""); 
     var newarry ="";
     for(var i=0;i<I1.length;i++){
-    	if((arry[i]>='A' && arry[i]<='Z') || (arry[i]>='0' && arry[i]<='9')){
+    	if((arry[i]>='A' && arry[i]<='Z') || (arry[i]>='a' && arry[i]<='z')){
     		newarry+=arry[i];
     	}
     }

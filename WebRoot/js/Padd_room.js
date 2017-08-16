@@ -13,10 +13,10 @@ $(document).ready(function(){
        var students = $(".students").val();
 //       alert(position);
        if (roomname==''){
-           alert("请输入机房名称！");
+    	   layer.alert("请输入机房名称！");
            $(".roomname").focus();
        }else if (students==''){
-           alert("请输入机房可坐人数！");
+    	   layer.alert("请输入机房可坐人数！");
            $(".students").focus();
        }else{
     	   
@@ -27,11 +27,11 @@ $(document).ready(function(){
 //   	        dataType:"json", //接收返回的数据方式为json
 
    	        error:function(XMLHttpRequest,textStatus,errorThrown){
-   	            alert("网络错误！");
+   	        	layer.alert("网络错误！");
    	        }, //错误提示
 
    	        success:function(data){ //data为交互成功后，后台返回的数据
-   	        	alert("添加成功！");
+   	        	layer.alert("添加成功！");
    	        	$(".roomname").val("");
    	        	$(".students").val("");
    	        }
@@ -50,7 +50,7 @@ function  getBranch() {
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+        	layer.alert("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据

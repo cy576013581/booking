@@ -3,6 +3,7 @@ package com.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,8 +61,6 @@ public class Manageroom extends HttpServlet {
 		RoomDAO room = new RoomDAO();
 		try {
 			room.insertBranch(areaname);
-//			System.out.println(data.get(0).get("id"));
-//			List<Map<String,String>> data = dao.getNews(flag);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -173,15 +172,20 @@ public class Manageroom extends HttpServlet {
 	
 	public void getAllroom(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
-		int page = Integer.valueOf(request.getParameter("page"))*6;
 //		System.out.println("page"+page);
 		RoomDAO room = new RoomDAO();
 		List<Map<String,String>> data = new ArrayList<>();
+		int sum =0;
 		try {
-			data = room.findAll(page);
+			data = room.findAll();
+			sum = room.getCount();
 //			System.out.println(data.get(0).get("id"));
 //			List<Map<String,String>> data = dao.getNews(flag);
-			JSONArray result = new JSONArray(data);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("total", sum);
+			map.put("rows", data);
+			JSONObject result = new JSONObject(map);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());
 		} catch (Exception e) {

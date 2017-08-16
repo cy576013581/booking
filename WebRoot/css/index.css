@@ -33,7 +33,7 @@
 	.login_header,.content_header{
     	height: 300px;
 	}
-	.a_showbooking{
+	.a_showbooking,.a_validate{
 		font-size: 18px;
 	}
 	.txt_username,.txt_pwd{
@@ -55,7 +55,7 @@
 	.login_header,.content_header{
     	height: 250px;
 	}
-	.a_showbooking{
+	.a_showbooking,.a_validate{
 		font-size: 18px;
 	}
 	.txt_username,.txt_pwd{
@@ -75,7 +75,7 @@
 	.login_header,.content_header{
 	    height: 250px;
 	}
-	.a_showbooking{
+	.a_showbooking,.a_validate{
 		font-size: 18px;
 	}
 	.txt_username,.txt_pwd{
@@ -94,7 +94,7 @@
 	.login_header,.content_header{
     	height: 230px;
 	}
-	.a_showbooking{
+	.a_showbooking,.a_validate{
 		font-size: 18px;
 	}
 	.txt_username,.txt_pwd{
@@ -113,7 +113,7 @@
 	.login_header,.content_header{
     	height: 150px;
 	}
-	.a_showbooking{
+	.a_showbooking,.a_validate{
 		font-size: 15px;
 	}
 	.txt_username,.txt_pwd{
@@ -209,5 +209,12 @@ font-family: "Microsoft YaHei UI";
 }
 .a_showbooking{
 	color: white;
+	margin-left: 20%;
+	
 }
+.a_validate{
+	color: white;
+	margin-right: 20%;
+}
+
 

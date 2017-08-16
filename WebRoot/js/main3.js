@@ -37,11 +37,11 @@ function getAccount(){
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            //alert(XMLHttpRequest.status);
-            //alert(XMLHttpRequest.readyState);
-            //alert(textStatus);
-            //alert(errorThrown);
-            alert("网络错误！");
+            //mui.toast(XMLHttpRequest.status);
+            //mui.toast(XMLHttpRequest.readyState);
+            //mui.toast(textStatus);
+            //mui.toast(errorThrown);
+            mui.toast("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据

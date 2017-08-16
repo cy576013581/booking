@@ -30,7 +30,7 @@ function addClass(){
 	        dataType:"json", //接收返回的数据方式为json
 
 	        error:function(XMLHttpRequest,textStatus,errorThrown){
-	            alert("网络错误！");
+	            mui.toast("网络错误！");
 	        }, //错误提示
 
 	        success:function(data){ //data为交互成功后，后台返回的数据
@@ -55,20 +55,15 @@ function addClass(){
                     	        type:"POST",
                     	        data: {id:data.id,act:"deleteClass"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
                     	        dataType:"json", //接收返回的数据方式为json
-
                     	        error:function(XMLHttpRequest,textStatus,errorThrown){
-                    	            alert("网络错误！");
+                    	            mui.toast("网络错误！");
                     	        }, //错误提示
-
                     	        success:function(data){ //data为交互成功后，后台返回的数据
                     	        	swal("Deleted!", "您的班级已经成功删除！", "success");
                     	        	li.remove();  
                     	        }
                     	    });
-                    		
-                    	    
                     	});
-                    	
                     });
                     edit.append(edit_edit);
                     edit.append(edit_delete);
@@ -101,7 +96,7 @@ function getClass(){
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据
@@ -131,7 +126,7 @@ function getClass(){
                      	        dataType:"json", //接收返回的数据方式为json
 
                      	        error:function(XMLHttpRequest,textStatus,errorThrown){
-                     	            alert("网络错误！");
+                     	            mui.toast("网络错误！");
                      	        }, //错误提示
 
                      	        success:function(data){ //data为交互成功后，后台返回的数据
@@ -167,7 +162,6 @@ function getClass(){
 
 function mytaphold(event) {
 	var deleteid = event.target.name;
-	alert(deleteid);
 	
 }
 
@@ -182,7 +176,7 @@ function getEdit(event){
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据
@@ -209,7 +203,7 @@ function editClass(){
 	        dataType:"json", //接收返回的数据方式为json
 
 	        error:function(XMLHttpRequest,textStatus,errorThrown){
-	            alert("网络错误！");
+	            mui.toast("网络错误！");
 	        }, //错误提示
 
 	        success:function(data){ //data为交互成功后，后台返回的数据

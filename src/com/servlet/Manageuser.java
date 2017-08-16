@@ -3,6 +3,7 @@ package com.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -128,11 +129,14 @@ public class Manageuser extends HttpServlet {
 //		System.out.println("page"+page);
 		UserDAO user = new UserDAO();
 		List<Map<String,String>> data = new ArrayList<>();
+		int sum =0;
 		try {
-			data = user.findAll(page);
-//			System.out.println(data.size());
-//			List<Map<String,String>> data = dao.getNews(flag);
-			JSONArray result = new JSONArray(data);
+			data = user.findAll();
+			sum = user.getCount();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("total", sum);
+			map.put("rows", data);
+			JSONObject result = new JSONObject(map);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());
 		} catch (Exception e) {

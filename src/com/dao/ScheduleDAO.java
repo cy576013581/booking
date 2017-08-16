@@ -224,10 +224,10 @@ public class ScheduleDAO {
 					String a ="";
 					String b ="";
 					if(rs.getString(1) != null){
-						a = rs.getString(1).substring(0,16).replace(' ', 'T');
+						a = rs.getString(1).substring(0,16);
 					}
 					if(rs.getString(2) != null){
-						b = rs.getString(2).substring(0,16).replace(' ', 'T');
+						b = rs.getString(2).substring(0,16);
 					}
 //					System.out.println(b);
 					date.put("systemstart", a);

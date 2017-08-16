@@ -64,8 +64,8 @@ public class NoticeDAO {
 		});
 	}
 	
-	public List<Map<String,String>> findAll(int pageindex) throws SQLException{
-		String sql = "select Id,Title,Content,Releasetime from notice where Flag=0 order by Releasetime limit ?,?";
+	public List<Map<String,String>> findAll() throws SQLException{
+		String sql = "select Id,Title,Content,Releasetime from notice where Flag=0 order by Releasetime";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -85,7 +85,7 @@ public class NoticeDAO {
 				
 				return list;
 			}
-		},pageindex,6);
+		});
 	}
 	
 	public void insertNotice(String title,String content,String releasetime,int flag) throws SQLException{
