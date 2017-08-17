@@ -1,7 +1,6 @@
 /**
  * Created by cy on 2016/8/14.
  */
-var count;
 var um;
 $(document).ready(function(){
 	if(sessionStorage.getItem("username") == null){
@@ -9,43 +8,89 @@ $(document).ready(function(){
 	}
 	//实例化编辑器
 	um = UM.getEditor('myEditor');
-	editdialog();
 	
-	getCount();
+	$('#dg').datagrid({
+		onDblClickCell: function(index,field,value){
+			edit();
+		}
+	});
 	
-	$("#News-Pagination").pagination(count, {
-        items_per_page:6,//每页显示多少条数据
-        current_page:0,//当前显示第几页数据
-        num_display_entries:6,//分页显示的条目数
-        next_text:"下一页",
-        prev_text:"上一页",
-        num_edge_entries:2,//链接分页主体，显示的条目数
-        callback:handlePaginationClick
-    });
-
+	$('#dg').datagrid('enableFilter');
 
 });
 
-function  getCount() {
-	$.ajax({ //使用ajax与服务器异步交互
-		async:false,
-        url:"Managenotice?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
-        type:"POST",
-        data: {act:"getSum"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
-        dataType:"json", //接收返回的数据方式为json
+function editNotice(){
+	var row = $('#dg').datagrid('getSelected');
+	if (row){
+		var id = row.id;
+		$("#notice_title").val(row.title);
+		um.setContent("");
+		um.execCommand('insertHtml', row.content);
+		$('#dlg').dialog('open');
+		$("#btn_ok").on("click",function(){
+			var title = $("#notice_title").val();
+			var content = UM.getEditor('myEditor').getContent();
+		    if (title==''){
+		        layer.msg('警告：公告标题不能为空！', {icon: 2});
+		        $("#notice_title").focus();
+		    }else{
+		    	$.ajax({ //使用ajax与服务器异步交互
+//		    		async:false,
+		            url:"Managenotice?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+		            type:"POST",
+		            data: {act:"updateNotice",title:title,content:content,id:id}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+//		            dataType:"json", //接收返回的数据方式为json
 
-        error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
-        }, //错误提示
+		            error:function(XMLHttpRequest,textStatus,errorThrown){
+		                alert("网络错误，操作失败！");
+		            }, //错误提示
 
-        success:function(data){ //data为交互成功后，后台返回的数据
-        	count = data.sum;
-        }
-    });
-	return false;
+		            success:function(data){ //data为交互成功后，后台返回的数据
+		            	layer.alert("修改成功");
+		            	$('#dlg').dialog('close');
+		            	$('#dg').datagrid('reload');
+		            	
+	                    return false;
+		            }
+		        });
+		    }
+		});
+	}else{
+		layer.alert("没有选中任何行！");
+	}
 }
 
-function handlePaginationClick(new_page_index, pagination_container) {
+function remove(){
+	var row = $('#dg').datagrid('getSelected');
+	if (row){
+		layer.confirm('确定要删除该条信息？', {
+		  btn: ['删除','取消'] //按钮
+		}, function(){
+			var id = row.id;
+			$.ajax({ //使用ajax与服务器异步交互
+		        url:"Managenotice?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+		        type:"POST",
+		        data: {act:"deleteNotice",id:id}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+//		        dataType:"json", //接收返回的数据方式为json
+		        error:function(XMLHttpRequest,textStatus,errorThrown){
+		            alert("网络错误！");
+		        }, //错误提示
+		        success:function(data){ //data为交互成功后，后台返回的数据
+		        	layer.alert("删除成功！");
+		        	$('#dg').datagrid('reload');
+		        	
+		        }
+		    });
+		});
+		
+		
+	}else{
+		layer.alert("没有选中任何行！");
+	}
+}
+
+
+/*function handlePaginationClick(new_page_index, pagination_container) {
     // This selects 20 elements from a content array
 	$.ajax({ //使用ajax与服务器异步交互
         url:"Managenotice?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
@@ -140,28 +185,7 @@ function handlePaginationClick(new_page_index, pagination_container) {
         }
     });
     return false;
-}
-
-function editdialog() {
-	$("#example").hover(function () {
-        $(this).stop().animate({
-            opacity: '1'
-        }, 600);
-    }, function () {
-        $(this).stop().animate({
-            opacity: '0.6'
-        }, 1000);
-    }).on('click', function () {
-        $("body").append("<div id='mask'></div>");
-        $("#mask").addClass("mask").fadeIn("slow");
-        $("#LoginBox").fadeIn("slow");
-    });
-	$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
-        $("#SelectBox").fadeOut("fast");
-        $("#mask").css({ display: 'none' });
-        $("td[name]").removeAttr("name"); 
-    });
-}
+}*/
 
 
 

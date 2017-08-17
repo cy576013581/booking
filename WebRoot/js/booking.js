@@ -45,25 +45,21 @@ function getAlready() {
         data: {username:username,act:"getAlready",roomid:roomid}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
         	
         		for (var i = 0; i < data.length; i++) {
         			(function(i) {
-	//            		alert(data[i].station);
-	//            		alert(data[i].week);
 	            		var strdate = data[i].classtime.substring();
 	            		var date = strdate.substring(5,strdate.length);
 	    				var ul= $("#list_readyBooking");
 	    				var li = $("<li></li>");
-	
 	    				var a = $("<a name="+data[i].station+" value="+data[i].week+">"+date+"/"+data[i].classname+"/"+data[i].coursename+"</a>");
 	    				a.on("click",function(){
 	    					var week = a.attr("value");
 	    					var station = a.attr("name");
-//	    					alert(week+"-"+station);
 	    					$(".sel_week").val(week);
 	    					getWeek();
 	    					$("#popupBasic").popup("close");
@@ -84,19 +80,15 @@ function doSwipeleft(){
 	if(nowweek<20){
 		$(".sel_week").val(nowweek-(-1));
 		getWeek();
-
 	}
 }
 function doSwiperight(){
 	var nowweek = $(".sel_week").children('option:selected').val();
 //	alert(nowweek+"right");
-	$(".schedule_layout").fadeOut(100);
 	if(nowweek>1){
 		$(".sel_week").val(nowweek-1);
 		getWeek();
-		
 	}
-	$(".schedule_layout").fadeIn(1000);
 }
 
 
@@ -143,13 +135,13 @@ function setClick() {//设置每节课的点击事件
 						if($(this).text().split("-")[0] == username){
 							var bookingid = $(this).attr("value");
 		                	swal({
-		                	    title: "Are you sure?",
+		                	    title: "您确定吗?",
 		                	    text: "你确定要删除这次预定吗？",
 		                	    type: "warning",
 		                	    showCancelButton: true,
 		                	    confirmButtonColor: "#DD6B55",
-		                	    confirmButtonText: "Yes, delete!",
-		                	    cancelButtonText: "No, cancel!",
+		                	    confirmButtonText: "删除",
+		                	    cancelButtonText: "取消",
 		                	    closeOnConfirm: false,
 		                	}, function () {
 		    					$.ajax({ //使用ajax与服务器异步交互
@@ -159,7 +151,7 @@ function setClick() {//设置每节课的点击事件
 //		                	        dataType:"json", //接收返回的数据方式为json
 
 		                	        error:function(XMLHttpRequest,textStatus,errorThrown){
-		                	            alert("网络错误！");
+		                	            mui.toast("网络错误！");
 		                	        }, //错误提示
 		                	        success:function(data){ //data为交互成功后，后台返回的数据
 		                	        	$("#lesson"+int+int2).text("空");
@@ -188,7 +180,7 @@ function getClass(){
         data: {username:username,act:"getClass"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -215,7 +207,7 @@ function getCourse(){
         data: {username:username,act:"getCourse",classname:encodeURI(classname)}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -249,7 +241,7 @@ function getDataByWeek(){
         type:"post",
         data: {week:weeks,roomid:roomid,act:"getSchedule"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
-
+        async:false,
         error:function(XMLHttpRequest,textStatus,errorThrown){
 //            alert(XMLHttpRequest.status);
 //            alert(XMLHttpRequest.readyState);

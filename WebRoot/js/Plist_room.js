@@ -1,165 +1,109 @@
 /**
  * Created by cy on 2016/8/14.
  */
-var count;
 $(document).ready(function(){
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="Pindex.html";
 	}
-	editdialog();
 	
-	getCount();
+	$('#dg').datagrid({
+		onDblClickCell: function(index,field,value){
+			edit();
+		}
+	});
 	
-	$("#News-Pagination").pagination(count, {
-        items_per_page:6,//每页显示多少条数据
-        current_page:0,//当前显示第几页数据
-        num_display_entries:6,//分页显示的条目数
-        next_text:"下一页",
-        prev_text:"上一页",
-        num_edge_entries:2,//链接分页主体，显示的条目数
-        callback:handlePaginationClick
-    });
+	if($.fn.datagrid && $.fn.datagrid.defaults && $.fn.datagrid.defaults.operators ){
+        $.fn.datagrid.defaults.operators.nofilter.text = "无";
+        $.fn.datagrid.defaults.operators.contains.text = "包含";
+        $.fn.datagrid.defaults.operators.equal.text = "=等于";
+        $.fn.datagrid.defaults.operators.notequal.text = "!=不等于";
+        $.fn.datagrid.defaults.operators.beginwith.text = "^=以*开始";
+        $.fn.datagrid.defaults.operators.endwith.text = "$=以*结束";
+        $.fn.datagrid.defaults.operators.less.text = "<小于";
+        $.fn.datagrid.defaults.operators.lessorequal.text = "<=小于等于";
+        $.fn.datagrid.defaults.operators.greater.text = ">大于";
+        $.fn.datagrid.defaults.operators.greaterorequal.text = ">=大于等于";
+    }
 
-
-
+	$('#dg').datagrid('enableFilter',[
+  	    {
+  	        field:'students',
+  	        type:'textbox',
+  	        options:{precision:1},
+  	        op:['equal','notequal','less','greater']
+  	    }
+  	]);
+	
 });
 
-function  getCount() {
-	$.ajax({ //使用ajax与服务器异步交互
-		async:false,
-        url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
-        type:"POST",
-        data: {act:"getSum"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
-        dataType:"json", //接收返回的数据方式为json
+function edit(){
+	var row = $('#dg').datagrid('getSelected');
+	if (row){
+		var id = row.id;
+		$("#room_roomname").val(row.roomname);
+		$("#room_students").val(row.students);
+		$('#dlg').dialog('open');
+		$("#btn_ok").on("click",function(){
+			var roomname = $("#room_roomname").val();
+			var firstchar = getPinyin(roomname);
+			var students = $("#room_students").val();
+		    if (roomname==''){
+		    	layer.msg('警告：机房名不能为空！', {icon: 2});
+		        $("#room_roomname").focus();
+		    }else if (students==''){
+		    	layer.msg('警告：可坐学生人数不能为空！', {icon: 2});
+		        $("#room_students").focus();
+		    }else{
+		    	$.ajax({ //使用ajax与服务器异步交互
+//		    		async:false,
+		            url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+		            type:"POST",
+		            data: {act:"updateRoom",roomname:roomname,students:students,id:id,firstchar:firstchar}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+		            error:function(XMLHttpRequest,textStatus,errorThrown){
+		                alert("网络错误，操作失败！");
+		            }, //错误提示
 
-        error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
-        }, //错误提示
-
-        success:function(data){ //data为交互成功后，后台返回的数据
-        	count = data.sum;
-        }
-    });
-	return false;
+		            success:function(data){ //data为交互成功后，后台返回的数据
+		            	layer.alert("修改成功");
+		            	$('#dlg').dialog('close');
+		            	$('#dg').datagrid('reload');
+		            	
+		            }
+		        });
+		    	return false;
+		    }
+		});
+	}else{
+		layer.alert("没有选中任何行！");
+	}
 }
 
-function handlePaginationClick(new_page_index, pagination_container) {
-    // This selects 20 elements from a content array
-	$.ajax({ //使用ajax与服务器异步交互
-        url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
-        type:"POST",
-        data: {act:"getAllroom",page:new_page_index}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
-        dataType:"json", //接收返回的数据方式为json
+function remove(){
+	var row = $('#dg').datagrid('getSelected');
+	if (row){
+		layer.confirm('确定要删除该条信息？', {
+		  btn: ['删除','取消'] //按钮
+		}, function(){
+			var id = row.id;
+			$.ajax({ //使用ajax与服务器异步交互
+		        url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+		        type:"POST",
+		        data: {act:"deleteRoom",id:id}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+//		        dataType:"json", //接收返回的数据方式为json
+		        error:function(XMLHttpRequest,textStatus,errorThrown){
+		            alert("网络错误！");
+		        }, //错误提示
 
-        error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
-        }, //错误提示
-
-        success:function(data){ //data为交互成功后，后台返回的数据
-        	$("table .tr_td").empty();
-//        	alert(data.length);
-        	for (var i = 0; i < data.length; i++) {
-				(function(i) {
-					var tr = $("<tr class='tr_td id"+data[i].id+"'></tr>");
-					var td1 = $("<td class='roomname"+i+"'>"+data[i].roomname+"</td>");
-					var td2 = $("<td class='students"+i+"'>"+data[i].students+"</td>");
-					var td4 = $("<td></td>");
-					var btn_edit = $("<button class='btn_edit'>编辑</button>");
-					var btn_del = $("<button class='btn_del'>删除</button>");
-					$(btn_edit).on("click",function(){
-						var id = data[i].id;
-//						alert(id);
-						$("body").append("<div id='mask'></div>");
-				        $("#mask").addClass("mask").fadeIn("slow");
-				        $("#SelectBox").fadeIn("slow");
-				        
-						$("#room_roomname").val($(".roomname"+i).text());
-						$("#room_students").val($(".students"+i).text());
-						
-						$("#btn_ok").on("click",function(){
-							var roomname = $("#room_roomname").val();
-							var firstchar = getPinyin(roomname);
-							var students = $("#room_students").val();
-						    if (roomname==''){
-						    	$(".warning").text("警告：机房名不能为空！");
-						        $("#room_roomname").focus();
-						    }else if (students==''){
-						    	$(".warning").text("警告：可坐学生人数不能为空！");
-						        $("#room_students").focus();
-						    }else{
-						    	$.ajax({ //使用ajax与服务器异步交互
-//						    		async:false,
-						            url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
-						            type:"POST",
-						            data: {act:"updateRoom",roomname:roomname,students:students,id:id,firstchar:firstchar}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
-//						            dataType:"json", //接收返回的数据方式为json
-
-						            error:function(XMLHttpRequest,textStatus,errorThrown){
-						                alert("网络错误，操作失败！");
-						            }, //错误提示
-
-						            success:function(data){ //data为交互成功后，后台返回的数据
-						            	
-						            	$("#SelectBox").fadeOut("fast");
-					                    $("#mask").css({ display: 'none' });
-					                    $(".roomname"+i).text(roomname);
-					                    $(".students"+i).text(students);
-					                    alert("修改成功");
-						            }
-						        });
-						    	return false;
-						    }
-						});
-					});
-					$(btn_del).on("click",function(){
-						var id = data[i].id;
-						$.ajax({ //使用ajax与服务器异步交互
-					        url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
-					        type:"POST",
-					        data: {act:"deleteRoom",id:id}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
-//					        dataType:"json", //接收返回的数据方式为json
-					        error:function(XMLHttpRequest,textStatus,errorThrown){
-					            alert("网络错误！");
-					        }, //错误提示
-
-					        success:function(data){ //data为交互成功后，后台返回的数据
-					        	$(".id"+id).remove();
-					        	alert("删除成功！");
-					        }
-					    });
-					});
-					td4.append(btn_edit);
-					td4.append(btn_del);
-					tr.append(td1);
-					tr.append(td2);
-					tr.append(td4);
-					$("table").append(tr);
-				})(i);
-			}
-        }
-    });
-    return false;
-}
-
-function editdialog() {
-	$("#example").hover(function () {
-        $(this).stop().animate({
-            opacity: '1'
-        }, 600);
-    }, function () {
-        $(this).stop().animate({
-            opacity: '0.6'
-        }, 1000);
-    }).on('click', function () {
-        $("body").append("<div id='mask'></div>");
-        $("#mask").addClass("mask").fadeIn("slow");
-        $("#LoginBox").fadeIn("slow");
-    });
-	$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
-        $("#SelectBox").fadeOut("fast");
-        $("#mask").css({ display: 'none' });
-        $("td[name]").removeAttr("name"); 
-    });
+		        success:function(data){ //data为交互成功后，后台返回的数据
+		        	layer.alert("删除成功！");
+		        	$('#dg').datagrid('reload');
+		        	
+		        }
+		    });
+		});
+	}else{
+		layer.alert("没有选中任何行！");
+	}
 }
 
 

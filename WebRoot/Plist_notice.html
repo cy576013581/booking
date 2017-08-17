@@ -2,18 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>用户管理</title>
-    <link href="css/Plistbase.css" rel="stylesheet" type="text/css">
-    <link href="css/pagination.css" rel="stylesheet" type="text/css">
+    <title>公告管理</title>
+    <link rel="stylesheet" type="text/css" href="lib/easyui/themes/metro-red/easyui.css">
+    <link rel="stylesheet" type="text/css" href="lib/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="lib/easyui/demo/demo.css">
+    <script type="text/javascript" src="lib/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/easyui/jquery.easyui.min.js"></script>
+   
+    <script type="text/javascript" src="lib/easyui/datagrid-filter.js"></script>
+    <script type="text/javascript" src="lib/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="lib/layer/layer.js"></script>
+    <link href="lib/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" src="lib/ueditor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/ueditor/umeditor.js"></script>
+    <script type="text/javascript" src="lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+    
     <link href="css/PeditDialog.css" rel="stylesheet" type="text/css">
-    <link href="ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="ueditor/third-party/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="ueditor/umeditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="ueditor/umeditor.js"></script>
-    <script type="text/javascript" src="ueditor/lang/zh-cn/zh-cn.js"></script>
-    <script src="js/jquery.pagination.js"></script>
     <script src="js/Plist_notice.js"></script>
     <style>
+    	*{
+		    font-family: "Microsoft YaHei UI";
+		}
+		.layout{
+		    width: 100%;
+		}
+		.layout_header{
+		    width: 100%;
+		     padding-top: 30px;
+		}
+		#title{
+		    margin-left: 30px;
+		    color: #323232;
+		    font-family: inherit;
+		    font-weight: 400;
+		    font-size: 28px;
+		    display: inline;
+		}
+		#remarks{
+			margin-left: 30px;
+			color: #7E7E7E;
+			font-size: 16px;
+		}
+		.box_body{
+			margin-top: 30px;
+		}
         th{
             width: 100px;
         }
@@ -29,6 +61,7 @@
         }
         #notice_title{
         	width: 200px;
+        	margin-left: 15px;
         	
         }
         #SelectBox{
@@ -61,44 +94,41 @@
         <span id="remarks">系统公告在用户端的机房公告列表中根据时间先后显示</span>
         <hr>
     </div>
+    
     <div class="layout_body">
         <div class="box_body">
-            <table>
-                <tr>
-                    <th class="h1">公告标题</th>
-                    <th class="h2">内容</th>
-                    <th>发布时间</th>
-                    <th>操作</th>
-                </tr>
-               <!--  <tr>
-                    <td>信商机房实验室系统测试！</td>
-                    <td>机房实验室系统公告测试1</td>
-                    <td>2016-08-10</td>
-                    <td><button class="btn_edit">编辑</button><button class="btn_del">删除</button></td>
-                </tr> -->
-
-            </table>
-            <div class="box_page">
-                <div id="News-Pagination"></div>
-            </div>
-        </div>
-
-    </div>
-    
-    <div id="SelectBox">
-        <div class="row1">
-           	<span id="dialogtitle">编辑信息</span>
-           	 <span title="关闭窗口" class="close_btn" id="closeBtn">×</span>
-        </div>
-        <div class="row">
-             <span>标题：</span><input type="text" id="notice_title"><br/>
-             <span>内容：</span>
-             <div id="box_editor">
-	             <script type="text/plain" id="myEditor" style="width:680px;height:150px;"></script>
+            <table id="dg" title="公告信息" class="easyui-datagrid" style="width:100%;height:auto"
+	            pagination="true" url='Managenotice?act=getAllnotice' remoteFilter="true"
+	            pageSize="10" toolbar="#toolbar"
+	            rownumbers="true" fitColumns="true" singleSelect="true">
+		        <thead>
+		            <tr>
+		            	<th field="id"  hidden="true"></th>
+		                <th field="title" width="100">公告标题</th>
+		                <th field="content" width="100">内容</th>
+		                <th field="releasetime" width="100">发布时间</th>
+		            </tr>
+		        </thead>
+		    </table>
+		    <div id="toolbar">
+				<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editNotice()">编辑</a>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="remove()">删除</a>
 			</div>
         </div>
-        <p class="warning"></p>
-        <button id="btn_ok">确认修改</button>
+		<div id="dlg" class="easyui-dialog" title="编辑公告信息" closed="true" data-options="modal:true,
+				buttons:[{
+					id : 'btn_ok',
+					text:' 确认保存  '
+				}]">
+	        <div class="row">
+	        	 <input type="text" id="user_id" hidden="true">
+	             <span>标题：</span><input type="text" id="notice_title"><br/>
+	             <span>内容：</span>
+	             <div id="box_editor">
+		             <script type="text/plain" id="myEditor" style="width:680px;height:150px;"></script>
+				</div>
+	        </div>
+	    </div>
     </div>
 </div>
 

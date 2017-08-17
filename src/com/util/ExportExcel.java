@@ -135,26 +135,6 @@ public class ExportExcel {
 	public void wirteExcel(String sheetName[],String titleName[][],int titleSize[],String[][][] dataList){
     	//添加Worksheet（不添加sheet时生成的xls文件打开时会报错)
 		OutputStream out = null;
-		/*try {
-			if(fileDir!=null){
-				//有文件路径
-				
-					out = new FileOutputStream(fileDir);
-				   			
-			}else{
-				//否则，直接写到输出流中
-				out = response.getOutputStream();
-				fileName = fileName+".xls";
-				response.setContentType("application/x-msdownload");
-				response.setHeader("Content-Disposition", "attachment; filename="
-						+ URLEncoder.encode(fileName, "UTF-8"));
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		*/
-		
 		try {
 			out = response.getOutputStream();
 			fileName = fileName+".xls";
@@ -169,16 +149,7 @@ public class ExportExcel {
 		
     	for(int sheetindex = 0; sheetindex < 20; sheetindex++){
     		Sheet sheet = workbook.createSheet(sheetName[sheetindex]);  
-//    		sheet.setColumnWidth(1, 2000 * 256);
-//    		sheet.setDefaultColumnWidth(200);  
-//    		sheet.setDefaultRowHeightInPoints(200);  
-        	//新建文件
         	try {	 
-        		
-        		
-        		/*if(station!=null){
-        			
-        		}*/
 
     	    	//大标题
         		Row titleRow = workbook.getSheet(sheetName[sheetindex]).createRow(0); 

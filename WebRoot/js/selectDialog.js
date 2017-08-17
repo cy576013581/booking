@@ -1,6 +1,22 @@
 /**
  * Created by cy on 2016/7/10.
  */
+
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
 $(function ($) {
 
     //
@@ -48,14 +64,15 @@ function booking(classtime) {
 		}
 	}
 	var nowdate = new Date();
-	if(month<(nowdate.getMonth()+1)&&month<9){
+	if(month<(nowdate.getMonth()+1)&&month<9 && (nowdate.getMonth()+1)>7){
 		year += 1;
 	}
 //	alert(year+"="+month+"="+day+"="+sec);
 	classtime = year+"-"+month+"-"+day;
-//	alert(classtime);
     if (selectClass == "" || selectClass == undefined || selectClass == null ||selectCourse == "" || selectCourse == undefined || selectCourse == null) {
         $(".warning").text("提示：班级和课程不能为空！");
+    }else if(nowdate > new Date(classtime)){
+    	mui.toast("您只能预约从明天开始的时间!");
     }else{
     	$.ajax({ //使用ajax与服务器异步交互
             url:"Booking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
@@ -93,4 +110,5 @@ $( "#popupBasic" ).on({
         $( "#list_readyBooking" ).css("height", h);
     }
 });
+
 

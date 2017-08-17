@@ -245,7 +245,7 @@ function menuEdit() {
 	        data: {id:bookingid,act:"updateBooking",classname:classname,coursename:coursename,weeks:weekes,week:week,section:section,roomid:roomid,username:username}, 
 	        dataType:"json", //接收返回的数据方式为json
 	        error:function(XMLHttpRequest,textStatus,errorThrown){
-	            alert("网络错误！");
+	            mui.toast("网络错误！");
 	        }, //错误提示
 	        
 	        success:function(data){ //data为交互成功后，后台返回的数据;
@@ -253,13 +253,10 @@ function menuEdit() {
 	        	var nowweek = $(".sel_week").children('option:selected').val();
 	        	if(state == "success"){
 	        		if($("#"+elementid).attr("value").indexOf("-")>=0){
-//	        			alert(222);
 	        			//是同一时段多节课的booking
 	        			var arryid = $("#"+elementid).attr("value").split('-');
 						var arrytext = $("#"+elementid).text().split('、');
 		        		if(("#"+elementid != "#lesson"+week+section) && (weekes == nowweek)){//如果操作的不是同一个时间段的课
-//							alert(1);
-//							alert("length:"+arryid.indexOf("-"));
 							var strid;
 							var strtext;
 							for(var i=0;i<arryid.length;i++){
@@ -278,8 +275,6 @@ function menuEdit() {
 				        	if(weekes == nowweek){
 			        			var roomname = $("#roomname").children('option:selected').text(); 
 			        			$("#lesson"+week+section).text(roomname+"-"+classname+"-"+coursename);
-			        			alert("handleindex" + handleindex);
-//			        			alert("id"+arryid[handleindex]);
 			        			$("#lesson"+week+section).attr("value",arryid[handleindex]);
 			        		}
 			        	}else if(("#"+elementid == "#lesson"+week+section) && (weekes == nowweek)){
@@ -314,7 +309,7 @@ function menuEdit() {
 				        	$("#"+elementid).attr("value",strid);
 			        	}
 	        		}else{
-	        			alert(123123);
+//	        			alert(123123);
 	        			//每个时段只有一个课的booking
 	        			var arryid = $("#"+elementid).attr("value");
 //	        			alert(elementid + "---" + "#lesson"+week+section);
@@ -359,7 +354,7 @@ function getClass(){
         data: {username:username,act:"getClass"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -384,7 +379,7 @@ function getCourse(){
         data: {username:username,act:"getCourse",classname:encodeURI(classname)}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -432,7 +427,7 @@ function setClick() {//设置每节课的点击事件
 						var li = $("<li value='"+ arryid[i] +"'>"+ arrytext[i].split('-')[0] +"</li>");
 						li.on("click",function(){
 							handleindex=i;
-							alert("click"+i);
+//							alert("click"+i);
 							bookingid = $(this).attr("value");
 //							alert(bookingid);
 							$(".selectcoursename").hide();
@@ -462,7 +457,7 @@ function getRoom(){//获取所有机房名称
         data: {act:"getRoom"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -505,7 +500,7 @@ function getDataByWeek(){
 //            alert(XMLHttpRequest.readyState);
 //            alert(textStatus);
 //            alert(errorThrown);
-//            alert("网络错误！");
+//            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据

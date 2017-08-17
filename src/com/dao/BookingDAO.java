@@ -155,13 +155,13 @@ public class BookingDAO {
 		},username,yearid);
 	}
 	
-	public List<Map<String,String>> findAll(int pageindex,int yearid) throws SQLException{
+	public List<Map<String,String>> findAll(int yearid) throws SQLException{
 		String sql = "select a.Id,c.Coursename,c.Classname,d.Phone,c.Students,a.Username,b.Roomname,a.Classtime,Bookingtime,Section "
 				+ "from bookings  as a "
 				+ "LEFT JOIN rooms as b ON a.Roomid=b.Id "
 				+ "LEFT JOIN classinfo AS c ON a.Username=c.Username AND a.Classid=c.Id "
 				+ "LEFT JOIN users AS d ON a.Username=d.Username "
-				+ "WHERE a.Flag=0 and a.Yearid=? order by Classtime limit ?,?";
+				+ "WHERE a.Flag=0 and a.Yearid=? order by Bookingtime desc";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -180,12 +180,26 @@ public class BookingDAO {
 					u.put("roomname", rs.getString("Roomname"));
 					u.put("classtime", rs.getString("Classtime"));
 					u.put("bookingtime", rs.getString("Bookingtime").substring(0, 19));
-					u.put("section", rs.getString("Section"));
+					String strsection ="";
+					if("1".equals(rs.getString("Section"))){
+						strsection="第一大节";
+					}else if("2".equals(rs.getString("Section"))){
+						strsection="第二大节";
+					}else if("3".equals(rs.getString("Section"))){
+						strsection="午间";
+					}else if("4".equals(rs.getString("Section"))){
+						strsection="第三大节";
+					}else if("5".equals(rs.getString("Section"))){
+						strsection="第四大节";
+					}else if("6".equals(rs.getString("Section"))){
+						strsection="晚间";
+					}
+					u.put("section", strsection);
 					list.add(u);
 				}
 				return list;
 			}
-		},yearid,pageindex,6);
+		},yearid);
 	}
 	
 	public List<Map<String,String>> findAllbyusername(int pageindex,String username,int yearid) throws SQLException{
@@ -383,23 +397,6 @@ public class BookingDAO {
 				}else{
 					return true;
 				}
-			}
-		},roomid,classtime,section,yearid);
-	}
-	
-	public int selectBookingId(int roomid,String classtime,int section,int yearid) throws SQLException{
-		String sql = "select Id from bookings where Roomid=? and Classtime=? and Section=? and Flag=0 and Yearid=?";
-		return (int)jdbcTemplete.query(sql, new ResultSetHandler() {
-			
-			@Override
-			public Object doHandler(ResultSet rs) throws SQLException {
-				
-				// TODO Auto-generated method stub
-				int id = 0;
-				if(rs.next()){
-					id = rs.getInt("Id");
-				}
-				return id;
 			}
 		},roomid,classtime,section,yearid);
 	}

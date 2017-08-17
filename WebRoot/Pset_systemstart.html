@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="lib/easyui/themes/metro-red/easyui.css">
+    <link rel="stylesheet" type="text/css" href="lib/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="lib/easyui/demo/demo.css">
     <link href="css/Psetbase.css" rel="stylesheet" type="text/css">
-    <style>
-        #starttime{
-            margin-bottom: 20px;
-        }
-    </style>
-    <script src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="lib/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="lib/layer/layer.js"></script>
     <script src="js/Pset_systemstart.js"></script>
 
 </head>
@@ -24,10 +25,12 @@
         <div class="layout_body">
             <div class="box_body">
                 <span>选择开启时间：</span>
-                <input type="datetime-local" id="starttime" >
-                <br/>
+                <input  id="starttime" class="easyui-datetimebox"   
+        data-options="showSeconds:false" style="width:150px" margin-bottom: 20px;>
+                <br/><br/>
                 <span>选择关闭时间：</span>
-                <input type="datetime-local" id="endtime" >
+                <input  id="endtime" class="easyui-datetimebox"   
+        data-options="showSeconds:false" style="width:150px" margin-bottom: 20px;>
                 <br/>
                 <button id="btn_ok">确认</button>
             </div>

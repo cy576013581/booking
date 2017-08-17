@@ -11,7 +11,6 @@ $(document).ready(function(){
 	
 	LocString = window.location.href;
 	action = decodeURI(GetQueryString("action"));
-	
 	$(".footer_selectRoom").on("click",function(){
 		$(".iframe_body").attr("src","/booking/main1.html");
 		removeClass();

@@ -6,17 +6,113 @@ $(document).ready(function(){
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="Pindex.html";
 	}
-	getBranch();
-	editdialog();
+	
+	$('#dg').datagrid({
+		onDblClickCell: function(index,field,value){
+			edit();
+		}
+	});
 
-	$("#btn_addBranch").on("click",addBranch);
+	$('#dg').datagrid('enableFilter');
 
 });
 
-function addBranch() {
-	$("body").append("<div id='mask'></div>");
-    $("#mask").addClass("mask").fadeIn("slow");
-    $("#AddBox").fadeIn("slow");
+function addAreaname(){
+	$("#edit_areaname").val("");
+	$('#dlg').dialog('open');
+	$("#btn_ok").on("click",function(){
+		var areaname = $("#edit_areaname").val();
+	    if (areaname==''){
+	        layer.msg('警告：分区名不能为空！', {icon: 2});
+	        $("#edit_areaname").focus();
+	    }else{
+	    	$.ajax({ //使用ajax与服务器异步交互
+	    		async:false,
+	            url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+	            type:"POST",
+	            data: {act:"addBranch",areaname:areaname}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+//		            dataType:"json", //接收返回的数据方式为json
+	            error:function(XMLHttpRequest,textStatus,errorThrown){
+	            	layer.alert("网络错误，操作失败！");
+	            }, //错误提示
+
+	            success:function(data){ //data为交互成功后，后台返回的数据
+	            	$('#dlg').dialog('close');
+	            	$('#dg').datagrid('reload');
+	            	layer.alert("添加成功！");
+	            }
+	        });
+	    	return false;
+	    }
+	});
+}
+
+function edit(){
+	var row = $('#dg').datagrid('getSelected');
+	if (row){
+		var id = row.id;
+		
+		$("#edit_areaname").val(row.areaname);
+		$('#dlg').dialog('open');
+		$("#btn_ok").on("click",function(){
+			var areaname = $("#edit_areaname").val();
+		    if (areaname==''){
+		        layer.msg('警告：分区名不能为空！', {icon: 2});
+		        $("#edit_areaname").focus();
+		    }else{
+		    	$.ajax({ //使用ajax与服务器异步交互
+		    		async:false,
+		            url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+		            type:"POST",
+		            data: {act:"updateBranch",areaname:areaname,id:id}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+//		            dataType:"json", //接收返回的数据方式为json
+		            error:function(XMLHttpRequest,textStatus,errorThrown){
+		            	layer.alert("网络错误，操作失败！");
+		            }, //错误提示
+
+		            success:function(data){ //data为交互成功后，后台返回的数据
+		            	$('#dlg').dialog('close');
+		            	$('#dg').datagrid('reload');
+		            	layer.alert("修改成功！");
+		            }
+		        });
+		    	return false;
+		    }
+		});
+	}else{
+		layer.alert("没有选中任何行！");
+	}
+}
+
+function remove(){
+	var row = $('#dg').datagrid('getSelected');
+	if (row){
+		layer.confirm('确定要删除该条信息？', {
+		  btn: ['删除','取消'] //按钮
+		}, function(){
+			var id = row.id;
+			$.ajax({ //使用ajax与服务器异步交互
+		        url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
+		        type:"POST",
+		        data: {act:"deleteBranch",id:id}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
+//		        dataType:"json", //接收返回的数据方式为json
+		        error:function(XMLHttpRequest,textStatus,errorThrown){
+		        	layer.msg('网络错误，操作失败！', {icon: 2});
+		        }, //错误提示
+
+		        success:function(data){ //data为交互成功后，后台返回的数据
+		        	$('#dg').datagrid('reload');
+		        	layer.alert("删除成功！");
+		        }
+		    });
+		});
+		
+	}else{
+		layer.alert("没有选中任何行！");
+	}
+}
+
+function add() {
     $("#btn_add").on("click",function(){
     	var areaname = $("#add_areaname").val();
     	$.ajax({ //使用ajax与服务器异步交互
@@ -24,7 +120,6 @@ function addBranch() {
    	        type:"POST",
    	        data: {act:"addBranch",areaname:areaname}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
 //   	        dataType:"json", //接收返回的数据方式为json
-
    	        error:function(XMLHttpRequest,textStatus,errorThrown){
    	            alert("网络错误！");
    	        }, //错误提示
@@ -38,7 +133,7 @@ function addBranch() {
     });
 }
 
-function  getBranch() {
+/*function  getBranch() {
 	$.ajax({ //使用ajax与服务器异步交互
 		async:false,
         url:"Manageroom?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
@@ -124,31 +219,5 @@ function  getBranch() {
     });
 	return false;
 }
-
-function editdialog() {
-	$("#example").hover(function () {
-        $(this).stop().animate({
-            opacity: '1'
-        }, 600);
-    }, function () {
-        $(this).stop().animate({
-            opacity: '0.6'
-        }, 1000);
-    }).on('click', function () {
-        $("body").append("<div id='mask'></div>");
-        $("#mask").addClass("mask").fadeIn("slow");
-        $("#LoginBox").fadeIn("slow");
-    });
-	$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
-        $("#SelectBox").fadeOut("fast");
-        $("#mask").css({ display: 'none' });
-        $("td[name]").removeAttr("name"); 
-    });
-	$("#closeBtn1").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
-        $("#AddBox").fadeOut("fast");
-        $("#mask").css({ display: 'none' });
-        $("td[name]").removeAttr("name"); 
-    });
-}
-
+*/
 

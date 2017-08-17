@@ -10,7 +10,7 @@ $(document).ready(function(){
 	getNotice();
 });
 function back(){
-	window.history.back(-1); 
+	window.location.href="main.html?action=3";
 }
 
 function getNotice(){
@@ -21,7 +21,7 @@ function getNotice(){
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据

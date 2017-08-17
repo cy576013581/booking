@@ -17,7 +17,7 @@ public class RoomDAO {
 		jdbcTemplete = new JdbcTemplete();
 	}
 	public List<Map<String,String>> findAllroom() throws SQLException{
-		String sql = "select Id,Roomname,Students,Branchid,Firstchar from rooms order by Firstchar";
+		String sql = "select Id,Roomname,Students,Branchid,Firstchar from rooms order by Branchid";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -56,8 +56,8 @@ public class RoomDAO {
 			}
 		});
 	}
-	public List<Map<String,String>> findAll(int pageindex) throws SQLException{
-		String sql = "select Id,Roomname,Students from rooms limit ?,?";
+	public List<Map<String,String>> findAll() throws SQLException{
+		String sql = "select Id,Roomname,Students from rooms";
 		return (List<Map<String,String>>)jdbcTemplete.query(sql, new ResultSetHandler() {
 			
 			@Override
@@ -76,7 +76,7 @@ public class RoomDAO {
 				
 				return list;
 			}
-		},pageindex,6);
+		});
 	}
 	public void deleteBranch(int id) throws SQLException{
 		String sql = "delete from branch where Id=?";
@@ -98,7 +98,7 @@ public class RoomDAO {
 	}
 	public void updateAll(int id,String roomname,String firstchar,int students) throws SQLException{
 		String sql = "update rooms set Roomname=?,Students=?,Firstchar=? where Id=?";
-		jdbcTemplete.update(sql,roomname,firstchar,students,id);
+		jdbcTemplete.update(sql,roomname,students,firstchar,id);
 	}
 	
 	public void deleteRoom(int id) throws SQLException{

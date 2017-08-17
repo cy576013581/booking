@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +60,6 @@ public class Managenotice extends HttpServlet {
 			notice.insertNotice(title, content, releasetime, 0);
 //			System.out.println(data.get(0).get("id"));
 //			List<Map<String,String>> data = dao.getNews(flag);
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,15 +103,18 @@ public class Managenotice extends HttpServlet {
 	
 	public void getAllnotice(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
-		int page = Integer.valueOf(request.getParameter("page"))*6;
 //		System.out.println("page"+page);
 		NoticeDAO notice = new NoticeDAO();
 		List<Map<String,String>> data = new ArrayList<>();
+		int sum =0;
 		try {
-			data = notice.findAll(page);
-//			System.out.println(data.get(0).get("id"));
-//			List<Map<String,String>> data = dao.getNews(flag);
-			JSONArray result = new JSONArray(data);
+			data = notice.findAll();
+			sum = notice.getnoticeSum();
+//			sum = user.getCount();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("total", sum);
+			map.put("rows", data);
+			JSONObject result = new JSONObject(map);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());
 		} catch (Exception e) {

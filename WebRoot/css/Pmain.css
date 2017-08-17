@@ -35,7 +35,7 @@ i{
 .header_left{
 	width: 210px;
 	height: 70px;
-	background: #F36A5A;
+	background: #f09090;
 	cursor: pointer;
 }
 .title_icon{
@@ -74,7 +74,7 @@ i{
 	top:40px;
 	font-family: "Microsoft YaHei",sans-serif;/*设备默认字体*/;
 	font-size: 15px;
-	color: #FF8C00;
+	color: #f09090;
 }
 .layout_body{
     width: 100%;

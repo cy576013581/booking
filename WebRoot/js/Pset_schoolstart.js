@@ -6,7 +6,7 @@ $(document).ready(function(){
 	if(sessionStorage.getItem("username") == null){
 		window.location.href="Pindex.html";
 	}
-	editdialog();
+	
 	getData();
     $(".btn_ok").on("click",activation);
     $(".btn_add").on("click",showadd);
@@ -33,7 +33,7 @@ function getData() {
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+        	layer.alert("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据
@@ -51,17 +51,15 @@ function getData() {
 }
 
 function showadd(){
-	$("body").append("<div id='mask'></div>");
-    $("#mask").addClass("mask").fadeIn("slow");
-    $("#AddBox").fadeIn("slow");
+	$('#dlg').dialog('open');
     $("#btn_addok").on("click",function(){
     	var date = $("#add_selectdate").val();
         var yearname = $("#add_yearname").val();
         if (date ==''){
-            alert("输入时间不能为空！");
+        	layer.alert("输入时间不能为空！");
             $("#add_selectdate").focus();
         }else if(yearname ==''){
-        	alert("学年名称不能为空！");
+        	layer.alert("学年名称不能为空！");
             $("#add_yearname").focus();
         }else {
 //        	alert(date);
@@ -73,12 +71,16 @@ function showadd(){
 
     	        error:function(XMLHttpRequest,textStatus,errorThrown){
     	        	
-    	            alert("网络错误！");
+    	        	layer.alert("网络错误！");
     	        }, //错误提示
 
     	        success:function(data){ //data为交互成功后，后台返回的数据
-    	        	alert("设置成功！");
-    	        	location.reload();
+    	        	layer.confirm('设置成功！', {
+    	        		btn: ['确定'] //按钮
+	        		}, function(){
+	        			location.reload();
+	        		});
+    	        	
     	        }
     	    });
         }
@@ -96,34 +98,16 @@ function activation(){
 //        dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-        	
-            alert("网络错误！");
+        	layer.alert("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据
-        	alert("设置成功！");
-        	location.reload();
+        	layer.confirm('设置成功！', {
+        		btn: ['确定'] //按钮
+    		}, function(){
+    			location.reload();
+    		});
         }
     });
 }
 
-
-function editdialog() {
-	$("#example").hover(function () {
-        $(this).stop().animate({
-            opacity: '1'
-        }, 600);
-    }, function () {
-        $(this).stop().animate({
-            opacity: '0.6'
-        }, 1000);
-    }).on('click', function () {
-        $("body").append("<div id='mask'></div>");
-        $("#mask").addClass("mask").fadeIn("slow");
-    });
-	$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
-        $("#AddBox").fadeOut("fast");
-        $("#mask").css({ display: 'none' });
-        $("td[name]").removeAttr("name"); 
-    });
-}

@@ -23,18 +23,18 @@ $(document).ready(function(){
        var selectClass = $(".class").children('option:selected').val();
        var selectCourse = $(".course").children('option:selected').val();
        if (username==''){
-           alert("预定账号不能为空！");
+           layer.alert("预定账号不能为空！");
            $(".username").focus();
        }else if (roomid==null){
-           alert("所选机房不能为空！");
+    	   layer.alert("所选机房不能为空！");
        }else if (section==null){
-           alert("所选节次不能为空！");
+    	   layer.alert("所选节次不能为空！");
        }else if (selectClass==null){
-           alert("所选班级不能为空！");
+    	   layer.alert("所选班级不能为空！");
        }else if (selectCourse==null){
-           alert("所选课程不能为空！");
+    	   layer.alert("所选课程不能为空！");
        }else if (classdate==''){
-           alert("所选上课时间不能为空！");
+    	   layer.alert("所选上课时间不能为空！");
        }else{
     	   $.ajax({ //使用ajax与服务器异步交互
     	        url:"Managerbooking?s="+new Date().getTime(), //后面加时间戳，防止IE辨认相同的url，只从缓存拿数据
@@ -43,16 +43,16 @@ $(document).ready(function(){
     	        data: {roomid:roomid,username:username,classtime:classdate,section:section,act:"addBooking",classname:selectClass,coursename:selectCourse}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
     	        dataType:"json", //接收返回的数据方式为json
     	        error:function(XMLHttpRequest,textStatus,errorThrown){
-    	            alert("网络错误,操作失败！");
+    	        	layer.alert("网络错误,操作失败！");
     	        }, //错误提示
     	        
     	        success:function(data){ //data为交互成功后，后台返回的数据;
     	        	var state = data.state;
     	        	if(state=='success'){
-    	        		alert("预定成功！");
+    	        		layer.alert("预定成功！");
 //                		swal("预定成功!", "您的速度可真快！", "error");
                 	}else{
-                		alert("预定失败，机房已被预定！");
+                		layer.alert("预定失败，机房已被预定！");
 //                		swal("您晚了一步!", "这个机房已被占用！", "error");
                 	}
     	        }
@@ -74,13 +74,12 @@ function getClass(){
         data: {username:username,act:"getClass"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+        	layer.alert("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
         	$(".class").empty();
         	for (var i = 0; i < data.length; i++) {
-//        		alert(data[i].classname);
         		var option = $("<option>"+ data[i].classname +"</option>");
         		$(".class").append(option);
         	}
@@ -100,7 +99,7 @@ function getCourse(){
         data: {username:username,act:"getCourse",classname:encodeURI(classname)}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"json", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+        	layer.alert("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -123,7 +122,7 @@ function getRoom() {
         dataType:"json", //接收返回的数据方式为json
 
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+        	layer.alert("网络错误！");
         }, //错误提示
 
         success:function(data){ //data为交互成功后，后台返回的数据

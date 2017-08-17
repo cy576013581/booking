@@ -43,10 +43,10 @@ public class Classlist extends HttpServlet {
 	}
 	public void getRoom(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
+		//获取所有的实验室信息
 		RoomDAO cla = new RoomDAO();
 		try {
 			List<Map<String,String>> data = cla.findAllroom();
-//			List<Map<String,String>> data = dao.getNews(flag);
 			JSONArray result = new JSONArray(data);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());
@@ -58,10 +58,10 @@ public class Classlist extends HttpServlet {
 	
 	public void getBranch(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException{
+		//获取所有校区
 		RoomDAO cla = new RoomDAO();
 		try {
 			List<Map<String,String>> data = cla.findAllBranch();
-//			List<Map<String,String>> data = dao.getNews(flag);
 			JSONArray result = new JSONArray(data);
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().println(result.toString());

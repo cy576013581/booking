@@ -18,7 +18,7 @@ function getbookingSum(){
         data: {username:username,act:"getbookingSum"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"text", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;
@@ -37,7 +37,7 @@ function getnoticeSum(){
         data: {act:"getnoticeSum"}, //$('#yourformid').serialize()；向后台发送的form表单中的数据
         dataType:"text", //接收返回的数据方式为json
         error:function(XMLHttpRequest,textStatus,errorThrown){
-            alert("网络错误！");
+            mui.toast("网络错误！");
         }, //错误提示
         
         success:function(data){ //data为交互成功后，后台返回的数据;

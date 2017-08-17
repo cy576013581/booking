@@ -38,7 +38,6 @@ public class CreateExcel extends HttpServlet {
 			request.setCharacterEncoding("utf-8");
 			String username = request.getParameter("username");
 			username = URLDecoder.decode(username,"UTF-8");
-//			System.out.println(username);
 			
 			String sheetname[] = {"第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周","第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周"};
 			String[][][] data = new String[20][6][8];
@@ -58,10 +57,7 @@ public class CreateExcel extends HttpServlet {
 			String titleName[][] = new String[20][8];
 			int titleSize[] = {12,20,20,20,20,20,20,20};
 			ExportExcel pee = new ExportExcel(response,username+"教师课表");
-			
 			pee.setFormtitle("中原工学院信息商务学院"+username+"教师课表");
-
-			
 			for (int sheetindex = 0; sheetindex < 20; sheetindex++) {
 				int week = sheetindex+1;
 				ScheduleDAO sche = new ScheduleDAO();
@@ -112,10 +108,6 @@ public class CreateExcel extends HttpServlet {
 //						System.out.println(1);
 					}
 				}
-				
-				
-//				System.out.println(list);
-				
 			}
 			pee.wirteExcel(sheetname, titleName, titleSize, data);
 	}
